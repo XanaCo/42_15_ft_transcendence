@@ -1,6 +1,3 @@
-version: '3'
-
-
   # djangoTemplate:
   #   container_name: djangotemplate
   #   user: root
@@ -21,6 +18,7 @@ volumes:
   secret_volume:
   user:
   game3d:
+  arena:
 
 
 services:
@@ -66,6 +64,19 @@ services:
       - microservices
     build: backend/game3d
     image: game3d
+    expose :
+      - "8080"
+    restart: on-failure
+
+  arena:
+    container_name: arena
+    user: root
+    volumes:
+    - arena:/var/lib/postgresql
+    networks:
+      - microservices
+    build: backend/arena
+    image: arena
     expose :
       - "8080"
     restart: on-failure

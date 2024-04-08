@@ -13,6 +13,7 @@ CH_NAME = chat
 TK_NAME = token
 US_NAME = user
 VA_NAME = vault
+AR_NAME = arena
 
 NG_IMG = $(shell docker images | grep nginx | wc -l)
 G3_IMG = $(shell docker images | grep game3d | wc -l)
@@ -20,11 +21,12 @@ CH_IMG = $(shell docker images | grep chat | wc -l)
 TK_IMG = $(shell docker images | grep token | wc -l)
 US_IMG = $(shell docker images | grep user | wc -l)
 VA_IMG = $(shell docker images | grep vault | wc -l)
+AR_IMG = $(shell docker images | grep arena | wc -l)
 
 US_VOL = $(shell docker volume ls | grep user | wc -l)
 G3_VOL = $(shell docker volume ls | grep game3d | wc -l)
 VA_VOL = $(shell docker volume ls | grep secret_volume | wc -l)
-
+AR_VOL = $(shell docker volume ls | grep arena | wc -l)
 
 #######	COLORS #######
 
@@ -90,7 +92,7 @@ re_us: down	run_script
 	@ source ./scripts/starting_script.sh && key_remove
 
 clean : down
-	@ echo "\n$(YELLOW)★ Cleaning Images - Volumes ★$(CEND)"
+	@ echo -e "\n$(YELLOW)★ Cleaning Images - Volumes ★$(CEND)"
 
 	@ if [ $(NG_IMG) = "1" ]; then docker rmi $(NG_NAME); \
 	else echo "	NGINX Image already deleted"; fi;
@@ -108,8 +110,9 @@ clean : down
 	else echo "	game3d Volume already deleted"; fi;
 	@ if [ $(US_VOL) = "1" ]; then docker volume rm services_$(US_NAME); \
 	else echo "	user Volume already deleted"; fi;
-	@ if [ $(VA_VOL) = "1" ]; then docker volume rm $(VA_VOL); \
-	else echo "	Vault Volume already deleted"; fi;
+	@ if [ $(AR_VOL) = "1" ]; then docker volume rm services_$(AR_NAME); \
+	else echo "	user Volume already deleted"; fi;
+	@ docker volume rm secret_volume
 
 	@ echo -e "$(GREEN)★ Images cleaned - Volumes cleaned ★$(CEND)\n"
 
