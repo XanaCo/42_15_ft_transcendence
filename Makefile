@@ -57,8 +57,8 @@ run_script:
 down:
 	@ echo -e "\n$(YELLOW)★ Stopping Docker ★$(CEND)"
 	@ docker compose -f $(SRCS_PATH)docker-compose.yml down
-	@ docker stop vault
-	@ docker rm vault
+	# @ docker stop vault
+	# @ docker rm vault
 
 microservices:
 	@ chmod +x ./scripts/create_microservice.sh
