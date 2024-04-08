@@ -38,9 +38,41 @@
 			<a href="templates/pong.html" title="Game3D"><span class="h2">Game3D Service</span></a>
 		</div>
 		<div id="arena">
-			
-		</div>
+			<h1>WebSocket Test</h1>
+			<!-- Champ pour saisir le message -->
+			<input type="text" id="messageInput">
+			<!-- Bouton pour envoyer le message -->
+			<button onclick="sendMessage()">Send Message</button>
 		
+			<!-- Zone pour afficher les messages reçus -->
+			<div id="messages"></div>
+		
+			<script>
+				// Création d'une connexion WebSocket vers le serveur
+				const ws = new WebSocket("ws://your-server-domain-or-ip/your-websocket-url/");
+		
+				// Fonction exécutée lorsque la connexion WebSocket est établie
+				ws.onopen = function(event) {
+					console.log("WebSocket connection established."); // Affichage dans la console du navigateur
+				};
+		
+				// Fonction exécutée lorsque le serveur envoie un message WebSocket
+				ws.onmessage = function(event) {
+					const messagesDiv = document.getElementById("messages");
+					const message = document.createElement("p");
+					message.textContent = event.data; // Affichage du message reçu dans un paragraphe
+					messagesDiv.appendChild(message); // Ajout du paragraphe à la zone des messages
+				};
+		
+				// Fonction pour envoyer un message au serveur WebSocket
+				function sendMessage() {
+					const messageInput = document.getElementById("messageInput");
+					const message = messageInput.value; // Récupération du message saisi par l'utilisateur
+					ws.send(JSON.stringify({ "message": message })); // Envoi du message sous forme de JSON au serveur WebSocket
+					messageInput.value = ""; // Effacement du champ de saisie après l'envoi du message
+				}
+			</script>
+		</div>
 	</div>
 
 	<!-- Pied de page -->

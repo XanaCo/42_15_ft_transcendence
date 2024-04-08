@@ -3,7 +3,7 @@ import json
 from channels.generic.websocket import WebsocketConsumer
 
 class Challenger(WebsocketConsumer):
-	def connect(self, close_code):
+	def connect(self):
 		self.accept()
 
 	def disconnect(self, code):
@@ -16,7 +16,7 @@ class Challenger(WebsocketConsumer):
 			key_event = msg["key"]
 			if key_event in ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]:
 				self.handle_arrow_key(key_event)
-	
+
 		# self.send(text_data=json.dumps({"message": msg}))
 	def handle_arrow_key(self, key_event):
 		self.send(text_data=json.dumps({"message": f"Vous avez appuye sur la touche {key_event}"}))
