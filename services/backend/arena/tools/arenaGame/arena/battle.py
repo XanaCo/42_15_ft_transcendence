@@ -25,5 +25,3 @@ class Challenger(WebsocketConsumer):
 	def handle_arrow_key(self, key_event):
 		logger.error("Vous avez appuye sur la touche {key_event}")
 		self.send(text_data=json.dumps({"message": f"Vous avez appuye sur la touche {key_event}"}))
-	
-

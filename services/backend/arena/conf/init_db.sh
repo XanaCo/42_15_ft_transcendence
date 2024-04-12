@@ -1,14 +1,14 @@
 #!/bin/bash
 
-VAULT_ADDR="http://vault:8200"
-SECRET_PATH="arena"
-VAULT_TOKEN=$(cat /tmp/.key)
+# VAULT_ADDR="http://vault:8200"
+# SECRET_PATH="arena"
+# VAULT_TOKEN=$(cat /tmp/.key)
 
-response=$(curl -s --header "X-Vault-Token: $VAULT_TOKEN" "$VAULT_ADDR/v1/kv/$SECRET_PATH")
+# response=$(curl -s --header "X-Vault-Token: $VAULT_TOKEN" "$VAULT_ADDR/v1/kv/$SECRET_PATH")
 
-DB_USER=$(echo "$response" | jq -r ".data.userdb")
-DB_BASENAME=$(echo "$response" | jq -r ".data.namedb")
-DB_PASSWORD=$(echo "$response" | jq -r ".data.passworddb")
+# DB_USER=$(echo "$response" | jq -r ".data.userdb")
+# DB_BASENAME=$(echo "$response" | jq -r ".data.namedb")
+# DB_PASSWORD=$(echo "$response" | jq -r ".data.passworddb")
 
 service postgresql start
 

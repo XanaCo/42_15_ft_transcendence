@@ -1,5 +1,10 @@
 FROM debian:latest
 
+# pas necessaire
+ENV TEMPLATE_DB_USER=dbking
+ENV TEMPLATE_DB_PASSWORD=kingp4bl0
+ENV TEMPLATE_DB_BASENAME=testbase
+
 ### Necessary dependencies for Django
 RUN apt update -y
 RUN apt install python3 python3-pip -y
