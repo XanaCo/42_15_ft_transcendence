@@ -24,9 +24,6 @@ def index(request):
 # 	elemChaud = models.Elem(attElemFlote = 50, attElemFeuille = 200, attElemChaud = 100, attElemBrise = 200, attElemSable = 100, attElemBagarre = 100, attElemCaillou = 50)
 # 	elemChaud.save()
 
-
-
-
 def getDamage(attackerLvl, attackerAtt, attackPower, defenderDef, cm):
 	return (attackerLvl * 0.4 + 2) * attackerAtt * attackPower / defenderDef / 50 + 2 * cm
 
