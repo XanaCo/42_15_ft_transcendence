@@ -1,3 +1,4 @@
+
 SHELL := /bin/bash
 
 
@@ -9,7 +10,7 @@ SRCS_PATH = ./services/
 
 NG_NAME = nginx
 G3_NAME = game3d
-CH_NAME = chat
+# CH_NAME = chat
 TK_NAME = token
 US_NAME = user
 VA_NAME = vault
@@ -98,8 +99,8 @@ clean : down
 	else echo "	NGINX Image already deleted"; fi;
 	@ if [ $(G3_IMG) = "1" ]; then docker rmi $(G3_NAME); \
 	else echo "	GAME3D Image already deleted"; fi;
-	@ if [ $(CH_IMG) = "1" ]; then docker rmi $(CH_NAME); \
-	else echo "	CHAT Image already deleted"; fi;
+# @ if [ $(CH_IMG) = "1" ]; then docker rmi $(CH_NAME); \
+# else echo "	CHAT Image already deleted"; fi;
 	@ if [ $(TK_IMG) = "1" ]; then docker rmi $(TK_NAME); \
 	else echo "	TOKEN Image already deleted"; fi;
 	@ if [ $(US_IMG) = "1" ]; then docker rmi $(US_NAME); \
