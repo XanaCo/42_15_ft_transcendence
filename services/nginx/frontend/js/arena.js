@@ -1,11 +1,13 @@
 
-// Création d'une nouvelle instance WebSocket
-const socket2 = new WebSocket("ws://" + window.location.host + "/ws/challenger/");
+//////////////////////////////////////////////////////////////////////
+////    SOCKETS
+//////////////////////////////////////////////////////////////////////
+
 const socket = new WebSocket("ws://localhost:8080/ws/challenger/");
 
 socket.onopen = function(event) {
     console.log("WebSocket connection opened.");
-    
+
     // Envoi d'un message au serveur
     socket.send(JSON.stringify({
         type: "message",
@@ -29,33 +31,11 @@ socket.onerror = function(error) {
     console.error("WebSocket error:", error);
 };
 
-socket2.onopen = function(event) {
-    console.log("WebSocket connection opened.");
-    
-    // Envoi d'un message au serveur
-    socket.send(JSON.stringify({
-        type: "message",
-        content: "Hello, server!"
-    }));
-};
 
-// Fonction exécutée lorsqu'un message est reçu du serveur
-socket2.onmessage = function(event) {
-    const message = JSON.parse(event.data);
-    console.log("Message received from server:", message);
-};
+//////////////////////////////////////////////////////////////////////
+////    HANDLE KEYBOARD
+//////////////////////////////////////////////////////////////////////
 
-// Fonction exécutée lorsque la connexion WebSocket est fermée
-socket2.onclose = function(event) {
-    console.log("WebSocket connection closed.");
-};
-
-// Fonction exécutée en cas d'erreur de connexion WebSocket
-socket2.onerror = function(error) {
-    console.error("WebSocket error:", error);
-};
-
-// Fonction de gestion de l'événement lorsqu'une touche du clavier est enfoncée
 function gestionToucheEnfoncee(event) {
     // Vérifier si la touche enfoncée est une flèche du clavier
     if (event.keyCode >= 37 && event.keyCode <= 40) {
@@ -68,3 +48,27 @@ function gestionToucheEnfoncee(event) {
 
 // Ajouter un écouteur d'événements pour détecter quand une touche du clavier est enfoncée
 document.addEventListener("keydown", gestionToucheEnfoncee);
+
+
+//////////////////////////////////////////////////////////////////////
+////    FETCH
+//////////////////////////////////////////////////////////////////////
+
+// Envoi de la requête Fetch
+// fetch('https://localhost:8080/arena/testView')
+//   .then(response => {
+//     // Vérifier si la réponse est OK (200)
+//     if (!response.ok) {
+//       throw new Error('La requête a échoué avec un code ' + response.status);
+//     }
+//     // Renvoyer le corps de la réponse sous forme de texte
+//     return response.text();
+//   })
+//   .then(data => {
+//     // Afficher le contenu de la réponse dans les logs
+//     console.log('Réponse de la requête fetch :', data);
+//   })
+//   .catch(error => {
+//     // Attraper les erreurs et les afficher dans les logs
+//     console.error('Erreur lors de la requête fetch :', error);
+//   });

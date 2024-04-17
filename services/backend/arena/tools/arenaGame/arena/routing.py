@@ -1,7 +1,7 @@
 from django.urls import re_path
 
-from . import battle
+from .battle import Challenger
 
 websocket_urlpatterns = [
-    re_path(r"ws/challenger/$", battle.Challenger.as_asgi()),
+    re_path("ws/challenger/", Challenger.as_asgi()),
 ]

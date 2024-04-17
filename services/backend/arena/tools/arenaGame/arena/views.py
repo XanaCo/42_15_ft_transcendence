@@ -40,3 +40,7 @@ def runGames():
 	x = 0
 	while True:
 		x += 1
+
+def testView(request):
+    # Renvoie une réponse HTTP avec un message simple
+    return HttpResponse("Bonjour, ceci est une vue Django !", content_type='text/plain')

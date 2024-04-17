@@ -63,3 +63,7 @@ footer {
 	padding: 20px;
 	color: #fdfdfd;
 }
+
+canvas {
+	border:2px solid black;
+}
