@@ -69,7 +69,7 @@ if [ -f "$ENV_FILE" ]; then
 	set -a
 	. "$ENV_FILE"
 	set +a
-    vault kv put kv/arena userdb=admin passworddb=admin namedb=arenadb 
+    vault kv put kv/arena userdb=kingp4bl0 passworddb=admin namedb=arenadb 
 else
 	echo "$ENV_FILE unknow file."
 fi
