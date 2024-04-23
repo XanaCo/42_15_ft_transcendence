@@ -33,7 +33,10 @@ SECRET_KEY = 'django-insecure-pbw6^y(02h8ikr_+w&1$)=(w1*-pfhysm%4z_e3oa!ozij717k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [    
+	'127.0.0.1',
+    'localhost',
+    'arenaservice',]
 
 # Application definition
 

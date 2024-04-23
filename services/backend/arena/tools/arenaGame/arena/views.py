@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+# from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from .models import Image
 
 # from arena import models
 
@@ -44,3 +45,11 @@ def runGames():
 def testView(request):
     # Renvoie une réponse HTTP avec un message simple
     return HttpResponse("Bonjour, ceci est une vue Django !", content_type='text/plain')
+
+def testImage(request):
+	# return JsonResponse({'error': 'Internet'})
+	newImg = Image.objects.create(image_field='jess.png')
+	# return newImg.image_url
+	return HttpResponse("img:", newImg.image_url)
+
+

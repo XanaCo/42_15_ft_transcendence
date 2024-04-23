@@ -50,3 +50,16 @@ class species(models.Model):
 	# idIndividual4 = models.ForeignKey(individual, on_delete=models.CASCADE)
 	# idIndividual5 = models.ForeignKey(individual, on_delete=models.CASCADE)
 	# idIndividual6 = models.ForeignKey(individual, on_delete=models.CASCADE)
+
+
+
+
+
+
+#	classe qui wrap des images
+
+class Image(models.Model):
+	image_field = models.ImageField(upload_to='jess.png')
+
+	def image_url(self):
+		return self.image_field.url

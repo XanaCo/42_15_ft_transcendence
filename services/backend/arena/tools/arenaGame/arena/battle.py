@@ -12,6 +12,7 @@ class Challenger(WebsocketConsumer):
 	def connect(self):
 		logger.debug("je passe ici")
 		self.accept()
+		self.send(text_data=json.dumps({"message": "Internet"}))
 
 	async def disconnect(self, code):
 		pass

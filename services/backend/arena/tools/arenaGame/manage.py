@@ -5,7 +5,7 @@ import sys
 
 # import threading
 
-from arena import views
+# from arena import views
 
 def main():
     """Run administrative tasks."""
