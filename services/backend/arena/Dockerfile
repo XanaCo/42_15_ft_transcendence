@@ -15,6 +15,7 @@ RUN apt-get install jq -y
 
 COPY /conf/pg_hba.conf /etc/postgresql/15/main/pg_hba.conf
 COPY /conf/.key /tmp/.key
+COPY /tools/setupDataBase.py /app/setupDataBase.py
 
 RUN chmod 777 /etc/postgresql/15/main/pg_hba.conf
 

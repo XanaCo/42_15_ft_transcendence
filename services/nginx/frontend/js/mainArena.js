@@ -44,8 +44,9 @@ function getCanvas() {
 		ctx.fillRect(opponentLifeX - 1, opponentLifeY - 1, 200 + 2, 15 + 2);
 		ctx.fillRect(allyLifeX - 1, allyLifeY - 1, 200 + 2, 15 + 2);
 	
+		ctx.fillStyle = 'orange';
+		ctx.fillRect(opponentLifeX, opponentLifeY, 90, 15);
 		ctx.fillStyle = 'green';
-		ctx.fillRect(opponentLifeX, opponentLifeY, 120, 15);
 		ctx.fillRect(allyLifeX, allyLifeY, 200, 15);
 	
 		ctx.font = "20px Arial";
