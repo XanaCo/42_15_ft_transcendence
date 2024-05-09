@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import Image
 
@@ -52,4 +52,14 @@ def testImage(request):
 	# return newImg.image_url
 	return HttpResponse("img:", newImg.image_url)
 
+#############################################################################################################
+#	API
+#############################################################################################################
 
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import ElemModelSerializer
+
+class arenaAPI(APIView):
+	serilizerClass = ElemModelSerializer

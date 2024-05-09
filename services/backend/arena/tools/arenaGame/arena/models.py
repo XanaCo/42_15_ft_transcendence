@@ -1,5 +1,9 @@
 from django.db import models
 
+#############################################################################################################
+#	CLASSIC DATA TO BATTLE
+#############################################################################################################
+
 class elem(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
 	attElemFlotte = models.IntegerField()
@@ -48,29 +52,6 @@ class individual(models.Model):
     id_att_3 = models.ForeignKey(attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
     id_att_4 = models.ForeignKey(attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
 
-# class individual(models.Model):
-# 	idInd = models.IntegerField(primary_key=True)
-# 	name = models.CharField(max_length=255)
-# 	idSpecies = models.ForeignKey(species, on_delete=models.CASCADE)
-# 	lvl = models.IntegerField()
-# 	ivHp = models.IntegerField()
-# 	ivAt = models.IntegerField()
-# 	ivSa = models.IntegerField()
-# 	ivDe = models.IntegerField()
-# 	ivSd = models.IntegerField()
-# 	ivSp = models.IntegerField()
-# 	hp = models.IntegerField()
-# 	hpMax = models.IntegerField()
-# 	at = models.IntegerField()
-# 	sa = models.IntegerField()
-# 	de = models.IntegerField()
-# 	sd = models.IntegerField()
-# 	sp = models.IntegerField()
-# 	idAtt1 = models.ForeignKey(attack, on_delete=models.CASCADE)
-# 	idAtt2 = models.ForeignKey(attack, on_delete=models.CASCADE)
-# 	idAtt3 = models.ForeignKey(attack, on_delete=models.CASCADE)
-# 	idAtt4 = models.ForeignKey(attack, on_delete=models.CASCADE)
-
 class player(models.Model):
 	idPlayer = models.IntegerField(primary_key=True)
 	idIndividual1 = models.ForeignKey(individual, related_name='individual_1', on_delete=models.CASCADE)
@@ -85,13 +66,9 @@ class game(models.Model):
     id_player_a = models.ForeignKey(player, related_name='player_a_games', on_delete=models.CASCADE)
     id_player_b = models.ForeignKey(player, related_name='player_b_games', on_delete=models.CASCADE)
 
-# class game(models.Model):
-# 	idGame = models.IntegerField(primary_key=True)
-# 	idPlayerA = models.ForeignKey(player, on_delete=models.CASCADE)
-# 	idPlayerB = models.ForeignKey(player, on_delete=models.CASCADE)
-
-
-
+#############################################################################################################
+#	IMAGE
+#############################################################################################################
 #	classe qui wrap des images
 
 class Image(models.Model):
