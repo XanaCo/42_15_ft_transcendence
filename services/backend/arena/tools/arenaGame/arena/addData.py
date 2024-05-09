@@ -73,22 +73,24 @@ def	addData():
 #	SPECIES DATA
 #############################################################################################################
 
+		species.objects.all().delete()
+
 		try:
 			speCarapuce = species.objects.get(name="Carapuce")
 		except species.DoesNotExist:
-			speCarapuce = species.objects.create(name="Carapuce", elem=elemFlotte, hp=44, at=48, de=65, sp=43)
+			speCarapuce = species.objects.create(name="Carapuce", elem=elemFlotte, hp=44, at=48, sa=50, de=65, sd=64, sp=43)
 			speCarapuce.save()
 
 		try:
 			speSalameche = species.objects.get(name="Salameche")
 		except species.DoesNotExist:
-			speSalameche = species.objects.create(name="Salameche", elem=elemChaud, hp=39, at=52, de=43, sp=65)
+			speSalameche = species.objects.create(name="Salameche", elem=elemChaud, hp=39, at=52, sa=60, de=43, sd=50, sp=65)
 			speSalameche.save()
 
 		try:
 			speBulbizarre = species.objects.get(name="Bulbizarre")
 		except species.DoesNotExist:
-			speBulbizarre = species.objects.create(name="Bulbizarre", elem=elemChaud, hp=45, at=49, de=49, sp=45)
+			speBulbizarre = species.objects.create(name="Bulbizarre", elem=elemChaud, hp=45, at=49, sa=65, de=49, sd=65, sp=45)
 			speBulbizarre.save()
 
 #############################################################################################################
