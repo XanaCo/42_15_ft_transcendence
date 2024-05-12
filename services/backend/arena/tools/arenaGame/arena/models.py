@@ -22,12 +22,12 @@ class attack(models.Model):
 class species(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
 	elem = models.ForeignKey(elem, on_delete=models.CASCADE)
-	hp = models.IntegerField(default=0)
-	at = models.IntegerField(default=0)
-	sa = models.IntegerField(default=0)
-	de = models.IntegerField(default=0)
-	sd = models.IntegerField(default=0)
-	sp = models.IntegerField(default=0)
+	hp = models.IntegerField(default=0, null=True)
+	at = models.IntegerField(default=0, null=True)
+	sa = models.IntegerField(default=0, null=True)
+	de = models.IntegerField(default=0, null=True)
+	sd = models.IntegerField(default=0, null=True)
+	sp = models.IntegerField(default=0, null=True)
 
 class individual(models.Model):
     id_ind = models.AutoField(primary_key=True)
