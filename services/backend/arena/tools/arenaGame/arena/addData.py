@@ -100,11 +100,11 @@ def	addData():
 	except IntegrityError as e:
 		# Interceptez l'erreur d'intégrité (par exemple, une violation de contrainte d'unicité)
 		print(f"Erreur d'intégrité lors de la création des éléments : {e}")
-        # Vous pouvez journaliser l'erreur ou prendre d'autres mesures nécessaires
+		# Vous pouvez journaliser l'erreur ou prendre d'autres mesures nécessaires
 	except Exception as e:
-        # Interceptez toute autre erreur imprévue
+		# Interceptez toute autre erreur imprévue
 		print(f"Une erreur s'est produite lors de la création des éléments : {e}")
-        # Vous pouvez journaliser l'erreur ou prendre d'autres mesures nécessaires
+		# Vous pouvez journaliser l'erreur ou prendre d'autres mesures nécessaires
 
 # Création d'instances d'attack
 # attack1 = attack.objects.create(name="Goute", elem=elem1, power=50)

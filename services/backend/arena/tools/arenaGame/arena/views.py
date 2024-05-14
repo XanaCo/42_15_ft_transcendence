@@ -58,8 +58,8 @@ def testImage(request):
 	return HttpResponse("img:", newImg.image_url)
 
 def getMultiplyingFactor(attType, defType, type):
-	case (attType)
-	return 2
+	return 1
+	# case (attType)
 
 def	damageCalculator(attacker, defender, attack):
 	(((((lvl * 0.4 + 2) * attacker.at * attack.power) / defender.de) / 50) + 2) * getMultiplyingFactor(attacker.elem, defender.elem, attack.elem)
