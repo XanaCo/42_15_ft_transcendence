@@ -6,25 +6,8 @@ from .models import Image, individual, elem, attack, species
 
 # import time
 
-class Battle:
-	turn = True
-
-	def runBattle():
-		print(Battle.turn)
-
 def index(request):
 	return HttpResponse("Hello from arena app")
-# Create your views here.
-
-# fill database
-# def setupDB():
-# 	elemFlote = models.Elem(attElemFlote = 100, attElemFeuille = 50, attElemChaud = 200, attElemBrise = 100, attElemSable = 200, attElemBagarre = 100, attElemCaillou = 200)
-# 	elemFlote.save()
-# 	elemFeuille = models.Elem(attElemFlote = 200, attElemFeuille = 100, attElemChaud = 50, attElemBrise = 100, attElemSable = 100, attElemBagarre = 100, attElemCaillou = 200)
-# 	elemFeuille.save()
-# 	elemChaud = models.Elem(attElemFlote = 50, attElemFeuille = 200, attElemChaud = 100, attElemBrise = 200, attElemSable = 100, attElemBagarre = 100, attElemCaillou = 50)
-# 	elemChaud.save()
-
 
 #############################################################################################################
 #	BATTLE
@@ -63,7 +46,6 @@ def getMultiplyingFactor(attType, defType, type):
 
 def	damageCalculator(attacker, defender, attack):
 	(((((lvl * 0.4 + 2) * attacker.at * attack.power) / defender.de) / 50) + 2) * getMultiplyingFactor(attacker.elem, defender.elem, attack.elem)
-
 
 #############################################################################################################
 #	API
