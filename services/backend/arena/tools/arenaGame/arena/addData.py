@@ -1,5 +1,7 @@
 
-from .models import elem, attack, species
+from .models import elem, attack, species, individual, player, game
+
+from .views import generateIndividual
 
 from django.db import IntegrityError
 
@@ -92,6 +94,44 @@ def	addData():
 		except species.DoesNotExist:
 			speBulbizarre = species.objects.create(name="Bulbizarre", elem=elemChaud, hp=45, at=49, sa=65, de=49, sd=65, sp=45)
 			speBulbizarre.save()
+
+
+#############################################################################################################
+#	INDIVIDUAL DATA
+#############################################################################################################
+
+		# individual.objects.all().delete()
+		# try:
+		# 	individual0 = individual.objects.get(id_ind=10)
+		# except individual.DoesNotExist:
+		# 	individual0 = individual.objects.create(id_ind=10, )
+
+		bulbasaurA = generateIndividual()
+		bulbasaurB = generateIndividual()
+
+#############################################################################################################
+#	PLAYER DATA
+#############################################################################################################
+
+		player.objects.all().delete()
+		try:
+			playerA = player.objects.get(idPlayer=10)
+		except player.DoesNotExist:
+			playerA = player.objects.create(idPlayer=10, isBot=False, idIndividual1=bulbasaurA, idIndividual2=None, idIndividual3=None, idIndividual4=None, idIndividual5=None, idIndividual6=None)
+			playerA.save()
+
+		try:
+			playerB = player.objects.get(idPlayer=11)
+		except player.DoesNotExist:
+			playerB = player.objects.create(idPlayer=11, isBot=True, idIndividual1=bulbasaurB, idIndividual2=None, idIndividual3=None, idIndividual4=None, idIndividual5=None, idIndividual6=None)
+			playerB.save()
+
+#############################################################################################################
+#	GAME DATA
+#############################################################################################################
+
+
+
 
 #############################################################################################################
 #	OTHER

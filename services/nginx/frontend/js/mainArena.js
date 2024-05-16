@@ -17,11 +17,11 @@ function getCanvas() {
 
 
 	var imageOpponent = new Image();
-	imageOpponent.src = './images/jess.png';
+	imageOpponent.src = './images/bulbasaur.png';
 	// imageOpponent.onload = function() {
 	// }
 	var imageAlly = new Image();
-	imageAlly.src = './images/dauphinroi.png';
+	imageAlly.src = './images/bulbasaurBack.png';
 	// imageAlly.onload = function() {
 	// }
 	
@@ -30,8 +30,8 @@ function getCanvas() {
 	ground.onload = function() {
 		ctx.drawImage(ground, 400, 160)
 		ctx.drawImage(ground, 20, 370)
-		ctx.drawImage(imageAlly, 50, 208)
-		ctx.drawImage(imageOpponent, 420, 50)
+		ctx.drawImage(imageAlly, 100, 350)
+		ctx.drawImage(imageOpponent, 470, 150)
 		ctx.fillStyle = 'black';
 		ctx.fillRect(opponentLifeX - 10 - 1, opponentLifeY - 30 - 1, 250 + 2, 70 + 2);
 		ctx.fillRect(allyLifeX - 10 - 1, allyLifeY - 30 - 1, 250 + 2, 70 + 2);

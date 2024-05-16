@@ -116,6 +116,7 @@ def	generateIndividual():
 		id_att_3=attack_instances[2],
 		id_att_4=attack_instances[3]
 	)
+	return new_individual
 
 
 #############################################################################################################

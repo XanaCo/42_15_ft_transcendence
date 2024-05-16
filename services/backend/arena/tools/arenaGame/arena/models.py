@@ -69,12 +69,12 @@ class individual(models.Model):
 class player(models.Model):
 	idPlayer = models.IntegerField(primary_key=True)
 	isBot = models.BooleanField(default=False)
-	idIndividual1 = models.ForeignKey(individual, related_name='individual_1', on_delete=models.CASCADE)
-	idIndividual2 = models.ForeignKey(individual, related_name='individual_2', on_delete=models.CASCADE)
-	idIndividual3 = models.ForeignKey(individual, related_name='individual_3', on_delete=models.CASCADE)
-	idIndividual4 = models.ForeignKey(individual, related_name='individual_4', on_delete=models.CASCADE)
-	idIndividual5 = models.ForeignKey(individual, related_name='individual_5', on_delete=models.CASCADE)
-	idIndividual6 = models.ForeignKey(individual, related_name='individual_6', on_delete=models.CASCADE)
+	idIndividual1 = models.ForeignKey(individual, related_name='individual_1', on_delete=models.CASCADE, null=True)
+	idIndividual2 = models.ForeignKey(individual, related_name='individual_2', on_delete=models.CASCADE, null=True)
+	idIndividual3 = models.ForeignKey(individual, related_name='individual_3', on_delete=models.CASCADE, null=True)
+	idIndividual4 = models.ForeignKey(individual, related_name='individual_4', on_delete=models.CASCADE, null=True)
+	idIndividual5 = models.ForeignKey(individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
+	idIndividual6 = models.ForeignKey(individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
 
 class game(models.Model):
 	idGame = models.AutoField(primary_key=True)
