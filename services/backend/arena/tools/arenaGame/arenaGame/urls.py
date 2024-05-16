@@ -21,6 +21,6 @@ from arena.views import arenaAPI
 urlpatterns = [
     path("arena/", include("arena.urls")),
 	path("admin/", admin.site.urls),
-	path("api/arena", arenaAPI.as_view()),
+	path("api/arena/", arenaAPI.as_view()),
 	# path("battle/", include("arena.routing")),
 ]

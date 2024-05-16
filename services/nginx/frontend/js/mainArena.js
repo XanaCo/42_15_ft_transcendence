@@ -15,7 +15,7 @@ function getCanvas() {
 	var opponentLifeX = 70;
 	var opponentLifeY = 100;
 
-	
+
 	var imageOpponent = new Image();
 	imageOpponent.src = './images/jess.png';
 	// imageOpponent.onload = function() {
@@ -51,8 +51,8 @@ function getCanvas() {
 	
 		ctx.font = "20px Arial";
 		ctx.fillStyle = "black";
-		ctx.fillText("Dauphinroi", allyLifeX , allyLifeY - 10);
-		ctx.fillText("La justice", opponentLifeX , opponentLifeY - 10);
+		ctx.fillText("PokemonA", allyLifeX , allyLifeY - 10);
+		ctx.fillText("PokemonB", opponentLifeX , opponentLifeY - 10);
 		
 		ctx.fillStyle = 'black';
 		ctx.fillRect(0, 400, canvas.width, 100);
@@ -61,7 +61,7 @@ function getCanvas() {
 
 		// ctx.font = "20px Arial";
 		ctx.fillStyle = 'black';
-		ctx.fillText("Dauphinroi tabasse La justice !", opponentLifeX , 450);
+		ctx.fillText("Texte", opponentLifeX , 450);
 	}
 
 	return canvas;
