@@ -17,3 +17,4 @@ fetch('arena/image/')
     // Attraper les erreurs et les afficher dans les logs
     console.error('Erreur lors de la requête fetch :', error);
     });
+    
