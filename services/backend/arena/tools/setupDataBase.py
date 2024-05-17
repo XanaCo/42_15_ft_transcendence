@@ -6,7 +6,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "arenaGame.settings")
 django.setup()
 
 # Importation des modèles Django
-from arena.models import elem
+# from arena.models import elem
 
 # Fonction pour ajouter des données à la base de données
 # def addData():
