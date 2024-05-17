@@ -130,7 +130,12 @@ def	addData():
 #	GAME DATA
 #############################################################################################################
 
-
+		game.objects.all().delete()
+		try:
+			game1 = game.objects.get(idGame=10)
+		except game.DoesNotExist:
+			game1 = game.objects.create(idGame=10, idPlayerA=playerA, idPlayerB=playerB, nbPlayer=2)
+			game1.save()
 
 
 #############################################################################################################

@@ -31,7 +31,7 @@ class species(models.Model):
 	sp = models.IntegerField(default=0, null=True)
 
 class individual(models.Model):
-	id_ind = models.AutoField(primary_key=True)
+	id_ind = models.IntegerField(primary_key=True)
 	name = models.CharField(max_length=255)
 	species = models.ForeignKey(species, on_delete=models.CASCADE)
 	lvl = models.IntegerField()
@@ -77,7 +77,7 @@ class player(models.Model):
 	idIndividual6 = models.ForeignKey(individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
 
 class game(models.Model):
-	idGame = models.AutoField(primary_key=True)
+	idGame = models.IntegerField(primary_key=True)
 	idPlayerA = models.ForeignKey(player, related_name='player_a_games', on_delete=models.CASCADE)
 	idPlayerB = models.ForeignKey(player, related_name='player_b_games', on_delete=models.CASCADE)
 	nbPlayer = models.IntegerField(default=2)
