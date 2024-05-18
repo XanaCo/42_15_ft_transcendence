@@ -28,7 +28,7 @@ export class Battleground{
 
 
 	async connection(){
-		let id = await Iuser.getID():
+		let id = await Iuser.getID();
 		const socket = new WebSocket("ws://localhost:8080/ws/arena/");
 
 		socket.onopen = async (e) => {
