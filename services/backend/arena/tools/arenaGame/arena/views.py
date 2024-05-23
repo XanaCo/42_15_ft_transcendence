@@ -13,9 +13,6 @@ def index(request):
 #	BATTLE
 #############################################################################################################
 
-def getDamage(attackerLvl, attackerAtt, attackPower, defenderDef, cm):
-	return (attackerLvl * 0.4 + 2) * attackerAtt * attackPower / defenderDef / 50 + 2 * cm
-
 def getStat(base, iv, lvl):
 	return (2 * base + iv) * lvl / 100 + 5
 
@@ -41,11 +38,31 @@ def testImage(request):
 	return HttpResponse("img:", newImg.image_url)
 
 def getMultiplyingFactor(attType, defType, type):
-	return 1
+
+	if attType.name == type.name:
+		multiFactor = 1.5
+	else:
+		multiFactor = 1
+	match defType.name:
+		case "Flotte":
+			multiFactor *= type.attElemFlotte
+		case "Feuille":
+			multiFactor *= type.attElemFeuille
+		case "Chaud":
+			multiFactor *= type.attElemChaud
+		case "Brise":
+			multiFactor *= type.attElemBrise
+		case "Sable":
+			multiFactor *= type.attElemSable
+		case "Bagarre":
+			multiFactor *= type.attElemBagarre
+		case "Caillou":
+			multiFactor *= type.attElemCaillou
+	return multiFactor / 100
 	# case (attType)
 
 def	damageCalculator(attacker, defender, attack):
-	(((((lvl * 0.4 + 2) * attacker.at * attack.power) / defender.de) / 50) + 2) * getMultiplyingFactor(attacker.elem, defender.elem, attack.elem)
+	(((((attacker.lvl * 0.4 + 2) * attacker.at * attack.power) / defender.de) / 50) + 2) * getMultiplyingFactor(attacker.elem, defender.elem, attack.elem)
 
 #############################################################################################################
 #	API
