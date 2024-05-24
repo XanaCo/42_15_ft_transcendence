@@ -20,12 +20,12 @@ def getHpStat(base, iv, lvl):
 	return (2 * base + iv) * lvl / 100 + lvl + 10
 
 # background program
-def runGames():
-	# time.sleep(3)
-	# setupDB()
-	x = 0
-	while True:
-		x += 1
+# def runGames():
+# 	# time.sleep(3)
+# 	# setupDB()
+# 	x = 0
+# 	while True:
+# 		x += 1
 
 def testView(request):
 	# Renvoie une réponse HTTP avec un message simple
@@ -85,6 +85,10 @@ import random
 def	generateIndividual():
 	
 	try:
+		# 5% de chance de capturer un truc style
+		# 1% de chance de capturer un truc tres style
+		# 50% de chance de trouver de la merde 1
+		# 44% de chance de trouver de la merde 2
 		speBulbizarre = species.objects.get(name="Bulbizarre")
 		name = "Individu_" + str(random.randint(1, 1000))
 		species_instance = species.objects.order_by('?').first()  # Sélectionner une espèce au hasard
