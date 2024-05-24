@@ -59,7 +59,6 @@ def getMultiplyingFactor(attType, defType, type):
 		case "Caillou":
 			multiFactor *= type.attElemCaillou
 	return multiFactor / 100
-	# case (attType)
 
 def	damageCalculator(attacker, defender, attack):
 	(((((attacker.lvl * 0.4 + 2) * attacker.at * attack.power) / defender.de) / 50) + 2) * getMultiplyingFactor(attacker.elem, defender.elem, attack.elem)
