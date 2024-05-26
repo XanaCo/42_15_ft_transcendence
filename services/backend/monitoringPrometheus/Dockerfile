@@ -5,7 +5,9 @@ FROM prom/prometheus:v2.11.1
 # COPY 
 
 # Exposition du port de Prometheus
-EXPOSE 8080
+EXPOSE 9090
+
+COPY ./prometheus.yml /etc/prometheus/prometheus.yml
 
 # Commande par défaut à exécuter lorsque le conteneur démarre
 # Vous pouvez personnaliser cette commande en fonction de vos besoins

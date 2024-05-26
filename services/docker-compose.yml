@@ -67,9 +67,13 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=365d'
+    ports:
+      - "9090:9090"
     # En utilisant network_mode: "host", le conteneur Docker utilise directement le réseau
     # de l'hôte sur lequel il s'exécute, sans isolation réseau.
-    network_mode: "host"
+    # network_mode: "host"
+    # networks:
+    #   - microservices
 
   grafana:
     image: grafana/grafana:10.4.0
