@@ -180,18 +180,18 @@ services:
       - ./services/backend/monitoringGrafana/dashboards:/var/lib/grafana/dashboards
     #network_mode: "host"
 
-  blackbox:
-    image: prom/blackbox-exporter:v0.14.0
-    container_name: blackbox_exporter
-    # deploy:
-    #   replicas: 1
-    volumes:
-    - ./services/blackbox:/config
-    network_mode: "host"
+  # blackbox:
+  #   image: prom/blackbox-exporter:v0.14.0
+  #   container_name: blackbox_exporter
+  #   # deploy:
+  #   #   replicas: 1
+  #   volumes:
+  #   - ./services/blackbox:/config
+  #   network_mode: "host"
 
   node_exporter:
-  # (node exporter est un collecteur de metriques system)
-    image: prom/node-exporter:v0.18.1
+    # (node exporter est un collecteur de metriques system)
+    image: prom/node-exporter:v1.3.1
     container_name: node_exporter
     # deploy:
     #   replicas: 1
