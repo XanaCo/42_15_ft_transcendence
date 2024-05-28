@@ -47,6 +47,7 @@ export class Battleground{
 		// 	event.preventDefault();
 		// }
 	}
+	// socket.send(type=json, )
 }
 
 

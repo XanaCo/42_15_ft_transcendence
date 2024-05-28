@@ -19,6 +19,9 @@ class attack(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
 	elem = models.ForeignKey(elem, on_delete=models.CASCADE)
 	power = models.IntegerField()
+	variety = models.IntegerField()
+	# 0 -> physique
+	# 1 -> special
 
 class species(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -65,6 +68,16 @@ class individual(models.Model):
 				return self.id_att_3
 			if (randNbr == 3 and self.id_att_4 is not None):
 				return self.id_att_4
+	
+	def	lvlUp(self):
+		self.lvl += 1
+		hp_max = self.getHpStat(self.hp)
+		at = self.getStat(self.at, self.iv_at, self.lvl)
+		sa = self.getStat(self.sa, self.iv_sa, self.lvl)
+		de = self.getStat(self.de, self.iv_de, self.lvl)
+		sd = self.getStat(self.sd, self.iv_sd, self.lvl)
+		sp = self.getStat(self.sp, self.iv_sp, self.lvl)
+		self.save()
 
 class player(models.Model):
 	idPlayer = models.IntegerField(primary_key=True)
@@ -75,6 +88,16 @@ class player(models.Model):
 	idIndividual4 = models.ForeignKey(individual, related_name='individual_4', on_delete=models.CASCADE, null=True)
 	idIndividual5 = models.ForeignKey(individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
 	idIndividual6 = models.ForeignKey(individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
+	def restoreAllIndividual(self):
+		individuals = [
+			self.idIndividual1, self.idIndividual2, self.idIndividual3,
+			self.idIndividual4, self.idIndividual5, self.idIndividual6
+		]
+		for individual in individuals:
+			if individual is not None:
+				individual.hp = individual.hp_max
+				individual.save()
+
 
 class game(models.Model):
 	idGame = models.IntegerField(primary_key=True)

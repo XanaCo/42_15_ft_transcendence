@@ -39,6 +39,9 @@ class PlayerConsumer(WebsocketConsumer):
 				"nbPokemonAliveA": ,
 				"nbPokemonAliveB": ,
 				"experienceA" ,
+
+				"statutPokemonA":, # code binaire a 6 pokemon
+				"statutPokemonA":,
 			}
 			
 
