@@ -11,6 +11,7 @@ class PlayerConsumer(WebsocketConsumer):
 
 	def connect(self):
 		self.accept()
+		logger.info("Player connected")
 
 
 	def disconnect(self, close_code):
@@ -21,6 +22,7 @@ class PlayerConsumer(WebsocketConsumer):
 		try:
 			# cette variable contient l'input de la websocket
 			text_data_json = json.loads(text_data)
+			user_id = text_data_json.get("userID")
 			# on peut acceder aux variables comme ca : id = text_data_json.get("userID")
 
 			# trouver la bonne instance de Game
@@ -40,19 +42,24 @@ class PlayerConsumer(WebsocketConsumer):
 				"nbPokemonAliveB": ,
 				"experienceA" ,
 
-				"statutPokemonA":, # code binaire a 6 pokemon
+				"statutPokemonA":, # code binaire a 6 pokemon 12 ninaires ? present and alive
 				"statutPokemonA":,
+
+				"LastAttackA":,
+				"LastAttackB":,
+				"fastest":,
 			}
 			
 
-
 			# serializer les donnees a envoyer
-
+			response = json.dumps(basejson)
 			# envoyer
+			self.send(response)
 
-			if instance.is_valid():
-				json_data2 = json.dumps(instance.data)
-				self.send(json_data2)
+		except json.JSONDecodeError as e:
+			logger.error("Failed to decode JSON", exc_info=e)
+			self.send(json.dumps({"error": "Invalid JSON format"}))
 
 		except Exception as e:
-			logger.error("error", e)
+			logger.error("An error occurred", exc_info=e)
+			self.send(json.dumps({"error": "An unexpected error occurred"}))

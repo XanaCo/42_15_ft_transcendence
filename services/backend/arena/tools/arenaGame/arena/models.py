@@ -71,12 +71,13 @@ class individual(models.Model):
 	
 	def	lvlUp(self):
 		self.lvl += 1
-		hp_max = self.getHpStat(self.hp)
-		at = self.getStat(self.at, self.iv_at, self.lvl)
-		sa = self.getStat(self.sa, self.iv_sa, self.lvl)
-		de = self.getStat(self.de, self.iv_de, self.lvl)
-		sd = self.getStat(self.sd, self.iv_sd, self.lvl)
-		sp = self.getStat(self.sp, self.iv_sp, self.lvl)
+		hp += self.getHpStat(self.species.hp, self.iv_hp, self.lvl) - hp_max
+		hp_max = self.getHpStat(self.species.hp, self.iv_hp, self.lvl)
+		at = self.getStat(self.species.at, self.iv_at, self.lvl)
+		sa = self.getStat(self.species.sa, self.iv_sa, self.lvl)
+		de = self.getStat(self.species.de, self.iv_de, self.lvl)
+		sd = self.getStat(self.species.sd, self.iv_sd, self.lvl)
+		sp = self.getStat(self.species.sp, self.iv_sp, self.lvl)
 		self.save()
 
 class player(models.Model):
