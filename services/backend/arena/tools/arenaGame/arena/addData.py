@@ -92,16 +92,52 @@ def	addData():
 			speCarapuce.save()
 
 		try:
+			speCarabaffe = Species.objects.get(name="Carabaffe")
+		except Species.DoesNotExist:
+			speCarabaffe = Species.objects.create(name="Carabaffe", elem=elemFlotte, hp=59, at=63, sa=65, de=80, sd=80, sp=58)
+			speCarabaffe.save()
+
+		try:
+			speTortank = Species.objects.get(name="Tortank")
+		except Species.DoesNotExist:
+			speTortank = Species.objects.create(name="Tortank", elem=elemFlotte, hp=79, at=83, sa=85, de=100, sd=105, sp=78)
+			speTortank.save()
+
+		try:
 			speSalameche = Species.objects.get(name="Salameche")
 		except Species.DoesNotExist:
 			speSalameche = Species.objects.create(name="Salameche", elem=elemChaud, hp=39, at=52, sa=60, de=43, sd=50, sp=65)
 			speSalameche.save()
 
 		try:
+			speReptincel = Species.objects.get(name="Reptincel")
+		except Species.DoesNotExist:
+			speReptincel = Species.objects.create(name="Reptincel", elem=elemChaud, hp=58, at=64, sa=80, de=58, sd=65, sp=80)
+			speReptincel.save()
+
+		try:
+			speDracaufeu = Species.objects.get(name="Dracaufeu")
+		except Species.DoesNotExist:
+			speDracaufeu = Species.objects.create(name="Dracaufeu", elem=elemChaud, hp=78, at=84, sa=109, de=78, sd=85, sp=100)
+			speDracaufeu.save()
+
+		try:
 			speBulbizarre = Species.objects.get(name="Bulbizarre")
 		except Species.DoesNotExist:
-			speBulbizarre = Species.objects.create(name="Bulbizarre", elem=elemChaud, hp=45, at=49, sa=65, de=49, sd=65, sp=45)
+			speBulbizarre = Species.objects.create(name="Bulbizarre", elem=elemFeuille, hp=45, at=49, sa=65, de=49, sd=65, sp=45)
 			speBulbizarre.save()
+
+		try:
+			speHerbizarre = Species.objects.get(name="Herbizarre")
+		except Species.DoesNotExist:
+			speHerbizarre = Species.objects.create(name="Herbizarre", elem=elemFeuille, hp=60, at=62, sa=80, de=63, sd=80, sp=60)
+			speHerbizarre.save()
+
+		try:
+			speFlobizarre = Species.objects.get(name="Flobizarre")
+		except Species.DoesNotExist:
+			speFlobizarre = Species.objects.create(name="Flobizarre", elem=elemFeuille, hp=80, at=82, sa=100, de=83, sd=100, sp=80)
+			speFlobizarre.save()
 
 		try:
 			speRoucoul = Species.objects.get(name="Roucoul")
@@ -115,6 +151,11 @@ def	addData():
 			speRoucoups = Species.objects.create(name="Roucoups", elem=elemBrise, hp=63, at=60, sa=50, de=55, sd=50, sp=71)
 			speRoucoups.save()
 
+		try:
+			speRoucarnage = Species.objects.get(name="Roucarnage")
+		except Species.DoesNotExist:
+			speRoucarnage = Species.objects.create(name="Roucarnage", elem=elemBrise, hp=83, at=80, sa=70, de=75, sd=70, sp=101)
+			speRoucarnage.save()
 
 #############################################################################################################
 #	INDIVIDUAL DATA
