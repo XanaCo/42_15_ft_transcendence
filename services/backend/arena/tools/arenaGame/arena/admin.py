@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import elem , attack, species#, individual, player
+from .models import Elem , Attack, Species#, Individual, Player
 
 # Register your models here.
 
-admin.site.register(elem)
-admin.site.register(attack)
-admin.site.register(species)
-# admin.site.register(individual)
-# admin.site.register(player)
+admin.site.register(Elem)
+admin.site.register(Attack)
+admin.site.register(Species)
+# admin.site.register(Individual)
+# admin.site.register(Player)

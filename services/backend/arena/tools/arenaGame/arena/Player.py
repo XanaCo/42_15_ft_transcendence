@@ -5,6 +5,12 @@ import logging
 from channels.generic.websocket import WebsocketConsumer
 
 
+# question pour alban
+
+# comment je peux amener la classe game dans ma classe consumer ?
+# 
+
+
 logger = logging.getLogger(__name__)
 
 class PlayerConsumer(WebsocketConsumer):
@@ -41,13 +47,13 @@ class PlayerConsumer(WebsocketConsumer):
 				"nbPokemonAliveA": ,
 				"nbPokemonAliveB": ,
 				"experienceA" ,
-
-				"statutPokemonA":, # code binaire a 6 pokemon 12 ninaires ? present and alive
-				"statutPokemonA":,
-
-				"LastAttackA":,
-				"LastAttackB":,
-				"fastest":,
+				"statutPokemonA": , # code binaire a 6 pokemon 12 ninaires ? present and alive
+				"statutPokemonA": ,
+				"LastAttackA": ,
+				"LastAttackB": ,
+				"fastest": ,
+				"isLastAttackSuperEffectiveA": ,
+				"isLastAttackSuperEffectiveB": ,
 			}
 			
 

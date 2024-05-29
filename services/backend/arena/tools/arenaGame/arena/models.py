@@ -5,7 +5,7 @@ import random
 #	CLASSIC DATA TO BATTLE
 #############################################################################################################
 
-class elem(models.Model):
+class Elem(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
 	attElemFlotte = models.IntegerField()
 	attElemFeuille = models.IntegerField()
@@ -15,17 +15,17 @@ class elem(models.Model):
 	attElemBagarre = models.IntegerField()
 	attElemCaillou = models.IntegerField()
 
-class attack(models.Model):
+class Attack(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
-	elem = models.ForeignKey(elem, on_delete=models.CASCADE)
+	elem = models.ForeignKey(Elem, on_delete=models.CASCADE)
 	power = models.IntegerField()
 	variety = models.IntegerField()
 	# 0 -> physique
 	# 1 -> special
 
-class species(models.Model):
+class Species(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
-	elem = models.ForeignKey(elem, on_delete=models.CASCADE)
+	elem = models.ForeignKey(Elem, on_delete=models.CASCADE)
 	hp = models.IntegerField(default=0, null=True)
 	at = models.IntegerField(default=0, null=True)
 	sa = models.IntegerField(default=0, null=True)
@@ -33,10 +33,10 @@ class species(models.Model):
 	sd = models.IntegerField(default=0, null=True)
 	sp = models.IntegerField(default=0, null=True)
 
-class individual(models.Model):
+class Individual(models.Model):
 	id_ind = models.IntegerField(primary_key=True)
 	name = models.CharField(max_length=255)
-	species = models.ForeignKey(species, on_delete=models.CASCADE)
+	species = models.ForeignKey(Species, on_delete=models.CASCADE)
 	lvl = models.IntegerField()
 	iv_hp = models.IntegerField()
 	iv_at = models.IntegerField()
@@ -51,10 +51,10 @@ class individual(models.Model):
 	de = models.IntegerField()
 	sd = models.IntegerField()
 	sp = models.IntegerField()
-	id_att_1 = models.ForeignKey(attack, related_name='attack_individual_set_1', on_delete=models.CASCADE)
-	id_att_2 = models.ForeignKey(attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
-	id_att_3 = models.ForeignKey(attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
-	id_att_4 = models.ForeignKey(attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
+	id_att_1 = models.ForeignKey(Attack, related_name='attack_individual_set_1', on_delete=models.CASCADE)
+	id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
+	id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
+	id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
 
 #	bot attack
 	def	attackSelection(self):
@@ -80,15 +80,15 @@ class individual(models.Model):
 		sp = self.getStat(self.species.sp, self.iv_sp, self.lvl)
 		self.save()
 
-class player(models.Model):
+class Player(models.Model):
 	idPlayer = models.IntegerField(primary_key=True)
 	isBot = models.BooleanField(default=False)
-	idIndividual1 = models.ForeignKey(individual, related_name='individual_1', on_delete=models.CASCADE, null=True)
-	idIndividual2 = models.ForeignKey(individual, related_name='individual_2', on_delete=models.CASCADE, null=True)
-	idIndividual3 = models.ForeignKey(individual, related_name='individual_3', on_delete=models.CASCADE, null=True)
-	idIndividual4 = models.ForeignKey(individual, related_name='individual_4', on_delete=models.CASCADE, null=True)
-	idIndividual5 = models.ForeignKey(individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
-	idIndividual6 = models.ForeignKey(individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
+	idIndividual1 = models.ForeignKey(Individual, related_name='individual_1', on_delete=models.CASCADE, null=True)
+	idIndividual2 = models.ForeignKey(Individual, related_name='individual_2', on_delete=models.CASCADE, null=True)
+	idIndividual3 = models.ForeignKey(Individual, related_name='individual_3', on_delete=models.CASCADE, null=True)
+	idIndividual4 = models.ForeignKey(Individual, related_name='individual_4', on_delete=models.CASCADE, null=True)
+	idIndividual5 = models.ForeignKey(Individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
+	idIndividual6 = models.ForeignKey(Individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
 	def restoreAllIndividual(self):
 		individuals = [
 			self.idIndividual1, self.idIndividual2, self.idIndividual3,
@@ -100,18 +100,23 @@ class player(models.Model):
 				individual.save()
 
 
-class game(models.Model):
+class Game(models.Model):
 	idGame = models.IntegerField(primary_key=True)
-	idPlayerA = models.ForeignKey(player, related_name='player_a_games', on_delete=models.CASCADE)
-	idPlayerB = models.ForeignKey(player, related_name='player_b_games', on_delete=models.CASCADE)
+	idPlayerA = models.ForeignKey(Player, related_name='player_a_games', on_delete=models.CASCADE)
+	idPlayerB = models.ForeignKey(Player, related_name='player_b_games', on_delete=models.CASCADE)
 	nbPlayer = models.IntegerField(default=2)
 	nbAttackWeAreWaitingFor = models.IntegerField(default=nbPlayer)
 
 	# set attack A
-	attackA = models.ForeignKey(attack, related_name="attack_a", on_delete=models.CASCADE, null=True)
+	attackA = models.ForeignKey(Attack, related_name="attack_a", on_delete=models.CASCADE, null=True)
 	# set attack B
-	attackB = models.ForeignKey(attack, related_name="attack_b", on_delete=models.CASCADE, null=True)
+	attackB = models.ForeignKey(Attack, related_name="attack_b", on_delete=models.CASCADE, null=True)
 
+	def individualsAttack(self):
+		print(self.idPlayerA, self.idPlayerB, self.attackA, self.attackB)
+		
+		# mettre en mode attente du choix d'attaque
+		self.nbAttackWeAreWaitingFor = self.nbPlayer
 
 	def	updateAttackA(self, attackA):
 		# update attack
@@ -131,11 +136,6 @@ class game(models.Model):
 			self.individualsAttack(self)
 		print("B")
 
-	def individualsAttack(self):
-		print(self.idPlayerA, self.idPlayerB, self.attackA, self.attackB)
-		
-		# mettre en mode attente du choix d'attaque
-		self.nbAttackWeAreWaitingFor = self.nbPlayer
 
 
 #############################################################################################################

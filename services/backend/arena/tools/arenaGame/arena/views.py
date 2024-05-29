@@ -82,13 +82,15 @@ class arenaAPI(APIView):
 
 import random
 
+
+
 def	generateIndividual():
 	
 	try:
-		# 5% de chance de capturer un truc style
-		# 1% de chance de capturer un truc tres style
-		# 50% de chance de trouver de la merde 1
-		# 44% de chance de trouver de la merde 2
+		# 1% de chance de trouver un truc tres style
+		# 5% de chance de trouver un truc style
+		# 44% de chance de trouver de la merde 1
+		# 50% de chance de trouver de la merde 2
 		speBulbizarre = species.objects.get(name="Bulbizarre")
 		name = "Individu_" + str(random.randint(1, 1000))
 		species_instance = species.objects.order_by('?').first()  # Sélectionner une espèce au hasard

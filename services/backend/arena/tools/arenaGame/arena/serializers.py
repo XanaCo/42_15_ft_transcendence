@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import elem, attack, species, individual, player, game
+from .models import Elem, Attack, Species, Individual, Player, Game
 
 class ElemModelSerializer(serializers.ModelSerializer):
 
@@ -13,20 +13,20 @@ class ElemModelSerializer(serializers.ModelSerializer):
 	attElemCaillou = serializers.IntegerField(read_only=True)
 
 	class Meta:
-		model = elem
+		model = Elem
 		fields = '__all__'
 
 class AttackSerializer(serializers.ModelSerializer):
 	name = serializers.CharField(read_only = True)
-	elem = serializers.PrimaryKeyRelatedField(queryset=elem.objects.all())
-	power = serializers.PrimaryKeyRelatedField(queryset=attack.objects.all())
+	elem = serializers.PrimaryKeyRelatedField(queryset=Elem.objects.all())
+	power = serializers.PrimaryKeyRelatedField(queryset=Attack.objects.all())
 	class Meta:
-		model = attack
+		model = Attack
 		fields = '__all__'
 
 class SpeciesSerializer(serializers.ModelSerializer):
 	name = serializers.CharField(read_only=True)
-	elem = serializers.PrimaryKeyRelatedField(queryset=elem.objects.all())
+	elem = serializers.PrimaryKeyRelatedField(queryset=Elem.objects.all())
 	hp = serializers.IntegerField(read_only=True)
 	at = serializers.IntegerField(read_only=True)
 	sa = serializers.IntegerField(read_only=True)
@@ -34,13 +34,13 @@ class SpeciesSerializer(serializers.ModelSerializer):
 	sd = serializers.IntegerField(read_only=True)
 	sp = serializers.IntegerField(read_only=True)
 	class Meta:
-		model = species
+		model = Species
 		fields = '__all__'
 
 class IndividualSerializer(serializers.ModelSerializer):
 	id_ind = serializers.IntegerField(read_only=True)
 	name = serializers.CharField(read_only=True)
-	species = serializers.PrimaryKeyRelatedField(queryset=species.objects.all())
+	species = serializers.PrimaryKeyRelatedField(queryset=Species.objects.all())
 	lvl = serializers.IntegerField(read_only=True)
 	iv_hp = serializers.IntegerField(read_only=True)
 	iv_at = serializers.IntegerField(read_only=True)
@@ -55,36 +55,36 @@ class IndividualSerializer(serializers.ModelSerializer):
 	de = serializers.IntegerField(read_only=True)
 	sd = serializers.IntegerField(read_only=True)
 	sp = serializers.IntegerField(read_only=True)
-	id_att_1 = serializers.PrimaryKeyRelatedField(queryset=attack.objects.all())
-	id_att_2 = serializers.PrimaryKeyRelatedField(queryset=attack.objects.all())
-	id_att_3 = serializers.PrimaryKeyRelatedField(queryset=attack.objects.all())
-	id_att_4 = serializers.PrimaryKeyRelatedField(queryset=attack.objects.all())
+	id_att_1 = serializers.PrimaryKeyRelatedField(queryset=Attack.objects.all())
+	id_att_2 = serializers.PrimaryKeyRelatedField(queryset=Attack.objects.all())
+	id_att_3 = serializers.PrimaryKeyRelatedField(queryset=Attack.objects.all())
+	id_att_4 = serializers.PrimaryKeyRelatedField(queryset=Attack.objects.all())
 	class Meta:
-		model = individual
+		model = Individual
 		fields = '__all__'
 
 class PlayerSerializer(serializers.ModelSerializer):
 	idPlayer = serializers.IntegerField(read_only=True)
 	isBot = serializers.BooleanField(read_only=True)
-	idIndividual1 = serializers.PrimaryKeyRelatedField(queryset=individual.objects.all())
-	idIndividual2 = serializers.PrimaryKeyRelatedField(queryset=individual.objects.all())
-	idIndividual3 = serializers.PrimaryKeyRelatedField(queryset=individual.objects.all())
-	idIndividual4 = serializers.PrimaryKeyRelatedField(queryset=individual.objects.all())
-	idIndividual5 = serializers.PrimaryKeyRelatedField(queryset=individual.objects.all())
-	idIndividual6 = serializers.PrimaryKeyRelatedField(queryset=individual.objects.all())
+	idIndividual1 = serializers.PrimaryKeyRelatedField(queryset=Individual.objects.all())
+	idIndividual2 = serializers.PrimaryKeyRelatedField(queryset=Individual.objects.all())
+	idIndividual3 = serializers.PrimaryKeyRelatedField(queryset=Individual.objects.all())
+	idIndividual4 = serializers.PrimaryKeyRelatedField(queryset=Individual.objects.all())
+	idIndividual5 = serializers.PrimaryKeyRelatedField(queryset=Individual.objects.all())
+	idIndividual6 = serializers.PrimaryKeyRelatedField(queryset=Individual.objects.all())
 	class Meta:
-		model = player
+		model = Player
 		fields = '__all__'
 
 class GameSerializer(serializers.ModelSerializer):
 	idGame = serializers.IntegerField(read_only=True)
-	idPlayerA = serializers.PrimaryKeyRelatedField(queryset=player.objects.all())
-	idPlayerB = serializers.PrimaryKeyRelatedField(queryset=player.objects.all())
+	idPlayerA = serializers.PrimaryKeyRelatedField(queryset=Player.objects.all())
+	idPlayerB = serializers.PrimaryKeyRelatedField(queryset=Player.objects.all())
 	nbPlayer = serializers.IntegerField(read_only=True)
 	nbAttackWeAreWaitingFor = serializers.IntegerField(read_only=True)
-	attackA = serializers.PrimaryKeyRelatedField(queryset=attack.objects.all())
-	attackB = serializers.PrimaryKeyRelatedField(queryset=attack.objects.all())
+	attackA = serializers.PrimaryKeyRelatedField(queryset=Attack.objects.all())
+	attackB = serializers.PrimaryKeyRelatedField(queryset=Attack.objects.all())
 	class Meta:
-		model = game
+		model = Game
 		fields = '__all__'
 
