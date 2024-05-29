@@ -40,13 +40,11 @@ volumes:
 
 services:
   nginx:
-    container_name: nginx
+    container_name: nginx_perso
     networks:
     - microservices
-    # volumes:
-    #   - frontend:/usr/share/nginx/html/
     build: services/nginx
-    image: nginx
+    image: nginx_perso
     ports:
       - "4430:4430"
     restart: on-failure

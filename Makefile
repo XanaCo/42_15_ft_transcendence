@@ -8,7 +8,7 @@ NAME = ft_transcendence
 SRCS_PATH = ./services/
 PREFIX = 42_ft_transcendence
 
-NG_NAME = nginx
+NG_NAME = nginx_perso
 G3_NAME = game3d
 CH_NAME = chat
 TK_NAME = jwtoken
@@ -18,7 +18,7 @@ MA_NAME = matchmaking
 VA_VOL_NAME = secret_volume
 PM_NAME = pokemap
 
-NG_IMG = $(shell docker images | grep nginx | wc -l)
+NG_IMG = $(shell docker images | grep nginx_perso | wc -l)
 G3_IMG = $(shell docker images | grep game3d | wc -l)
 CH_IMG = $(shell docker images | grep chat | wc -l)
 TK_IMG = $(shell docker images | grep jwtoken | wc -l)
