@@ -54,6 +54,3 @@ RUN echo "Include etc/nginx/owasp-crs/rules/*.conf" >> /etc/nginx/modsecurity.co
 COPY ./frontend/ /usr/share/nginx/html/
         
 CMD /tmp/get_ssl.sh && nginx -g "daemon off;"
-
-
-#https://dev.to/henri_sekeladi/install-nginx-with-modsecurity-3-owasp-crs-on-ubuntu-2204-5d6l
