@@ -68,16 +68,22 @@ def	addData():
 			attFeu.save()
 
 		try:
-			attTig = Attack.objects.get(name="Tige")
+			attTige = Attack.objects.get(name="Tige")
 		except Attack.DoesNotExist:
-			attTig = Attack.objects.create(name="Tige", elem=elemFeuille, power=40)
-			attTig.save()
+			attTige = Attack.objects.create(name="Tige", elem=elemFeuille, power=40)
+			attTige.save()
 
 		try:
-			attTig = Attack.objects.get(name="Souffle")
+			attSouffle = Attack.objects.get(name="Souffle")
 		except Attack.DoesNotExist:
-			attTig = Attack.objects.create(name="Souffle", elem=elemBrise, power=40)
-			attTig.save()
+			attSouffle = Attack.objects.create(name="Souffle", elem=elemBrise, power=40)
+			attSouffle.save()
+
+		try:
+			attTornado = Attack.objects.get(name="Tornado")
+		except Attack.DoesNotExist:
+			attTornado = Attack.objects.create(name="Tornado", elem=elemBrise, power=80)
+			attTornado.save()
 
 #############################################################################################################
 #	SPECIES DATA
