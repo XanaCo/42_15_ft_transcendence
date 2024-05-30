@@ -14,10 +14,10 @@ def index(request):
 #############################################################################################################
 
 def getStat(base, iv, lvl):
-	return (2 * base + iv) * lvl / 100 + 5
+	return (2 * base + iv * 7) * lvl / 100 + 5
 
 def getHpStat(base, iv, lvl):
-	return (2 * base + iv) * lvl / 100 + lvl + 10
+	return (2 * base + iv * 7) * lvl / 100 + lvl + 10
 
 # background program
 # def runGames():
@@ -62,6 +62,11 @@ def getMultiplyingFactor(attType, defType, type):
 
 def	damageCalculator(attacker, defender, attack):
 	(((((attacker.lvl * 0.4 + 2) * attacker.at * attack.power) / defender.de) / 50) + 2) * getMultiplyingFactor(attacker.elem, defender.elem, attack.elem)
+
+# TO DO : ajouter les taux de capture sur les pokemons
+
+def canItakeThisOne(hp, hp_max, lvl, rate):
+	return ((1 - (hp / hp_max)) * rate + (random.randint(0, 20) - lvl) / 50 > 1)
 
 #############################################################################################################
 #	API

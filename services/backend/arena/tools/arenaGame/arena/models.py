@@ -5,6 +5,8 @@ import random
 #	CLASSIC DATA TO BATTLE
 #############################################################################################################
 
+# TO DO : ajouter l'xp
+
 class Elem(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
 	attElemFlotte = models.IntegerField()
