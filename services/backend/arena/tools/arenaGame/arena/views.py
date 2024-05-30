@@ -64,9 +64,14 @@ def	damageCalculator(attacker, defender, attack):
 	(((((attacker.lvl * 0.4 + 2) * attacker.at * attack.power) / defender.de) / 50) + 2) * getMultiplyingFactor(attacker.elem, defender.elem, attack.elem)
 
 # TO DO : ajouter les taux de capture sur les pokemons
-
 def canItakeThisOne(hp, hp_max, lvl, rate):
 	return ((1 - (hp / hp_max)) * rate + (random.randint(0, 20) - lvl) / 50 > 1)
+
+
+# TO DO : ameliorer cette formule
+def giveMeExpPlease(lvlDead, lvlAlive, rate):
+	lvlDead * 8 * (3 - rate) + lvlAlive - lvlDead
+
 
 #############################################################################################################
 #	API

@@ -5,7 +5,7 @@ import random
 #	CLASSIC DATA TO BATTLE
 #############################################################################################################
 
-# TO DO : ajouter l'xp
+# TO DO : ajouter l'xp necessaire pour chaque pokemon
 
 class Elem(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -16,6 +16,7 @@ class Elem(models.Model):
 	attElemSable = models.IntegerField()
 	attElemBagarre = models.IntegerField()
 	attElemCaillou = models.IntegerField()
+	attElemBanal = models.IntegerField()
 
 class Attack(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -36,27 +37,43 @@ class Species(models.Model):
 	sp = models.IntegerField(default=0, null=True)
 
 class Individual(models.Model):
-	id_ind = models.IntegerField(primary_key=True)
-	name = models.CharField(max_length=255)
-	species = models.ForeignKey(Species, on_delete=models.CASCADE)
-	lvl = models.IntegerField()
-	iv_hp = models.IntegerField()
-	iv_at = models.IntegerField()
-	iv_sa = models.IntegerField()
-	iv_de = models.IntegerField()
-	iv_sd = models.IntegerField()
-	iv_sp = models.IntegerField()
-	hp = models.IntegerField()
-	hp_max = models.IntegerField()
-	at = models.IntegerField()
-	sa = models.IntegerField()
-	de = models.IntegerField()
-	sd = models.IntegerField()
-	sp = models.IntegerField()
-	id_att_1 = models.ForeignKey(Attack, related_name='attack_individual_set_1', on_delete=models.CASCADE)
-	id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
-	id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
-	id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
+
+	def __new__(cls, *args):
+			
+
+		id_ind = models.IntegerField(primary_key=True)
+		name = models.CharField(max_length=255)
+		species = models.ForeignKey(Species, on_delete=models.CASCADE)
+		lvl = models.IntegerField()
+		iv_hp = models.IntegerField()
+		iv_at = models.IntegerField()
+		iv_sa = models.IntegerField()
+		iv_de = models.IntegerField()
+		iv_sd = models.IntegerField()
+		iv_sp = models.IntegerField()
+		hp = models.IntegerField()
+		hp_max = models.IntegerField()
+		at = models.IntegerField()
+		sa = models.IntegerField()
+		de = models.IntegerField()
+		sd = models.IntegerField()
+		sp = models.IntegerField()
+		id_att_1 = models.ForeignKey(Attack, related_name='attack_individual_set_1', on_delete=models.CASCADE)
+		id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
+		id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
+		id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
+	
+		# catch rate / xp rate
+		rate = models.IntegerField()
+
+		# ~ constructeur 6 arguments
+		if (len(args) == 6):
+			iv_hp = args[0]
+			iv_at = args[1]
+			iv_sa = args[2]
+			iv_de = args[3]
+			iv_sd = args[4]
+			iv_sp = args[5]
 
 #	bot attack
 	def	attackSelection(self):

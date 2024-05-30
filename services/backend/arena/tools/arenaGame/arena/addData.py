@@ -16,73 +16,77 @@ def	addData():
 		try:
 			elemFlotte = Elem.objects.get(name="Flotte")
 		except Elem.DoesNotExist:
-			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200)
+			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200, attElemBanal)
 			elemFlotte.save()
 		try:
 			elemFeuille = Elem.objects.get(name="Feuille")
 		except Elem.DoesNotExist:
-			elemFeuille = Elem.objects.create(name="Feuille", attElemFlotte=200, attElemFeuille=50, attElemChaud=50, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100)
+			elemFeuille = Elem.objects.create(name="Feuille", attElemFlotte=200, attElemFeuille=50, attElemChaud=50, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100)
 			elemFeuille.save()
 		try:
 			elemChaud = Elem.objects.get(name="Chaud")
 		except Elem.DoesNotExist:
-			elemChaud = Elem.objects.create(name="Chaud", attElemFlotte=50, attElemFeuille=200, attElemChaud=50, attElemBrise=200, attElemSable=50, attElemBagarre=100, attElemCaillou=100)
+			elemChaud = Elem.objects.create(name="Chaud", attElemFlotte=50, attElemFeuille=200, attElemChaud=50, attElemBrise=200, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100)
 			elemChaud.save()
 		try:
 			elemBrise = Elem.objects.get(name="Brise")
 		except Elem.DoesNotExist:
-			elemBrise = Elem.objects.create(name="Brise", attElemFlotte=100, attElemFeuille=100, attElemChaud=50, attElemBrise=50, attElemSable=200, attElemBagarre=100, attElemCaillou=50)
+			elemBrise = Elem.objects.create(name="Brise", attElemFlotte=100, attElemFeuille=100, attElemChaud=50, attElemBrise=50, attElemSable=200, attElemBagarre=100, attElemCaillou=50, attElemBanal=100)
 			elemBrise.save()
 		try:
 			elemSable = Elem.objects.get(name="Sable")
 		except Elem.DoesNotExist:
-			elemSable = Elem.objects.create(name="Sable", attElemFlotte=50, attElemFeuille=100, attElemChaud=200, attElemBrise=50, attElemSable=50, attElemBagarre=100, attElemCaillou=100)
+			elemSable = Elem.objects.create(name="Sable", attElemFlotte=50, attElemFeuille=100, attElemChaud=200, attElemBrise=50, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100)
 			elemSable.save()
 		try:
 			elemBagarre = Elem.objects.get(name="Bagarre")
 		except Elem.DoesNotExist:
-			elemBagarre = Elem.objects.create(name="Bagarre", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=50, attElemCaillou=100)
+			elemBagarre = Elem.objects.create(name="Bagarre", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=50, attElemCaillou=100, attElemBanal=200)
 			elemBagarre.save()
 		try:
 			elemCaillou = Elem.objects.get(name="Caillou")
 		except Elem.DoesNotExist:
-			elemCaillou = Elem.objects.create(name="Caillou", attElemFlotte=50, attElemFeuille=100, attElemChaud=100, attElemBrise=200, attElemSable=100, attElemBagarre=100, attElemCaillou=50)
+			elemCaillou = Elem.objects.create(name="Caillou", attElemFlotte=50, attElemFeuille=100, attElemChaud=100, attElemBrise=200, attElemSable=100, attElemBagarre=100, attElemCaillou=50, attElemBanal=100)
 			elemCaillou.save()
+			
+		try:
+			elemBanal = Elem.objects.get(name="Banal")
+		except Elem.DoesNotExist:
+			elemBanal = Elem.objects.create(name="Banal", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=50)
+			elemBanal.save()
 
 #############################################################################################################
 #	ATTACK DATA
 #############################################################################################################
 
-# TO DO : ajouter le type special ou physique
-
 		try:
 			attBulle = Attack.objects.get(name="Bulle")
 		except Attack.DoesNotExist:
-			attBulle = Attack.objects.create(name="Bulle", elem=elemFlotte, power=40)
+			attBulle = Attack.objects.create(name="Bulle", elem=elemFlotte, power=40, variety=1)
 			attBulle.save()
 
 		try:
 			attFeu = Attack.objects.get(name="Feu")
 		except Attack.DoesNotExist:
-			attFeu = Attack.objects.create(name="Feu", elem=elemChaud, power=40)
+			attFeu = Attack.objects.create(name="Feu", elem=elemChaud, power=40, variety=1)
 			attFeu.save()
 
 		try:
 			attTige = Attack.objects.get(name="Tige")
 		except Attack.DoesNotExist:
-			attTige = Attack.objects.create(name="Tige", elem=elemFeuille, power=40)
+			attTige = Attack.objects.create(name="Tige", elem=elemFeuille, power=40, variety=0)
 			attTige.save()
 
 		try:
 			attSouffle = Attack.objects.get(name="Souffle")
 		except Attack.DoesNotExist:
-			attSouffle = Attack.objects.create(name="Souffle", elem=elemBrise, power=40)
+			attSouffle = Attack.objects.create(name="Souffle", elem=elemBrise, power=40, variety=1)
 			attSouffle.save()
 
 		try:
 			attTornado = Attack.objects.get(name="Tornado")
 		except Attack.DoesNotExist:
-			attTornado = Attack.objects.create(name="Tornado", elem=elemBrise, power=80)
+			attTornado = Attack.objects.create(name="Tornado", elem=elemBrise, power=80, variety=1)
 			attTornado.save()
 
 #############################################################################################################
