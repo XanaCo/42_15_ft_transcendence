@@ -1,5 +1,5 @@
 
-from .models import Elem, Attack, Species, Individual, Player, Game
+from .models import Elem, Attack, Species, Individual, Player, Game, Evolution
 
 from .views import generateIndividual
 
@@ -12,60 +12,68 @@ def	addData():
 #	ELEM DATA
 #############################################################################################################
 
+# TO DO : revoir les faiblesses et resistances
+
 	try:
 		try:
 			elemFlotte = Elem.objects.get(name="Flotte")
 		except Elem.DoesNotExist:
-			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200, attElemBanal=100, attElemTumeur=100)
+			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200, attElemBanal=100, attElemTumeur=100, attElemVolt=100)
 			elemFlotte.save()
 
 		try:
 			elemFeuille = Elem.objects.get(name="Feuille")
 		except Elem.DoesNotExist:
-			elemFeuille = Elem.objects.create(name="Feuille", attElemFlotte=200, attElemFeuille=50, attElemChaud=50, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100)
+			elemFeuille = Elem.objects.create(name="Feuille", attElemFlotte=200, attElemFeuille=50, attElemChaud=50, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100)
 			elemFeuille.save()
 
 		try:
 			elemChaud = Elem.objects.get(name="Chaud")
 		except Elem.DoesNotExist:
-			elemChaud = Elem.objects.create(name="Chaud", attElemFlotte=50, attElemFeuille=200, attElemChaud=50, attElemBrise=200, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100)
+			elemChaud = Elem.objects.create(name="Chaud", attElemFlotte=50, attElemFeuille=200, attElemChaud=50, attElemBrise=200, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100)
 			elemChaud.save()
 
 		try:
 			elemBrise = Elem.objects.get(name="Brise")
 		except Elem.DoesNotExist:
-			elemBrise = Elem.objects.create(name="Brise", attElemFlotte=100, attElemFeuille=100, attElemChaud=50, attElemBrise=50, attElemSable=200, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100)
+			elemBrise = Elem.objects.create(name="Brise", attElemFlotte=100, attElemFeuille=100, attElemChaud=50, attElemBrise=50, attElemSable=200, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100, attElemVolt=100)
 			elemBrise.save()
 
 		try:
 			elemSable = Elem.objects.get(name="Sable")
 		except Elem.DoesNotExist:
-			elemSable = Elem.objects.create(name="Sable", attElemFlotte=50, attElemFeuille=100, attElemChaud=200, attElemBrise=50, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100)
+			elemSable = Elem.objects.create(name="Sable", attElemFlotte=50, attElemFeuille=100, attElemChaud=200, attElemBrise=50, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100)
 			elemSable.save()
 
 		try:
 			elemBagarre = Elem.objects.get(name="Bagarre")
 		except Elem.DoesNotExist:
-			elemBagarre = Elem.objects.create(name="Bagarre", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=50, attElemCaillou=100, attElemBanal=200, attElemTumeur=100)
+			elemBagarre = Elem.objects.create(name="Bagarre", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=50, attElemCaillou=100, attElemBanal=200, attElemTumeur=100, attElemVolt=100)
 			elemBagarre.save()
 	
 		try:
 			elemCaillou = Elem.objects.get(name="Caillou")
 		except Elem.DoesNotExist:
-			elemCaillou = Elem.objects.create(name="Caillou", attElemFlotte=50, attElemFeuille=100, attElemChaud=100, attElemBrise=200, attElemSable=100, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100)
+			elemCaillou = Elem.objects.create(name="Caillou", attElemFlotte=50, attElemFeuille=100, attElemChaud=100, attElemBrise=200, attElemSable=100, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100, attElemVolt=100)
 			elemCaillou.save()
 
 		try:
 			elemBanal = Elem.objects.get(name="Banal")
 		except Elem.DoesNotExist:
-			elemBanal = Elem.objects.create(name="Banal", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=50, attElemTumeur=100)
+			elemBanal = Elem.objects.create(name="Banal", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=50, attElemTumeur=100, attElemVolt=100)
 			elemBanal.save()
 
 		try:
 			elemTumeur = Elem.objects.get(name="Tumeur")
 		except Elem.DoesNotExist:
-			elemTumeur = Elem.objects.create(name="Tumeur", attElemFlotte=100, attElemFeuille=200, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=50)
+			elemTumeur = Elem.objects.create(name="Tumeur", attElemFlotte=100, attElemFeuille=200, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=50, attElemVolt=100)
 			elemTumeur.save()
+
+		try:
+			elemVolt = Elem.objects.get(name="Volt")
+		except Elem.DoesNotExist:
+			elemVolt = Elem.objects.create(name="Volt", attElemFlotte=200, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100)
+			elemVolt.save()
 
 #############################################################################################################
 #	ATTACK DATA
@@ -162,10 +170,10 @@ def	addData():
 			speHerbizarre.save()
 
 		try:
-			speFlobizarre = Species.objects.get(name="Flobizarre")
+			speFlorizarre = Species.objects.get(name="Florizarre")
 		except Species.DoesNotExist:
-			speFlobizarre = Species.objects.create(name="Flobizarre", elem=elemFeuille, hp=80, at=82, sa=100, de=83, sd=100, sp=80)
-			speFlobizarre.save()
+			speFlorizarre = Species.objects.create(name="Florizarre", elem=elemFeuille, hp=80, at=82, sa=100, de=83, sd=100, sp=80)
+			speFlorizarre.save()
 
 		try:
 			speRoucoul = Species.objects.get(name="Roucoul")
@@ -215,6 +223,95 @@ def	addData():
 			speNidoking = Species.objects.create(name="Nidoking", elem=elemTumeur, hp=81, at=102, sa=85, de=77, sd=75, sp=85)
 			speNidoking.save()
 
+		try:
+			spePikachu = Species.objects.get(name="Pikachu")
+		except Species.DoesNotExist:
+			spePikachu = Species.objects.create(name="Pikachu", elem=elemTumeur, hp=35, at=55, sa=50, de=40, sd=50, sp=90)
+			spePikachu.save()
+
+		try:
+			speRaichu = Species.objects.get(name="Raichu")
+		except Species.DoesNotExist:
+			speRaichu = Species.objects.create(name="Raichu", elem=elemTumeur, hp=60, at=90, sa=90, de=55, sd=80, sp=110)
+			speRaichu.save()
+
+#############################################################################################################
+#	EVOLUTION DATA
+#############################################################################################################
+
+		try:
+			evoBulbizarre = Evolution.objects.get(name="Bulbizarre")
+		except Evolution.DoesNotExist:
+			evoBulbizarre = Evolution.objects.create(name="Bulbizarre", species=speBulbizarre, evolvesTo=speHerbizarre, lvl=16)
+			evoBulbizarre.save()
+
+		try:
+			evoHerbizarre = Evolution.objects.get(name="Herbizarre")
+		except Evolution.DoesNotExist:
+			evoHerbizarre = Evolution.objects.create(name="Herbizarre", species=speHerbizarre, evolvesTo=speFlorizarre, lvl=32)
+			evoHerbizarre.save()
+
+		try:
+			evoSalameche = Evolution.objects.get(name="Salameche")
+		except Evolution.DoesNotExist:
+			evoSalameche = Evolution.objects.create(name="Salameche", species=speSalameche, evolvesTo=speReptincel, lvl=16)
+			evoSalameche.save()
+
+		try:
+			evoReptincel = Evolution.objects.get(name="Reptincel")
+		except Evolution.DoesNotExist:
+			evoReptincel = Evolution.objects.create(name="Reptincel", species=speReptincel, evolvesTo=speDracaufeu, lvl=32)
+			evoReptincel.save()
+
+		try:
+			evoCarapuce = Evolution.objects.get(name="Carapuce")
+		except Evolution.DoesNotExist:
+			evoCarapuce = Evolution.objects.create(name="Carapuce", species=speCarapuce, evolvesTo=speCarabaffe, lvl=16)
+			evoCarapuce.save()
+
+		try:
+			evoCarabaffe = Evolution.objects.get(name="Carabaffe")
+		except Evolution.DoesNotExist:
+			evoCarabaffe = Evolution.objects.create(name="Carabaffe", species=speCarabaffe, evolvesTo=speTortank, lvl=32)
+			evoCarabaffe.save()
+
+		try:
+			evoRoucoul = Evolution.objects.get(name="Roucoul")
+		except Evolution.DoesNotExist:
+			evoRoucoul = Evolution.objects.create(name="Roucoul", species=speRoucoul, evolvesTo=speRoucoups, lvl=18)
+			evoRoucoul.save()
+
+		try:
+			evoRoucoups = Evolution.objects.get(name="Roucoups")
+		except Evolution.DoesNotExist:
+			evoRoucoups = Evolution.objects.create(name="Roucoups", species=speRoucoups, evolvesTo=speRoucarnage, lvl=32)
+			evoRoucoups.save()
+
+		try:
+			evoRattata = Evolution.objects.get(name="Rattata")
+		except Evolution.DoesNotExist:
+			evoRattata = Evolution.objects.create(name="Rattata", species=speRattata, evolvesTo=speRattatac, lvl=20)
+			evoRattata.save()
+
+		try:
+			evoNidoranM = Evolution.objects.get(name="NidoranM")
+		except Evolution.DoesNotExist:
+			evoNidoranM = Evolution.objects.create(name="NidoranM", species=speNidoranM, evolvesTo=speNidorino, lvl=16)
+			evoNidoranM.save()
+
+		try:
+			evoNidorino = Evolution.objects.get(name="Nidorino")
+		except Evolution.DoesNotExist:
+			evoNidorino = Evolution.objects.create(name="Nidorino", species=speNidorino, evolvesTo=speNidoking, lvl=-1)
+			evoNidorino.save()
+
+		try:
+			evoPikachu = Evolution.objects.get(name="Pikachu")
+		except Evolution.DoesNotExist:
+			evoPikachu = Evolution.objects.create(name="Pikachu", species=spePikachu, evolvesTo=speRaichu, lvl=-2)
+			evoPikachu.save()
+
+
 #############################################################################################################
 #	INDIVIDUAL DATA
 #############################################################################################################
@@ -225,8 +322,8 @@ def	addData():
 		# except individual.DoesNotExist:
 		# 	individual0 = individual.objects.create(id_ind=10, )
 
-		bulbasaurA = generateIndividual()
-		bulbasaurB = generateIndividual()
+		# bulbasaurA = generateIndividual()
+		# bulbasaurB = generateIndividual()
 
 #############################################################################################################
 #	PLAYER DATA

@@ -20,6 +20,8 @@ class Elem(models.Model):
 	attElemBagarre = models.IntegerField()
 	attElemCaillou = models.IntegerField()
 	attElemBanal = models.IntegerField()
+	attElemTumeur = models.IntegerField()
+	attElemVolt = models.IntegerField()
 
 class Attack(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -38,6 +40,12 @@ class Species(models.Model):
 	de = models.IntegerField(default=0, null=True)
 	sd = models.IntegerField(default=0, null=True)
 	sp = models.IntegerField(default=0, null=True)
+
+class Evolution(models.Model):
+	name = models.CharField(primary_key=True, max_length=255)
+	species = models.ForeignKey(Species, related_name='evolvesFrom', on_delete=models.CASCADE)
+	evolvesTo = models.ForeignKey(Species, related_name='evolvesTo', on_delete=models.CASCADE)
+	lvl = models.IntegerField() # -1 -> evolution via pierre lune / -2 -> evolution via pierre volt
 
 class Individual(models.Model):
 
@@ -66,7 +74,7 @@ class Individual(models.Model):
 	# catch rate / xp rate
 	rate = models.IntegerField()
 
-	def __new__(cls, *args):
+	def __init__(self, *args, **kwargs):
 
 		# ~ constructeur 2 arguments pokemon + lvl
 		if (len(args) == 2):
@@ -82,6 +90,7 @@ class Individual(models.Model):
 			self.lvl = args[1]
 
 		# ~ constructeur 7 arguments pour les evolutions
+		# ~ en fait ca sert a rien car si tu veux faire evoluer un pokemon faut juste changer species
 		elif (len(args) == 8):
 			self.iv_hp = args[0]
 			self.iv_at = args[1]
@@ -119,8 +128,8 @@ class Individual(models.Model):
 		self.save()
 
 class Item(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
+	name = models.CharField(max_length=255)
+	description = models.TextField()
 
 class Player(models.Model):
 	idPlayer = models.IntegerField(primary_key=True)
@@ -144,9 +153,9 @@ class Player(models.Model):
 				individual.save()
 
 class PlayerInventory(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
+	player = models.ForeignKey(Player, on_delete=models.CASCADE)
+	item = models.ForeignKey(Item, on_delete=models.CASCADE)
+	quantity = models.IntegerField(default=1)
 
 # Usage de l'inventaire
 # player = Player.objects.create(isBot=False)
