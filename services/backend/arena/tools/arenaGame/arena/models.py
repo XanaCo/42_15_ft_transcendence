@@ -38,42 +38,58 @@ class Species(models.Model):
 
 class Individual(models.Model):
 
+	id_ind = models.IntegerField(primary_key=True)
+	name = models.CharField(max_length=255)
+	species = models.ForeignKey(Species, on_delete=models.CASCADE)
+	lvl = models.IntegerField()
+	iv_hp = models.IntegerField()
+	iv_at = models.IntegerField()
+	iv_sa = models.IntegerField()
+	iv_de = models.IntegerField()
+	iv_sd = models.IntegerField()
+	iv_sp = models.IntegerField()
+	hp = models.IntegerField()
+	hp_max = models.IntegerField()
+	at = models.IntegerField()
+	sa = models.IntegerField()
+	de = models.IntegerField()
+	sd = models.IntegerField()
+	sp = models.IntegerField()
+	id_att_1 = models.ForeignKey(Attack, related_name='attack_individual_set_1', on_delete=models.CASCADE)
+	id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
+	id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
+	id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
+
+	# catch rate / xp rate
+	rate = models.IntegerField()
+
 	def __new__(cls, *args):
 
-		id_ind = models.IntegerField(primary_key=True)
-		name = models.CharField(max_length=255)
-		species = models.ForeignKey(Species, on_delete=models.CASCADE)
-		lvl = models.IntegerField()
-		iv_hp = models.IntegerField()
-		iv_at = models.IntegerField()
-		iv_sa = models.IntegerField()
-		iv_de = models.IntegerField()
-		iv_sd = models.IntegerField()
-		iv_sp = models.IntegerField()
-		hp = models.IntegerField()
-		hp_max = models.IntegerField()
-		at = models.IntegerField()
-		sa = models.IntegerField()
-		de = models.IntegerField()
-		sd = models.IntegerField()
-		sp = models.IntegerField()
-		id_att_1 = models.ForeignKey(Attack, related_name='attack_individual_set_1', on_delete=models.CASCADE)
-		id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
-		id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
-		id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
+		# ~ constructeur 2 arguments pokemon + lvl
+		if (len(args) == 2):
 
-		# catch rate / xp rate
-		rate = models.IntegerField()
+			self.iv_hp = random.randint(0, 6)
+			self.iv_at = random.randint(0, 6)
+			self.iv_sa = random.randint(0, 6)
+			self.iv_de = random.randint(0, 6)
+			self.iv_sd = random.randint(0, 6)
+			self.iv_sp = random.randint(0, 6)
+			# voir pour changer intance -> name speces
+			self.species = args[0]
+			self.lvl = args[1]
 
 		# ~ constructeur 7 arguments pour les evolutions
-		if (len(args) == 7):
-			iv_hp = args[0]
-			iv_at = args[1]
-			iv_sa = args[2]
-			iv_de = args[3]
-			iv_sd = args[4]
-			iv_sp = args[5]
-			lvl = args[6]
+		elif (len(args) == 8):
+			self.iv_hp = args[0]
+			self.iv_at = args[1]
+			self.iv_sa = args[2]
+			self.iv_de = args[3]
+			self.iv_sd = args[4]
+			self.iv_sp = args[5]
+			# voir pour changer intance -> name species
+			self.species = args[6]
+			self.lvl = args[7]
+		
 
 #	bot attack
 	def	attackSelection(self):
