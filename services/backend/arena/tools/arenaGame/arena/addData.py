@@ -50,7 +50,7 @@ def	addData():
 		except Elem.DoesNotExist:
 			elemBagarre = Elem.objects.create(name="Bagarre", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=50, attElemCaillou=100, attElemBanal=200, attElemTumeur=100, attElemVolt=100)
 			elemBagarre.save()
-	
+
 		try:
 			elemCaillou = Elem.objects.get(name="Caillou")
 		except Elem.DoesNotExist:
