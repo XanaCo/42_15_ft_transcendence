@@ -6,6 +6,9 @@ import random
 #############################################################################################################
 
 # TO DO : ajouter l'xp necessaire pour chaque pokemon
+# TO DO : faire la table des evolutions
+# TO DO : faire la table de l'apprentissage de capacites
+# TO DO : faire un inventaire au player
 
 class Elem(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -115,6 +118,10 @@ class Individual(models.Model):
 		sp = self.getStat(self.species.sp, self.iv_sp, self.lvl)
 		self.save()
 
+class Item(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
 class Player(models.Model):
 	idPlayer = models.IntegerField(primary_key=True)
 	isBot = models.BooleanField(default=False)
@@ -124,6 +131,8 @@ class Player(models.Model):
 	idIndividual4 = models.ForeignKey(Individual, related_name='individual_4', on_delete=models.CASCADE, null=True)
 	idIndividual5 = models.ForeignKey(Individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
 	idIndividual6 = models.ForeignKey(Individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
+	inventory = models.ManyToManyField(Item, through='PlayerInventory')
+
 	def restoreAllIndividual(self):
 		individuals = [
 			self.idIndividual1, self.idIndividual2, self.idIndividual3,
@@ -133,6 +142,25 @@ class Player(models.Model):
 			if individual is not None:
 				individual.hp = individual.hp_max
 				individual.save()
+
+class PlayerInventory(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+
+# Usage de l'inventaire
+# player = Player.objects.create(isBot=False)
+# item1 = Item.objects.create(name="Potion", description="Restores 20 HP")
+# item2 = Item.objects.create(name="Super Potion", description="Restores 50 HP")
+
+# # Ajouter des objets à l'inventaire du joueur
+# player.inventory.add(item1, through_defaults={'quantity': 3})
+# player.inventory.add(item2, through_defaults={'quantity': 2})
+
+# # Ajouter un Individual à un joueur
+# individual1 = Individual.objects.create(name="nidoran^", lvl=3, species=some_species_instance)
+# player.idIndividual1 = individual1
+# player.save()
 
 
 class Game(models.Model):
