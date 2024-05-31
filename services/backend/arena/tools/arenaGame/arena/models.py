@@ -39,7 +39,6 @@ class Species(models.Model):
 class Individual(models.Model):
 
 	def __new__(cls, *args):
-			
 
 		id_ind = models.IntegerField(primary_key=True)
 		name = models.CharField(max_length=255)
@@ -62,18 +61,19 @@ class Individual(models.Model):
 		id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
 		id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
 		id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
-	
+
 		# catch rate / xp rate
 		rate = models.IntegerField()
 
-		# ~ constructeur 6 arguments
-		if (len(args) == 6):
+		# ~ constructeur 7 arguments pour les evolutions
+		if (len(args) == 7):
 			iv_hp = args[0]
 			iv_at = args[1]
 			iv_sa = args[2]
 			iv_de = args[3]
 			iv_sd = args[4]
 			iv_sp = args[5]
+			lvl = args[6]
 
 #	bot attack
 	def	attackSelection(self):

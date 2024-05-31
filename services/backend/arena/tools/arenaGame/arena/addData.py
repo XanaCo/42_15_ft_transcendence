@@ -16,7 +16,7 @@ def	addData():
 		try:
 			elemFlotte = Elem.objects.get(name="Flotte")
 		except Elem.DoesNotExist:
-			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200, attElemBanal)
+			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200, attElemBanal=100)
 			elemFlotte.save()
 		try:
 			elemFeuille = Elem.objects.get(name="Feuille")
