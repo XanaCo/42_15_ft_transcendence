@@ -6,9 +6,7 @@ import random
 #############################################################################################################
 
 # TO DO : ajouter l'xp necessaire pour chaque pokemon
-# TO DO : faire la table des evolutions
 # TO DO : faire la table de l'apprentissage de capacites
-# TO DO : faire un inventaire au player
 
 class Elem(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -41,6 +39,9 @@ class Species(models.Model):
 	sd = models.IntegerField(default=0, null=True)
 	sp = models.IntegerField(default=0, null=True)
 
+	# catch rate / xp rate
+	rate = models.IntegerField()
+
 class Evolution(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
 	species = models.ForeignKey(Species, related_name='evolvesFrom', on_delete=models.CASCADE)
@@ -71,8 +72,8 @@ class Individual(models.Model):
 	id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
 	id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
 
-	# catch rate / xp rate
-	rate = models.IntegerField()
+	expToReachNextLvl = models.FloatField()
+	expActual = models.FloatField()
 
 	def __init__(self, *args, **kwargs):
 
@@ -88,6 +89,8 @@ class Individual(models.Model):
 			# voir pour changer intance -> name speces
 			self.species = args[0]
 			self.lvl = args[1]
+			self.expActual = 0
+			self.expToReachNextLvl = self.rate * float(self.lvl) * (3 + 4 * self.lvl / 50)
 
 		# ~ constructeur 7 arguments pour les evolutions
 		# ~ en fait ca sert a rien car si tu veux faire evoluer un pokemon faut juste changer species
@@ -101,9 +104,9 @@ class Individual(models.Model):
 			# voir pour changer intance -> name species
 			self.species = args[6]
 			self.lvl = args[7]
-		
 
-#	bot attack
+
+#	bot attack random
 	def	attackSelection(self):
 		while (1):
 			randNbr = random.randint(0,3)
@@ -115,16 +118,29 @@ class Individual(models.Model):
 				return self.id_att_3
 			if (randNbr == 3 and self.id_att_4 is not None):
 				return self.id_att_4
+			
+
+	# TO DO ? changer les instances de species en name de species dans la classe evolution ?
+	def macronEvolution(self):
+		try:
+			pokemonGo = Evolution.objects.get(name = self.species.name)
+			if (pokemonGo.lvl <= self.lvl):
+				self.species = pokemonGo.evolvesTo
+		except Evolution.DoesNotExist:
+			return
 	
 	def	lvlUp(self):
 		self.lvl += 1
-		hp += self.getHpStat(self.species.hp, self.iv_hp, self.lvl) - hp_max
-		hp_max = self.getHpStat(self.species.hp, self.iv_hp, self.lvl)
-		at = self.getStat(self.species.at, self.iv_at, self.lvl)
-		sa = self.getStat(self.species.sa, self.iv_sa, self.lvl)
-		de = self.getStat(self.species.de, self.iv_de, self.lvl)
-		sd = self.getStat(self.species.sd, self.iv_sd, self.lvl)
-		sp = self.getStat(self.species.sp, self.iv_sp, self.lvl)
+		self.hp += self.getHpStat(self.species.hp, self.iv_hp, self.lvl) - hp_max
+		self.hp_max = self.getHpStat(self.species.hp, self.iv_hp, self.lvl)
+		self.at = self.getStat(self.species.at, self.iv_at, self.lvl)
+		self.sa = self.getStat(self.species.sa, self.iv_sa, self.lvl)
+		self.de = self.getStat(self.species.de, self.iv_de, self.lvl)
+		self.sd = self.getStat(self.species.sd, self.iv_sd, self.lvl)
+		self.sp = self.getStat(self.species.sp, self.iv_sp, self.lvl)
+		# if pokemon doit evoluer
+		# change self.species = nouveau species
+		self.macronEvolution()
 		self.save()
 
 class Item(models.Model):
@@ -165,12 +181,6 @@ class PlayerInventory(models.Model):
 # # Ajouter des objets à l'inventaire du joueur
 # player.inventory.add(item1, through_defaults={'quantity': 3})
 # player.inventory.add(item2, through_defaults={'quantity': 2})
-
-# # Ajouter un Individual à un joueur
-# individual1 = Individual.objects.create(name="nidoran^", lvl=3, species=some_species_instance)
-# player.idIndividual1 = individual1
-# player.save()
-
 
 class Game(models.Model):
 	idGame = models.IntegerField(primary_key=True)

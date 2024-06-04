@@ -1,7 +1,7 @@
 
 from .models import Elem, Attack, Species, Individual, Player, Game, Evolution
 
-from .views import generateIndividual
+from .views import generatePokemonZone1
 
 from django.db import IntegrityError
 
@@ -310,7 +310,6 @@ def	addData():
 		except Evolution.DoesNotExist:
 			evoPikachu = Evolution.objects.create(name="Pikachu", species=spePikachu, evolvesTo=speRaichu, lvl=-2)
 			evoPikachu.save()
-
 
 #############################################################################################################
 #	INDIVIDUAL DATA
