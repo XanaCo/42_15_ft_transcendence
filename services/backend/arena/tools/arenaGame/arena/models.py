@@ -46,7 +46,9 @@ class Evolution(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
 	species = models.ForeignKey(Species, related_name='evolvesFrom', on_delete=models.CASCADE)
 	evolvesTo = models.ForeignKey(Species, related_name='evolvesTo', on_delete=models.CASCADE)
-	lvl = models.IntegerField() # -1 -> evolution via pierre lune / -2 -> evolution via pierre volt
+	lvl = models.IntegerField()
+	# -1 -> evolution via pierre lune / -2 -> evolution via pierre volt
+	# 0 -> evolution par echange
 
 class Individual(models.Model):
 
