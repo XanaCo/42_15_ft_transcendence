@@ -62,7 +62,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const context = canvas.getContext("2d");
     context.fillStyle = "red";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    
+
+    // recuperer 2 pokemon
+    const imgOpponentPokemon = new Image();
+    const imgAllyPokemon = new Image();
+    OpponentPokemon = "Bulbizarre"
+    AllyPokemon = "bulbizarre"
+    imgOpponentPokemon.src="../images/Persos/Pokemon-Tileset/" + OpponentPokemon + "Front";
+    imgAllyPokemon.src="../images/Persos/Pokemon-Tileset/" + AllyPokemon + "Back";
+
     // Ajouter le canvas au body de la page
     document.body.appendChild(canvas);
 });
