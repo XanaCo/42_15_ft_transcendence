@@ -20,6 +20,7 @@ class Elem(models.Model):
 	attElemBanal = models.IntegerField()
 	attElemTumeur = models.IntegerField()
 	attElemVolt = models.IntegerField()
+	attElemPsy = models.IntegerField()
 
 class Attack(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
