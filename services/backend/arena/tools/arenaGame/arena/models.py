@@ -21,6 +21,11 @@ class Elem(models.Model):
 	attElemTumeur = models.IntegerField()
 	attElemVolt = models.IntegerField()
 	attElemPsy = models.IntegerField()
+	attElemBou = models.IntegerField()
+	attElemSombre = models.IntegerField()
+	attElemFourmi = models.IntegerField()
+	attElemFroid = models.IntegerField()
+	attElemDragon = models.IntegerField()
 
 class Attack(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -42,6 +47,12 @@ class Species(models.Model):
 
 	# catch rate / xp rate
 	rate = models.IntegerField()
+
+# TO DO : ajouter les attaques de chaque pokemon
+class	AttackSpecies(models.Model):
+	species = models.ForeignKey(Species, on_delete=models.CASCADE)
+	attack = models.ForeignKey(Attack, on_delete=models.CASCADE)
+	lvl = models.IntegerField()
 
 class Evolution(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
@@ -90,7 +101,7 @@ class Individual(models.Model):
 			self.iv_sd = random.randint(0, 6)
 			self.iv_sp = random.randint(0, 6)
 			# voir pour changer intance -> name speces
-			self.species = args[0]
+			self.species = Species.objects.get(name = args[0])
 			self.lvl = args[1]
 			self.expActual = 0
 			self.expToReachNextLvl = self.rate * float(self.lvl) * (3 + 4 * self.lvl / 50)
@@ -127,7 +138,7 @@ class Individual(models.Model):
 	def macronEvolution(self):
 		try:
 			pokemonGo = Evolution.objects.get(name = self.species.name)
-			if (pokemonGo.lvl <= self.lvl):
+			if (pokemonGo.lvl <= self.lvl and pokemonGo.lvl > 0):
 				self.species = pokemonGo.evolvesTo
 		except Evolution.DoesNotExist:
 			return

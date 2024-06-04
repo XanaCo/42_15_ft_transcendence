@@ -18,67 +18,67 @@ def	addData():
 		try:
 			elemFlotte = Elem.objects.get(name="Flotte")
 		except Elem.DoesNotExist:
-			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemFlotte = Elem.objects.create(name="Flotte", attElemFlotte=50, attElemFeuille=50, attElemChaud=200, attElemBrise=100, attElemSable=200, attElemBagarre=100, attElemCaillou=200, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemFlotte.save()
 
 		try:
 			elemFeuille = Elem.objects.get(name="Feuille")
 		except Elem.DoesNotExist:
-			elemFeuille = Elem.objects.create(name="Feuille", attElemFlotte=200, attElemFeuille=50, attElemChaud=50, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemFeuille = Elem.objects.create(name="Feuille", attElemFlotte=200, attElemFeuille=50, attElemChaud=50, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemFeuille.save()
 
 		try:
 			elemChaud = Elem.objects.get(name="Chaud")
 		except Elem.DoesNotExist:
-			elemChaud = Elem.objects.create(name="Chaud", attElemFlotte=50, attElemFeuille=200, attElemChaud=50, attElemBrise=200, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemChaud = Elem.objects.create(name="Chaud", attElemFlotte=50, attElemFeuille=200, attElemChaud=50, attElemBrise=200, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemChaud.save()
 
 		try:
 			elemBrise = Elem.objects.get(name="Brise")
 		except Elem.DoesNotExist:
-			elemBrise = Elem.objects.create(name="Brise", attElemFlotte=100, attElemFeuille=100, attElemChaud=50, attElemBrise=50, attElemSable=200, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemBrise = Elem.objects.create(name="Brise", attElemFlotte=100, attElemFeuille=100, attElemChaud=50, attElemBrise=50, attElemSable=200, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemBrise.save()
 
 		try:
 			elemSable = Elem.objects.get(name="Sable")
 		except Elem.DoesNotExist:
-			elemSable = Elem.objects.create(name="Sable", attElemFlotte=50, attElemFeuille=100, attElemChaud=200, attElemBrise=50, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemSable = Elem.objects.create(name="Sable", attElemFlotte=50, attElemFeuille=100, attElemChaud=200, attElemBrise=50, attElemSable=50, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemSable.save()
 
 		try:
 			elemBagarre = Elem.objects.get(name="Bagarre")
 		except Elem.DoesNotExist:
-			elemBagarre = Elem.objects.create(name="Bagarre", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=50, attElemCaillou=100, attElemBanal=200, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemBagarre = Elem.objects.create(name="Bagarre", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=50, attElemCaillou=100, attElemBanal=200, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemBagarre.save()
 
 		try:
 			elemCaillou = Elem.objects.get(name="Caillou")
 		except Elem.DoesNotExist:
-			elemCaillou = Elem.objects.create(name="Caillou", attElemFlotte=50, attElemFeuille=100, attElemChaud=100, attElemBrise=200, attElemSable=100, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemCaillou = Elem.objects.create(name="Caillou", attElemFlotte=50, attElemFeuille=100, attElemChaud=100, attElemBrise=200, attElemSable=100, attElemBagarre=100, attElemCaillou=50, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemCaillou.save()
 
 		try:
 			elemBanal = Elem.objects.get(name="Banal")
 		except Elem.DoesNotExist:
-			elemBanal = Elem.objects.create(name="Banal", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=50, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemBanal = Elem.objects.create(name="Banal", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=50, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemBanal.save()
 
 		try:
 			elemTumeur = Elem.objects.get(name="Tumeur")
 		except Elem.DoesNotExist:
-			elemTumeur = Elem.objects.create(name="Tumeur", attElemFlotte=100, attElemFeuille=200, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=50, attElemVolt=100, attElemPsy=100)
+			elemTumeur = Elem.objects.create(name="Tumeur", attElemFlotte=100, attElemFeuille=200, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=50, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemTumeur.save()
 
 		try:
 			elemVolt = Elem.objects.get(name="Volt")
 		except Elem.DoesNotExist:
-			elemVolt = Elem.objects.create(name="Volt", attElemFlotte=200, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100)
+			elemVolt = Elem.objects.create(name="Volt", attElemFlotte=200, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=100, attElemCaillou=100, attElemBanal=100, attElemTumeur=100, attElemVolt=100, attElemPsy=100, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemVolt.save()
 	
 		try:
 			elemPsy = Elem.objects.get(name="Psy")
 		except Elem.DoesNotExist:
-			elemPsy = Elem.objects.create(name="Psy", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=200, attElemCaillou=100, attElemBanal=100, attElemTumeur=200, attElemVolt=100, attElemPsy=50)
+			elemPsy = Elem.objects.create(name="Psy", attElemFlotte=100, attElemFeuille=100, attElemChaud=100, attElemBrise=100, attElemSable=100, attElemBagarre=200, attElemCaillou=100, attElemBanal=100, attElemTumeur=200, attElemVolt=100, attElemPsy=50, attElemBou=100, attElemSombre=100, attElemFourmi=100, attElemFroid=100, attElemDragon=100)
 			elemPsy.save()
 
 #############################################################################################################
@@ -370,6 +370,42 @@ def	addData():
 		except Evolution.DoesNotExist:
 			evoPikachu = Evolution.objects.create(name="Pikachu", species=spePikachu, evolvesTo=speRaichu, lvl=-2)
 			evoPikachu.save()
+
+		try:
+			evoAbra = Evolution.objects.get(name="Abra")
+		except Evolution.DoesNotExist:
+			evoAbra = Evolution.objects.create(name="Abra", species=speAbra, evolvesTo=speKadabra, lvl=16)
+			evoAbra.save()
+		
+		try:
+			evoKadabra = Evolution.objects.get(name="Kadabra")
+		except Evolution.DoesNotExist:
+			evoKadabra = Evolution.objects.create(name="Kadabra", species=speKadabra, evolvesTo=speAlakazam, lvl=0)
+			evoKadabra.save()
+		
+		try:
+			evoFantominus = Evolution.objects.get(name="Fantominus")
+		except Evolution.DoesNotExist:
+			evoFantominus = Evolution.objects.create(name="Fantominus", species=speFantominus, evolvesTo=speSpectrum, lvl=25)
+			evoFantominus.save()
+		
+		try:
+			evoSpectrum = Evolution.objects.get(name="Spectrum")
+		except Evolution.DoesNotExist:
+			evoSpectrum = Evolution.objects.create(name="Spectrum", species=speSpectrum, evolvesTo=speEctoplasma, lvl=0)
+			evoSpectrum.save()
+		
+		try:
+			evoMachop = Evolution.objects.get(name="Machoc")
+		except Evolution.DoesNotExist:
+			evoMachop = Evolution.objects.create(name="Machoc", species=speMachoc, evolvesTo=speMachopeur, lvl=28)
+			evoMachop.save()
+		
+		try:
+			evoMachoke = Evolution.objects.get(name="Machopeur")
+		except Evolution.DoesNotExist:
+			evoMachoke = Evolution.objects.create(name="Machopeur", species=speMachopeur, evolvesTo=speMackogneur, lvl=0)
+			evoMachoke.save()
 
 #############################################################################################################
 #	INDIVIDUAL DATA

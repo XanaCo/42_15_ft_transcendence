@@ -98,16 +98,36 @@ def generatePokemonZone1():
 		nbr = random.randint(1, 100)
 		if (nbr > 50):
 		# spawn roucoul
-			newPokemon = Individual("roucoul", random.randint(2, 4))
+			newPokemon = Individual("Roucoul", random.randint(2, 4))
 
 		elif (nbr > 5):
-			newPokemon = Individual("rattata", random.randint(2, 4))
+			newPokemon = Individual("Rattata", random.randint(2, 4))
 		
 		elif (nbr > 1):
-			newPokemon = Individual("nidoran^", random.randint(2, 4))
+			newPokemon = Individual("Nidoran^", random.randint(2, 4))
 		
 		else:
-			newPokemon = Individual("pikachu", random.randint(2, 4))
+			newPokemon = Individual("Pikachu", random.randint(2, 4))
+	
+	except Species.DoesNotExist:
+		print("Individual creation failed or species not set")
+	return newPokemon
+
+def generatePokemonZone2():
+	try:
+		nbr = random.randint(1, 100)
+		if (nbr > 50):
+		# spawn roucoul
+			newPokemon = Individual("Roucoul", random.randint(5, 8))
+
+		elif (nbr > 5):
+			newPokemon = Individual("Rattata", random.randint(5, 8))
+		
+		elif (nbr > 1):
+			newPokemon = Individual("Abra", random.randint(5, 8))
+		
+		else:
+			newPokemon = Individual("Fantominus", random.randint(5, 8))
 	
 	except Species.DoesNotExist:
 		print("Individual creation failed or species not set")
