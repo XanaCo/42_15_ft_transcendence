@@ -67,7 +67,8 @@ class Arena {
         this.canvas.width = 500;
         this.canvas.height = 500;
         this.context = this.canvas.getContext("2d");
-        this.gameState = "Dialogs";
+        this.gameState = "Menu";
+        this.position = 0;
         this.handleKeyDown = this.handleKeyDown.bind(this); // Bind the method to the instance
         document.addEventListener("keydown", this.handleKeyDown);
     }
@@ -172,14 +173,21 @@ class Arena {
     
         switch (this.gameState)
         {
-            case "Dialogs":
+            case "Menu":
                 const imgMenu = new Image();
                 imgMenu.src="./images/Battle/GBFormat-BlocActions.png";
                 imgMenu.onload = () => {
                     this.context.drawImage(imgMenu, 0, 0, this.canvas.width, this.canvas.height);
                 }
+
+                const imgCursor = new Image();
+                imgCursor.src="./images/Battle/Items/RedArrow.png";
+                imgCursor.onload = () => {
+                    this.context.drawImage(imgCursor, this.canvas.width - 238 + (this.position & 1) * 115, this.canvas.height - 50 - (this.position < 2) * 40, 20, 20);
+                }
+
                 break;
-            case "Menu":
+            case "Dialogs":
                 const imgDialogs = new Image();
                 imgDialogs.src="./images/Battle/GBFormat-BlocBleu.png";
                 imgDialogs.onload = () => {
@@ -191,10 +199,45 @@ class Arena {
 
     handleKeyDown(event)
     {
-        if (this.gameState == "Dialogs")
-            this.gameState = "Menu";
-        else
-            this.gameState = "Dialogs";
+        document.onkeydown = (event) => {
+            if (37 <= event.keyCode && event.keyCode <= 40)
+                event.preventDefault();
+        }
+            
+        switch(event.keyCode)
+        {
+            case 37: // Left arrow
+                if (this.position == 1 || this.position == 3)
+                    this.position--;
+                console.log(this.position);
+                break;
+            case 38: // Up arrow
+                if (this.position == 2 || this.position == 3)
+                    this.position -= 2;
+                console.log(this.position);
+                break;
+            case 39: // Right arrow
+                if (this.position == 0 || this.position == 2)
+                    this.position++;
+                console.log(this.position);
+                break;
+            case 40: // Down arrow
+                if (this.position == 0 || this.position == 1)
+                    this.position += 2;
+                console.log(this.position);
+                break;
+            case 32: // Space
+                if (this.gameState == "Menu")
+                    this.gameState = "Dialogs";
+                else
+                    this.gameState = "Menu";
+                break;
+
+        }
+        // if (this.gameState == "Dialogs")
+        //     this.gameState = "Menu";
+        // else
+        //     this.gameState = "Dialogs";
     }
 }
 
@@ -203,4 +246,4 @@ const arena = new Arena();
 arena.getDivArena();
 setInterval(() => {
     arena.drawArena();
-}, 1000);
+}, 100);
