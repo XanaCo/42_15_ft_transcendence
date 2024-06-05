@@ -11,6 +11,6 @@ from .views import testView, index, runGames, testImage
 urlpatterns = [
 	path("", index, name="index"),
 	# path("", runGames, name="runGames"),
-	path('testView/', testView, name='testView'),
-	path('image/', testImage, name='image'),
+	# path('testView/', testView, name='testView'),
+	# path('image/', testImage, name='image'),
 ]

@@ -237,8 +237,8 @@ class Game(models.Model):
 #############################################################################################################
 #	classe qui wrap des images
 
-class Image(models.Model):
-	image_field = models.ImageField(upload_to='jess.png')
+# class Image(models.Model):
+# 	image_field = models.ImageField(upload_to='jess.png')
 
-	def image_url(self):
-		return self.image_field.url
+# 	def image_url(self):
+# 		return self.image_field.url
