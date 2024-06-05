@@ -2,6 +2,8 @@
 import asyncio
 import json
 import logging
+import string
+import random
 
 from channels.generic.websocket import WebsocketConsumer
 
@@ -64,6 +66,12 @@ class PlayerConsumer(WebsocketConsumer):
 			# trouver la bonne instance de Game
 
 			# mettre a jour la bonne attaque
+
+			# recuperer la variable du choix :
+			# 0 a 3 pour les attaques
+			# 4 a 9 pour les switchs
+			# 10 pour la fuite
+			# 11+ pour le choix de l'objet de l'inventaire
 			
 			# si je n'attends plus personne je met a jour les pv + pokemon actif
 

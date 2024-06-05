@@ -1,6 +1,8 @@
 from django.db import models
 import random
 
+from .utils import getHpStat, getStat
+
 #############################################################################################################
 #	CLASSIC DATA TO BATTLE
 #############################################################################################################
@@ -10,34 +12,34 @@ import random
 
 class Elem(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
-	attElemFlotte = models.IntegerField()
-	attElemFeuille = models.IntegerField()
-	attElemChaud = models.IntegerField()
-	attElemBrise = models.IntegerField()
-	attElemSable = models.IntegerField()
-	attElemBagarre = models.IntegerField()
-	attElemCaillou = models.IntegerField()
-	attElemBanal = models.IntegerField()
-	attElemTumeur = models.IntegerField()
-	attElemVolt = models.IntegerField()
-	attElemPsy = models.IntegerField()
-	attElemBou = models.IntegerField()
-	attElemSombre = models.IntegerField()
-	attElemFourmi = models.IntegerField()
-	attElemFroid = models.IntegerField()
-	attElemDragon = models.IntegerField()
+	attElemFlotte = models.IntegerField(default=0)
+	attElemFeuille = models.IntegerField(default=0)
+	attElemChaud = models.IntegerField(default=0)
+	attElemBrise = models.IntegerField(default=0)
+	attElemSable = models.IntegerField(default=0)
+	attElemBagarre = models.IntegerField(default=0)
+	attElemCaillou = models.IntegerField(default=0)
+	attElemBanal = models.IntegerField(default=0)
+	attElemTumeur = models.IntegerField(default=0)
+	attElemVolt = models.IntegerField(default=0)
+	attElemPsy = models.IntegerField(default=0)
+	attElemBou = models.IntegerField(default=0)
+	attElemSombre = models.IntegerField(default=0)
+	attElemFourmi = models.IntegerField(default=0)
+	attElemFroid = models.IntegerField(default=0)
+	attElemDragon = models.IntegerField(default=0)
 
 class Attack(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
-	elem = models.ForeignKey(Elem, on_delete=models.CASCADE)
-	power = models.IntegerField()
-	variety = models.IntegerField()
+	elem = models.ForeignKey(Elem, on_delete=models.CASCADE, null=True)
+	power = models.IntegerField(default=0)
+	variety = models.IntegerField(default=0)
 	# 0 -> physique
 	# 1 -> special
 
 class Species(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
-	elem = models.ForeignKey(Elem, on_delete=models.CASCADE)
+	elem = models.ForeignKey(Elem, on_delete=models.CASCADE, null=True)
 	hp = models.IntegerField(default=0, null=True)
 	at = models.IntegerField(default=0, null=True)
 	sa = models.IntegerField(default=0, null=True)
@@ -50,44 +52,44 @@ class Species(models.Model):
 
 # TO DO : ajouter les attaques de chaque pokemon
 class	AttackSpecies(models.Model):
-	species = models.ForeignKey(Species, on_delete=models.CASCADE)
-	attack = models.ForeignKey(Attack, on_delete=models.CASCADE)
-	lvl = models.IntegerField()
+	species = models.ForeignKey(Species, on_delete=models.CASCADE, null=True)
+	attack = models.ForeignKey(Attack, on_delete=models.CASCADE, null=True)
+	lvl = models.IntegerField(default=0)
 
 class Evolution(models.Model):
 	name = models.CharField(primary_key=True, max_length=255)
-	species = models.ForeignKey(Species, related_name='evolvesFrom', on_delete=models.CASCADE)
-	evolvesTo = models.ForeignKey(Species, related_name='evolvesTo', on_delete=models.CASCADE)
-	lvl = models.IntegerField()
+	species = models.ForeignKey(Species, related_name='evolvesFrom', on_delete=models.CASCADE, null=True)
+	evolvesTo = models.ForeignKey(Species, related_name='evolvesTo', on_delete=models.CASCADE, null=True)
+	lvl = models.IntegerField(default=0)
 	# -1 -> evolution via pierre lune / -2 -> evolution via pierre volt
 	# 0 -> evolution par echange
 
 class Individual(models.Model):
 
 	id_ind = models.IntegerField(primary_key=True)
-	name = models.CharField(max_length=255)
-	species = models.ForeignKey(Species, on_delete=models.CASCADE)
-	lvl = models.IntegerField()
-	iv_hp = models.IntegerField()
-	iv_at = models.IntegerField()
-	iv_sa = models.IntegerField()
-	iv_de = models.IntegerField()
-	iv_sd = models.IntegerField()
-	iv_sp = models.IntegerField()
-	hp = models.IntegerField()
-	hp_max = models.IntegerField()
-	at = models.IntegerField()
-	sa = models.IntegerField()
-	de = models.IntegerField()
-	sd = models.IntegerField()
-	sp = models.IntegerField()
-	id_att_1 = models.ForeignKey(Attack, related_name='attack_individual_set_1', on_delete=models.CASCADE)
-	id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE)
-	id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE)
-	id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE)
+	name = models.CharField(max_length=255, null=True)
+	species = models.ForeignKey(Species, on_delete=models.CASCADE, null=True)
+	lvl = models.IntegerField(default=0)
+	iv_hp = models.IntegerField(default=0)
+	iv_at = models.IntegerField(default=0)
+	iv_sa = models.IntegerField(default=0)
+	iv_de = models.IntegerField(default=0)
+	iv_sd = models.IntegerField(default=0)
+	iv_sp = models.IntegerField(default=0)
+	hp = models.IntegerField(default=0)
+	hp_max = models.IntegerField(default=0)
+	at = models.IntegerField(default=0)
+	sa = models.IntegerField(default=0)
+	de = models.IntegerField(default=0)
+	sd = models.IntegerField(default=0)
+	sp = models.IntegerField(default=0)
+	id_att_1 = models.ForeignKey(Attack, related_name='attack_individual_set_1', on_delete=models.CASCADE, null=True)
+	id_att_2 = models.ForeignKey(Attack, related_name='attack_individual_set_2', on_delete=models.CASCADE, null=True)
+	id_att_3 = models.ForeignKey(Attack, related_name='attack_individual_set_3', on_delete=models.CASCADE, null=True)
+	id_att_4 = models.ForeignKey(Attack, related_name='attack_individual_set_4', on_delete=models.CASCADE, null=True)
 
-	expToReachNextLvl = models.FloatField()
-	expActual = models.FloatField()
+	expToReachNextLvl = models.FloatField(default=0)
+	expActual = models.FloatField(default=0)
 
 	def __init__(self, *args, **kwargs):
 
@@ -105,6 +107,14 @@ class Individual(models.Model):
 			self.lvl = args[1]
 			self.expActual = 0
 			self.expToReachNextLvl = self.rate * float(self.lvl) * (3 + 4 * self.lvl / 50)
+			# mettre a jour les stats
+			self.hp = self.getHpStat(self.species.hp, self.iv_hp, self.lvl)
+			self.hp_max = self.getHpStat(self.species.hp, self.iv_hp, self.lvl)
+			self.at = self.getStat(self.species.at, self.iv_at, self.lvl)
+			self.sa = self.getStat(self.species.sa, self.iv_sa, self.lvl)
+			self.de = self.getStat(self.species.de, self.iv_de, self.lvl)
+			self.sd = self.getStat(self.species.sd, self.iv_sd, self.lvl)
+			self.sp = self.getStat(self.species.sp, self.iv_sp, self.lvl)
 
 		# ~ constructeur 7 arguments pour les evolutions
 		# ~ en fait ca sert a rien car si tu veux faire evoluer un pokemon faut juste changer species
@@ -119,6 +129,7 @@ class Individual(models.Model):
 			self.species = args[6]
 			self.lvl = args[7]
 
+	
 
 #	bot attack random
 	def	attackSelection(self):
@@ -145,7 +156,7 @@ class Individual(models.Model):
 	
 	def	lvlUp(self):
 		self.lvl += 1
-		self.hp += self.getHpStat(self.species.hp, self.iv_hp, self.lvl) - hp_max
+		self.hp += self.getHpStat(self.species.hp, self.iv_hp, self.lvl) - self.hp_max
 		self.hp_max = self.getHpStat(self.species.hp, self.iv_hp, self.lvl)
 		self.at = self.getStat(self.species.at, self.iv_at, self.lvl)
 		self.sa = self.getStat(self.species.sa, self.iv_sa, self.lvl)
@@ -158,8 +169,8 @@ class Individual(models.Model):
 		self.save()
 
 class Item(models.Model):
-	name = models.CharField(max_length=255)
-	description = models.TextField()
+	name = models.CharField(primary_key=True, max_length=255)
+	description = models.TextField(null=True)
 
 class Player(models.Model):
 	idPlayer = models.IntegerField(primary_key=True, unique=True)
@@ -170,7 +181,7 @@ class Player(models.Model):
 	idIndividual4 = models.ForeignKey(Individual, related_name='individual_4', on_delete=models.CASCADE, null=True)
 	idIndividual5 = models.ForeignKey(Individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
 	idIndividual6 = models.ForeignKey(Individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
-	inventory = models.ManyToManyField(Item, through='PlayerInventory')
+	inventory = models.ManyToManyField(Item, through='PlayerInventory', null=True)
 
 	# mandatory for user
 	# userID = models.IntegerField(unique=True)
@@ -190,8 +201,8 @@ class Player(models.Model):
 				individual.save()
 
 class PlayerInventory(models.Model):
-	player = models.ForeignKey(Player, on_delete=models.CASCADE)
-	item = models.ForeignKey(Item, on_delete=models.CASCADE)
+	player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
+	item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
 	quantity = models.IntegerField(default=1)
 
 # Usage de l'inventaire
@@ -205,11 +216,12 @@ class PlayerInventory(models.Model):
 
 class Game(models.Model):
 	idGame = models.IntegerField(primary_key=True)
-	idPlayerA = models.ForeignKey(Player, related_name='player_a_games', on_delete=models.CASCADE)
-	idPlayerB = models.ForeignKey(Player, related_name='player_b_games', on_delete=models.CASCADE)
+	idPlayerA = models.ForeignKey(Player, related_name='player_a_games', on_delete=models.CASCADE, null=True)
+	idPlayerB = models.ForeignKey(Player, related_name='player_b_games', on_delete=models.CASCADE, null=True)
 	nbPlayer = models.IntegerField(default=2)
-	nbAttackWeAreWaitingFor = models.IntegerField(default=nbPlayer)
+	nbAttackWeAreWaitingFor = models.IntegerField(default=2)
 
+	
 	# set attack A
 	attackA = models.ForeignKey(Attack, related_name="attack_a", on_delete=models.CASCADE, null=True)
 	# set attack B
@@ -227,7 +239,7 @@ class Game(models.Model):
 		self.nbAttackWeAreWaitingFor -= 1
 		# si on est pret on lance l'attaque
 		if (self.nbAttackWeAreWaitingFor == 0):
-			self.individualsAttack(self)
+			self.individualsAttack()
 		print("A")
 
 	def	updateAttackB(self, attackB):
@@ -236,7 +248,7 @@ class Game(models.Model):
 		self.nbAttackWeAreWaitingFor -= 1
 		# si on est pret on lance l'attaque
 		if (self.nbAttackWeAreWaitingFor == 0):
-			self.individualsAttack(self)
+			self.individualsAttack()
 		print("B")
 
 #############################################################################################################

@@ -9,15 +9,7 @@ from .models import Individual, Elem, Attack, Species, Game, Player
 def index(request):
 	return HttpResponse("Hello from arena app")
 
-#############################################################################################################
-#	BATTLE
-#############################################################################################################
 
-def getStat(base, iv, lvl):
-	return (2 * base + iv * 7) * lvl / 100 + 5
-
-def getHpStat(base, iv, lvl):
-	return (2 * base + iv * 7) * lvl / 100 + lvl + 10
 
 # background program
 # def runGames():
