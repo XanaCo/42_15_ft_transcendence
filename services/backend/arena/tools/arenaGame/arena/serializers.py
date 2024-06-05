@@ -88,3 +88,17 @@ class GameSerializer(serializers.ModelSerializer):
 		model = Game
 		fields = '__all__'
 
+
+# est-ce que ces serializers sont ok ?
+class GameUserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Game
+		fields = '__all__'
+
+class GameMatchSerializer(serializers.ModelSerializer):
+	player1 = GameUserSerializer()
+	player2 = GameUserSerializer()
+	date = serializers.DateTimeField(read_only=True)
+	class Meta:
+		model = Player
+		fields = '__all__'

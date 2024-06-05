@@ -1,16 +1,10 @@
-# link with urls.py
 from django.urls import path
 
-# get views.py file
-# from . import views
-
-from .views import testView, index, runGames, testImage
-
-# from .models import Image
+from .views import GameMatchAPI, GameUserAPI
 
 urlpatterns = [
-	path("", index, name="index"),
-	# path("", runGames, name="runGames"),
-	# path('testView/', testView, name='testView'),
-	# path('image/', testImage, name='image'),
+	path('api/arena/gamer/', GameUserAPI.as_view(), name='pongapp_gameuser'),
+	path('api/arena/gamer/<int:user_id>/', GameUserAPI.as_view(), name='pongapp_gameuser_byID'),
+	path('api/arena/match/', GameMatchAPI.as_view(), name='pongapp_gamematch'),
+	path('api/arena/match/<int:user_id>/', GameMatchAPI.as_view(), name='pongapp_gamematch_byID'),
 ]
