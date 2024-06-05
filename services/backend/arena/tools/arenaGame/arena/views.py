@@ -74,7 +74,7 @@ def giveMeExpPlease(lvlDead, lvlAlive, rate):
 
 
 #############################################################################################################
-#	API
+#	API / SERIALIZERS
 #############################################################################################################
 
 from rest_framework import viewsets, status
@@ -195,7 +195,30 @@ def generatePokemonZone2():
 
 
 #############################################################################################################
-#	
+#	ENDPOINTS
 #############################################################################################################
 
+class GameUserAPI(APIView):
+	def post(self, request):
+		# logger.info(f'User ID: {user_id}')
+		userSerializer = GameUserSerializer(data=request.data)
+		if userSerializer.is_valid():
+			userSerializer.save()
+			return Response(userSerializer.data, status=status.HTTP_201_CREATED)
+		return Response(userSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+	def get(self, request, user_id=None):
+
+	def put(self, request, user_id=None):
+
+	def delete(self, request):
+
+class GameMatchAPI(APIView):
+	def post(self, request):
+
+	def get(self, request, match_id=None):
+
+	def put(self, request, match_id=None):
+
+	def delete(self, request, match_id=None):

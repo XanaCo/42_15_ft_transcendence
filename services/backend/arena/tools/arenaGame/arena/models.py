@@ -162,7 +162,7 @@ class Item(models.Model):
 	description = models.TextField()
 
 class Player(models.Model):
-	idPlayer = models.IntegerField(primary_key=True)
+	idPlayer = models.IntegerField(primary_key=True, unique=True)
 	isBot = models.BooleanField(default=False)
 	idIndividual1 = models.ForeignKey(Individual, related_name='individual_1', on_delete=models.CASCADE, null=True)
 	idIndividual2 = models.ForeignKey(Individual, related_name='individual_2', on_delete=models.CASCADE, null=True)
@@ -171,6 +171,13 @@ class Player(models.Model):
 	idIndividual5 = models.ForeignKey(Individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
 	idIndividual6 = models.ForeignKey(Individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
 	inventory = models.ManyToManyField(Item, through='PlayerInventory')
+
+	# mandatory for user
+	# userID = models.IntegerField(unique=True)
+	userName = models.CharField(max_length=100, unique=True)
+	gamesWon = models.IntegerField(default=0)
+	gamesLost = models.IntegerField(default=0)
+	gamesPlayed = models.IntegerField(default=0)
 
 	def restoreAllIndividual(self):
 		individuals = [
