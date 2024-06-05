@@ -1,7 +1,6 @@
 
 from .models import Elem, Attack, Species, Individual, Player, Game, Evolution
 
-from .views import generatePokemonZone1
 
 from django.db import IntegrityError
 
@@ -15,6 +14,9 @@ def	addData():
 # TO DO : revoir les faiblesses et resistances
 
 	try:
+
+		Elem.objects.all().delete()
+
 		try:
 			elemFlotte = Elem.objects.get(name="Flotte")
 		except Elem.DoesNotExist:
@@ -408,37 +410,39 @@ def	addData():
 			evoMachoke.save()
 
 #############################################################################################################
-#	INDIVIDUAL DATA
+#	TEST - INDIVIDUAL DATA
 #############################################################################################################
 
-		# individual.objects.all().delete()
-		# try:
-		# 	individual0 = individual.objects.get(id_ind=10)
-		# except individual.DoesNotExist:
-		# 	individual0 = individual.objects.create(id_ind=10, )
+		from .views import generatePokemonZone1
+		import random
 
-		# bulbasaurA = generateIndividual()
-		# bulbasaurB = generateIndividual()
+		bulbasaurA1 = Individual('Bulbizarre', random.randint(4,6))
+		bulbasaurA1.save()
+		bulbasaurA2 = Individual('Bulbizarre', random.randint(4,6))
+		bulbasaurA2.save()
+		bulbasaurB1 = Individual('Bulbizarre', random.randint(4,6))
+		bulbasaurB1.save()
+		bulbasaurB2 = Individual('Bulbizarre', random.randint(4,6))
+		bulbasaurB2.save()
 
 #############################################################################################################
-#	PLAYER DATA
+#	TEST - PLAYER DATA
 #############################################################################################################
 
+		# TO DO : ameliorer la creation de pokemon (attaques)
 		Player.objects.all().delete()
 		try:
-			playerA = Player.objects.get(idPlayer=10)
+			playerA = Player.objects.get(idPlayer=1)
 		except Player.DoesNotExist:
-			playerA = Player.objects.create(idPlayer=10, isBot=False, idIndividual1=bulbasaurA, idIndividual2=None, idIndividual3=None, idIndividual4=None, idIndividual5=None, idIndividual6=None)
+			playerA = Player.objects.create(idPlayer=1, idIndividual1=bulbasaurA1, idIndividual2=bulbasaurA2, userName="PlayerA", )
 			playerA.save()
-
 		try:
-			playerB = Player.objects.get(idPlayer=11)
+			playerB = Player.objects.create(idPlayer=2, idIndividual1=bulbasaurB1, idIndividual2=bulbasaurB2, userName="PlayerB", )
 		except Player.DoesNotExist:
-			playerB = Player.objects.create(idPlayer=11, isBot=True, idIndividual1=bulbasaurB, idIndividual2=None, idIndividual3=None, idIndividual4=None, idIndividual5=None, idIndividual6=None)
 			playerB.save()
 
 #############################################################################################################
-#	GAME DATA
+#	TEST - GAME DATA
 #############################################################################################################
 
 		Game.objects.all().delete()

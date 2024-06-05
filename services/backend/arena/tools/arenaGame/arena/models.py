@@ -199,11 +199,19 @@ class Player(models.Model):
 			if individual is not None:
 				individual.hp = individual.hp_max
 				individual.save()
+	
+	def get_player_inventory(self):
+		myInventory = PlayerInventory.objects.filter(player=self)
+		items = [{'item': inv.item.name, 'quantity': inv.quantity} for inv in myInventory]
+		return items
 
 class PlayerInventory(models.Model):
 	player = models.ForeignKey(Player, on_delete=models.CASCADE, null=True)
 	item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
 	quantity = models.IntegerField(default=1)
+
+
+		
 
 # Usage de l'inventaire
 # player = Player.objects.create(isBot=False)
