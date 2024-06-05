@@ -50,6 +50,8 @@ class Arena {
         this.att3 = "Morsure";
         this.att4 = "Fouet Lianes";
         
+        this.choice = "0";
+
         this.lastAttackAlly = "Charge";
         this.lastEfficiencyAlly = 1; // 0 = not very effective, 1 = normal, 2 = super effective
         this.lastAttackOpponent = "Morsure";
@@ -252,10 +254,13 @@ class Arena {
                 if (this.gameState == "Menu" && this.position == 0)
                     this.gameState = "Fight";
                 else if (this.gameState == "Fight")
+                {
+                    this.choice = this.position.toString();
                     socket.send(JSON.stringify({
                         type: "message",
-                        content: "1"
+                        content: choice
                     }));
+                }
                 break;
             
         }

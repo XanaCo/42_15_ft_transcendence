@@ -198,9 +198,42 @@ logger = logging.getLogger(__name__)
 
 # Mettre a jour toutes les variables d'ID
 
+# liste des interactions
+# soigner les pokemons -> post
+# changer 2 pokemons de place -> post
+# donner la liste des pokemons du player -> get
+
 class GameUserAPI(APIView):
 	def post(self, request):
 		# logger.info(f'User ID: {user_id}')
+		interaction = request.data.get('interaction')
+		if interaction == 'listAllPokemon':
+			# recuperer l'id du joueur
+			# changer 2 pokemons de place
+			return Response({})
+		elif interaction == 'healPokemon':
+			# recuperer l'id du joueur
+			# player.restoreAllIndividual()
+			return Response({})
+		elif interaction == 'getBanalStone':
+			# recuperer l'id du joueur
+			# ajouter une pierre banale dans l'inventaire
+			return Response({})
+		elif interaction == 'getVoltStone':
+			# recuperer l'id du joueur
+			# ajouter une pierre volt dans l'inventaire
+			return Response({})
+		elif interaction == 'useBanalStone':
+			# recuperer l'id du joueur
+			# supprimer l'item
+			# faire evoluer le pokemon
+			return Response({})
+		elif interaction == 'useVoltStone':
+			# recuperer l'id du joueur
+			# supprimer l'item
+			# faire evoluer le pokemon
+			return Response({})
+
 		userSerializer = GameUserSerializer(data=request.data)
 		if userSerializer.is_valid():
 			userSerializer.save()
@@ -209,6 +242,11 @@ class GameUserAPI(APIView):
 
 	def get(self, request, user_id=None):
 		# logger.info(f'User ID: {user_id}')
+		interaction = request.data.get('interaction')
+		if interaction == 'listAllPokemon':
+			# recuperer l'id du joueur
+			# player.idIndividual1 # 1 a 6
+			return Response({})
 		if user_id:
 			try:
 				user = Player.objects.get(idPlayer=user_id)
@@ -314,3 +352,4 @@ class GameMatchAPI(APIView):
 
 		game.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
