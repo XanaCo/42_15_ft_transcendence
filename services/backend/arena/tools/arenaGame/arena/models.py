@@ -48,7 +48,7 @@ class Species(models.Model):
 	sp = models.IntegerField(default=0, null=True)
 
 	# catch rate / xp rate
-	rate = models.IntegerField()
+	rate = models.IntegerField(default=1)
 
 # TO DO : ajouter les attaques de chaque pokemon
 class	AttackSpecies(models.Model):
@@ -181,7 +181,7 @@ class Player(models.Model):
 	idIndividual4 = models.ForeignKey(Individual, related_name='individual_4', on_delete=models.CASCADE, null=True)
 	idIndividual5 = models.ForeignKey(Individual, related_name='individual_5', on_delete=models.CASCADE, null=True)
 	idIndividual6 = models.ForeignKey(Individual, related_name='individual_6', on_delete=models.CASCADE, null=True)
-	inventory = models.ManyToManyField(Item, through='PlayerInventory', null=True)
+	inventory = models.ManyToManyField(Item, through='PlayerInventory')
 
 	# mandatory for user
 	# userID = models.IntegerField(unique=True)
