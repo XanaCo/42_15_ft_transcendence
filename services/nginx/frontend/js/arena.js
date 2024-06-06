@@ -21,6 +21,36 @@ socket.onopen = function(event) {
 socket.onmessage = function(event) {
     const message = JSON.parse(event.data);
     console.log("Message received from server:", message);
+    this.allyPokemon = message.nameA;
+    this.opponentPokemon = message.nameB;
+    this.pvAlly = message.hpA;
+    this.pvOpponent = message.hpB;
+    this.pvMaxAlly = message.hpMaxA;
+    this.pvMaxOpponent = message.hpMaxB;
+    this.lvlAlly = message.lvlA;
+    this.lvlOpponent = message.lvlB;
+    this.att1 = message.att1;
+    // this.att1Pow = message.att1Pow;
+    // this.att1Type = message.att1Type;
+    this.att2 = message.att2;
+    // this.att2Pow = message.att2Pow;
+    // this.att2Type = message.att2Type;
+    this.att3 = message.att3;
+    // this.att3Pow = message.att3Pow;
+    // this.att3Type = message.att3Type;
+    this.att4 = message.att4;
+    // this.att4Pow = message.att4Pow;
+    // this.att4Type = message.att4Type;
+    this.xpBar = message.xpRate;
+    this.lastAttackAlly = message.lastMoveA;
+    this.lastAttackOpponent = message.lastMoveB;
+    this.lastEfficiencyAlly = message.effA;
+    this.lastEfficiencyOpponent = message.effB;
+    this.fastestPokemon = message.fastest;
+    // this.arenaType = message.arenaType;
+    
+    // afficher les actions / attaques
+    arena.drawArena();
 };
 
 // Fonction exécutée lorsque la connexion WebSocket est fermée
@@ -42,9 +72,26 @@ class Arena {
         this.canvas.width = 500;
         this.canvas.height = 500;
         this.context = this.canvas.getContext("2d");
+
         this.gameState = "Menu";
         this.position = 0;
+        
         this.handleKeyDown = this.handleKeyDown.bind(this); // Bind the method to the instance
+        
+        this.opponentPokemon = "Bulbizarre";
+        this.allyPokemon = "Bulbizarre";
+        this.lvlOpponent = 5;
+        this.lvlAlly = 5;
+        this.pvOpponent = 60;
+        this.pvMaxOpponent = 60;
+        this.pvAlly = 80;
+        this.pvMaxAlly = 80;
+
+        this.expBar = 64;
+
+
+
+        // TO DO : ajouter la pussance et le type des attaques
         this.att1 = "Charge";
         this.att2 = "Reflet";
         this.att3 = "Morsure";
@@ -112,15 +159,14 @@ class Arena {
         }
 
         // recuperer 2 pokemon
-        let opponentPokemon = "Bulbizarre"
+        
         const imgOpponentPokemon = new Image();
-        imgOpponentPokemon.src="./images/Persos/Pokemon-Tileset/" + opponentPokemon + "Front.png";
+        imgOpponentPokemon.src="./images/Persos/Pokemon-Tileset/" + this.opponentPokemon + "Front.png";
         imgOpponentPokemon.onload = () => {
             this.context.drawImage(imgOpponentPokemon, this.canvas.width * 3.1 / 5, this.canvas.height / 2.8, imgOpponentPokemon.width * 2, imgOpponentPokemon.height * 2);
         }
-        let allyPokemon = "Bulbizarre"
         const imgAllyPokemon = new Image();
-        imgAllyPokemon.src="./images/Persos/Pokemon-Tileset/" + allyPokemon + "Back.png";
+        imgAllyPokemon.src="./images/Persos/Pokemon-Tileset/" + this.allyPokemon + "Back.png";
         imgAllyPokemon.onload = () => {
             this.context.drawImage(imgAllyPokemon, this.canvas.width / 6.3, this.canvas.height / 1.765, imgAllyPokemon.width * 2, imgAllyPokemon.height * 2);
         }
@@ -133,26 +179,21 @@ class Arena {
             this.context.drawImage(imgLifeBar, 0, 0, this.canvas.width, this.canvas.height);
             this.context.font = "bold 14px Arial";
             this.context.fillStyle = "black";
-            this.context.fillText(allyPokemon, this.canvas.width / 1.4, this.canvas.height * 0.635);
-            this.context.fillText(opponentPokemon, this.canvas.width * 0.2, this.canvas.height * 0.315);
+            this.context.fillText(this.allyPokemon, this.canvas.width / 1.4, this.canvas.height * 0.635);
+            this.context.fillText(this.opponentPokemon, this.canvas.width * 0.2, this.canvas.height * 0.315);
             
             // remplir barre d'exp
-            let expBar = 64;
-            this.drawExpBar(expBar * 130 / 100, this.canvas.width * 0.67, this.canvas.height * 0.73);
+            this.drawExpBar(this.expBar * 130 / 100, this.canvas.width * 0.67, this.canvas.height * 0.73);
             
             // remplir les barres de pv
-            let pvOpponent = 60;
-            let pvAlly = 80;
-            this.drawLifeBar(pvOpponent * 97.5 / 100, this.canvas.width * 0.217, this.canvas.height * 0.341);
-            this.drawLifeBar(pvAlly * 97.5 / 100, this.canvas.width * 0.736, this.canvas.height * 0.66);
+            this.drawLifeBar(this.pvOpponent * 97.5 / 100, this.canvas.width * 0.217, this.canvas.height * 0.341);
+            this.drawLifeBar(this.pvAlly * 97.5 / 100, this.canvas.width * 0.736, this.canvas.height * 0.66);
             
             // ajouter les lvl
-            let lvlOpponent = 5;
-            let lvlAlly = 5;
             this.context.font = "bold 14px Arial";
             this.context.fillStyle = "black";
-            this.context.fillText(lvlAlly, this.canvas.width * 0.91, this.canvas.height * 0.635);
-            this.context.fillText(lvlOpponent, this.canvas.width * 0.39, this.canvas.height * 0.315);
+            this.context.fillText(this.lvlAlly, this.canvas.width * 0.91, this.canvas.height * 0.635);
+            this.context.fillText(this.lvlOpponent, this.canvas.width * 0.39, this.canvas.height * 0.315);
             // remplir les menus de selection    
         }
         

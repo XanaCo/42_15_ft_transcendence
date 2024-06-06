@@ -28,4 +28,37 @@ class Challenger(WebsocketConsumer):
 			return
 		msg = data.get('content')
 		print("content :" + msg)
-		self.send(text_data=json.dumps({"message": msg}))
+		responseData = {
+			"nameA": "Pikachu",
+			"nameB": "Bulbizarre",
+			"hpA": "100",
+			"hpB": "100",
+			"hpMaxA": "100",
+			"hpMaxB": "100",
+			"lvlA": "5",
+			"lvlB": "5",
+			"att1": "Charge",
+			"att1Pow": "Charge",
+			"att1Type": "0",
+			"att2": "Fouet lianes",
+			"att2Pow": "Charge",
+			"att2Type": "0",
+			"att3": "",
+			"att3Pow": "Charge",
+			"att3Type": "0",
+			"att4": "",
+			"att4Pow": "Charge",
+			"att4Type": "0",
+			"xpRate": "40",
+			"lastMoveA": "Charge",
+			"lastMoveB": "Charge",
+			"effA": "0",
+			"effB": "0",
+			"fastest": "0",
+			"arenaType": "1",
+		}
+		self.send(text_data=json.dumps(responseData))
+
+		# self.send(text_data=json.dumps({"message": msg}))
+
+

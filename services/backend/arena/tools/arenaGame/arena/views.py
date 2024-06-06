@@ -23,12 +23,6 @@ def testView(request):
 	# Renvoie une réponse HTTP avec un message simple
 	return HttpResponse("Bonjour, ceci est une vue Django !", content_type='text/plain')
 
-def testImage(request):
-	# return JsonResponse({'error': 'Internet'})
-	newImg = Image.objects.create(image_field='jess.png')
-	# return newImg.image_url
-	return HttpResponse("img:", newImg.image_url)
-
 # TO DO : mettre a jour les elems
 def getMultiplyingFactor(attType, defType, type):
 
