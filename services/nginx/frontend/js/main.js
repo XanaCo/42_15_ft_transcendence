@@ -150,8 +150,10 @@ const routes = {
 
 function NavbarFooterVisibility() {
 	const path = location.pathname;
-	const showInRoute = ['/home', '/about', '/contact', '/login', '/register', '/404', '/profile', '/edit-profile', '/update-password', '/delete-account', '/friends', '/friend-profile', '/statistics', '/chat', '/play', '/pongService', '/gameService', '/pongSettings', '/metaService', '/pkmSettings', '/pokemap', '/play_pr', '/play_pkr'];
-	const showNavbarFooter = showInRoute.includes(path);
+	const showInRoute = ['/home', '/about', '/contact', '/login', '/register', '/404', '/profile', '/edit-profile', '/update-password', '/delete-account', '/friends', '/statistics', '/chat', '/play', '/pongService', '/gameService', '/pongSettings', '/metaService', '/pkmSettings', '/pokemap', '/play_pr', '/play_pkr'];
+	const showNavbarFooter = showInRoute.includes(path) || path.startsWith('/friends') || path.startsWith('/statistics');
+	;
+	;
 
 	const footer = document.getElementById('custom-footer');
 	const navbar = document.getElementById('navbar');
@@ -168,9 +170,7 @@ async function updateNavbarDropdown() {
 	var condition = checkConnected();
 
 	if (condition) {
-		const id = await Iuser.getID()
-		const users = await Iuser.getAllUsers();
-		let username = users.users.find(user => user.user_id === parseInt(id)).username;
+		let username = await Iuser.getUsername();
 		dropbutton.innerHTML = `<strong>${username}</strong>`;
 
 		dropdownMenu.innerHTML = `
