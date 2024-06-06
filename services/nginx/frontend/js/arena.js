@@ -21,33 +21,33 @@ socket.onopen = function(event) {
 socket.onmessage = function(event) {
     const message = JSON.parse(event.data);
     console.log("Message received from server:", message);
-    this.allyPokemon = message.nameA;
-    this.opponentPokemon = message.nameB;
-    this.pvAlly = message.hpA;
-    this.pvOpponent = message.hpB;
-    this.pvMaxAlly = message.hpMaxA;
-    this.pvMaxOpponent = message.hpMaxB;
-    this.lvlAlly = message.lvlA;
-    this.lvlOpponent = message.lvlB;
-    this.att1 = message.att1;
-    // this.att1Pow = message.att1Pow;
-    // this.att1Type = message.att1Type;
-    this.att2 = message.att2;
-    // this.att2Pow = message.att2Pow;
-    // this.att2Type = message.att2Type;
-    this.att3 = message.att3;
-    // this.att3Pow = message.att3Pow;
-    // this.att3Type = message.att3Type;
-    this.att4 = message.att4;
-    // this.att4Pow = message.att4Pow;
-    // this.att4Type = message.att4Type;
-    this.xpBar = message.xpRate;
-    this.lastAttackAlly = message.lastMoveA;
-    this.lastAttackOpponent = message.lastMoveB;
-    this.lastEfficiencyAlly = message.effA;
-    this.lastEfficiencyOpponent = message.effB;
-    this.fastestPokemon = message.fastest;
-    // this.arenaType = message.arenaType;
+    arena.allyPokemon = message.nameA;
+    arena.opponentPokemon = message.nameB;
+    arena.pvAlly = message.hpA;
+    arena.pvOpponent = message.hpB;
+    arena.pvMaxAlly = message.hpMaxA;
+    arena.pvMaxOpponent = message.hpMaxB;
+    arena.lvlAlly = message.lvlA;
+    arena.lvlOpponent = message.lvlB;
+    arena.att1 = message.att1;
+    // arena.att1Pow = message.att1Pow;
+    // arena.att1Type = message.att1Type;
+    arena.att2 = message.att2;
+    // arena.att2Pow = message.att2Pow;
+    // arena.att2Type = message.att2Type;
+    arena.att3 = message.att3;
+    // arena.att3Pow = message.att3Pow;
+    // arena.att3Type = message.att3Type;
+    arena.att4 = message.att4;
+    // arena.att4Pow = message.att4Pow;
+    // arena.att4Type = message.att4Type;
+    arena.xpBar = message.xpRate;
+    arena.lastAttackAlly = message.lastMoveA;
+    arena.lastAttackOpponent = message.lastMoveB;
+    arena.lastEfficiencyAlly = message.effA;
+    arena.lastEfficiencyOpponent = message.effB;
+    arena.fastestPokemon = message.fastest;
+    // arena.arenaType = message.arenaType;
     
     // afficher les actions / attaques
     arena.drawArena();
@@ -80,14 +80,14 @@ class Arena {
         
         this.opponentPokemon = "Bulbizarre";
         this.allyPokemon = "Bulbizarre";
-        this.lvlOpponent = 5;
-        this.lvlAlly = 5;
-        this.pvOpponent = 60;
-        this.pvMaxOpponent = 60;
-        this.pvAlly = 80;
+        this.lvlOpponent = 4;
+        this.lvlAlly = 3;
+        this.pvOpponent = 10;
+        this.pvMaxOpponent = 100;
+        this.pvAlly = 20;
         this.pvMaxAlly = 80;
 
-        this.expBar = 64;
+        this.expBar = 20;
 
 
 

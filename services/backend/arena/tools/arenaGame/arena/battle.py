@@ -18,6 +18,7 @@ class Challenger(WebsocketConsumer):
 		logger.debug("je m'en vais")
 		pass
 
+	# recup l'id du joueur et le matchId
 	def receive(self, text_data):
 		try:
 			# Essayer de charger le texte comme JSON
@@ -26,8 +27,24 @@ class Challenger(WebsocketConsumer):
 			# Si une erreur de décodage se produit, gérer le cas où le texte n'est pas JSON valide
 			# print("Erreur : Le texte reçu n'est pas un JSON valide")
 			return
-		msg = data.get('content')
-		print("content :" + msg)
+		
+		action = data.get('content')
+		# Convert action to integer if it's a string
+		if isinstance(action, str) and action.isdigit():
+			action = int(action)
+		# Check the value of action and perform actions accordingly
+		if 0 <= action <= 3:
+			print("Performing an attack")
+		elif action == 4:
+			print("Running away")
+		elif 5 <= action <= 10:
+			print("Changing Pokemon")
+		elif action >= 11:
+			print("Using an item from the inventory")
+		else:
+			print("Invalid action")
+
+		print("content :" + action)
 		responseData = {
 			"nameA": "Pikachu",
 			"nameB": "Bulbizarre",
