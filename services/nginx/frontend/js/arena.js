@@ -225,23 +225,33 @@ class Arena {
         switch(event.keyCode)
         {
             case 37: // Left arrow
-                if (this.position == 1 || this.position == 3)
+                if ((this.position == 1 || this.position == 3) && this.gameState != "Bag" && this.gameState != "PokemonList")
                     this.position--;
+                else if (this.gameState == "PokemonList" && this.position != 0 && this.position != 3)
+                    this.position++;
                 // console.log(this.position);
                 break;
             case 38: // Up arrow
-                if (this.position == 2 || this.position == 3)
+                if ((this.position == 2 || this.position == 3) && this.gameState != "Bag" && this.gameState != "PokemonList")
                     this.position -= 2;
+                else if (this.gameState == "PokemonList" && this.position >= 3)
+                    this.position -= 3;
                 // console.log(this.position);
                 break;
             case 39: // Right arrow
-                if (this.position == 0 || this.position == 2)
+                if (this.position == 0 || this.position == 2 && this.gameState != "Bag" && this.gameState != "PokemonList")
+                    this.position++;
+                else if (this.gameState == "PokemonList" && this.position != 2 && this.position != 5)
                     this.position++;
                 // console.log(this.position);
                 break;
             case 40: // Down arrow
-                if (this.position == 0 || this.position == 1)
+                if ((this.position == 0 || this.position == 1) && this.gameState != "Bag" && this.gameState != "PokemonList")
+                {
                     this.position += 2;
+                }
+                else if (this.gameState == "PokemonList" && this.position < 3)
+                    this.position += 3;
                 // console.log(this.position);
                 break;
             case 32: // Space
@@ -251,15 +261,60 @@ class Arena {
                     this.gameState = "Menu";
                 break;
             case 13: // Enter
-                if (this.gameState == "Menu" && this.position == 0)
-                    this.gameState = "Fight";
+                if (this.gameState == "Menu")
+                {
+                    switch (this.position)
+                    {
+                        case 0:
+                            this.gameState = "Fight";
+                            break;
+                        case 1:
+                            this.gameState = "Bag";
+                            this.position = 0;
+                            break;
+                        case 2:
+                            this.gameState = "PokemonList";
+                            this.position = 0;
+                            break;
+                        case 3:
+                            this.gameState = "Run";
+                            this.position = 0;
+                            this.choice = "4";
+                            socket.send(JSON.stringify({
+                                type: "message",
+                                content: this.choice,
+                            }));
+                            break;
+                    }
+                }
                 else if (this.gameState == "Fight")
                 {
                     this.choice = this.position.toString();
                     socket.send(JSON.stringify({
                         type: "message",
-                        content: choice
+                        content: this.choice,
                     }));
+                }
+                else if (this.gameState == "Bag")
+                {
+                    this.choice = (11 + this.position).toString();
+                    socket.send(JSON.stringify({
+                        type: "message",
+                        content: this.choice,
+                    }));
+                    // pas certain
+                    this.position = 0;
+                    this.gameState = "Menu";
+                }
+                else if (this.gameState == "PokemonList")
+                {
+                    this.choice = (5 + this.position).toString();
+                    socket.send(JSON.stringify({
+                        type: "message",
+                        content: this.choice,
+                    }));
+                    this.position = 0;
+                    this.gameState = "Menu";
                 }
                 break;
             

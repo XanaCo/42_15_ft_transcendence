@@ -26,4 +26,6 @@ class Challenger(WebsocketConsumer):
 			# Si une erreur de décodage se produit, gérer le cas où le texte n'est pas JSON valide
 			# print("Erreur : Le texte reçu n'est pas un JSON valide")
 			return
-		self.send(text_data=json.dumps({"message": "2"}))
+		msg = data.get('content')
+		print("content :" + msg)
+		self.send(text_data=json.dumps({"message": msg}))
