@@ -21,32 +21,34 @@ socket.onopen = function(event) {
 socket.onmessage = function(event) {
     const message = JSON.parse(event.data);
     console.log("Message received from server:", message);
-    arena.allyPokemon = message.nameA;
-    arena.opponentPokemon = message.nameB;
-    arena.pvAlly = message.hpA;
-    arena.pvOpponent = message.hpB;
-    arena.pvMaxAlly = message.hpMaxA;
-    arena.pvMaxOpponent = message.hpMaxB;
-    arena.lvlAlly = message.lvlA;
-    arena.lvlOpponent = message.lvlB;
-    arena.att1 = message.att1;
+
+    if (message.nameA !== undefined) arena.allyPokemon = message.nameA;
+    if (message.nameB !== undefined) arena.opponentPokemon = message.nameB;
+    if (message.hpA !== undefined) arena.pvAlly = message.hpA;
+    if (message.hpB !== undefined) arena.pvOpponent = message.hpB;
+    if (message.hpMaxA !== undefined) arena.pvMaxAlly = message.hpMaxA;
+    if (message.hpMaxB !== undefined) arena.pvMaxOpponent = message.hpMaxB;
+    if (message.lvlA !== undefined) arena.lvlAlly = message.lvlA;
+    if (message.lvlB !== undefined) arena.lvlOpponent = message.lvlB;
+    if (message.att1 !== undefined) arena.att1 = message.att1;
+    if (message.att2 !== undefined) arena.att2 = message.att2;
+    if (message.att3 !== undefined) arena.att3 = message.att3;
+    if (message.att4 !== undefined) arena.att4 = message.att4;
+    if (message.xpRate !== undefined) arena.xpBar = message.xpRate;
+    if (message.lastMoveA !== undefined) arena.lastAttackAlly = message.lastMoveA;
+    if (message.lastMoveB !== undefined) arena.lastAttackOpponent = message.lastMoveB;
+    if (message.effA !== undefined) arena.lastEfficiencyAlly = message.effA;
+    if (message.effB !== undefined) arena.lastEfficiencyOpponent = message.effB;
+    if (message.fastest !== undefined) arena.fastestPokemon = message.fastest;
+
     // arena.att1Pow = message.att1Pow;
     // arena.att1Type = message.att1Type;
-    arena.att2 = message.att2;
     // arena.att2Pow = message.att2Pow;
     // arena.att2Type = message.att2Type;
-    arena.att3 = message.att3;
     // arena.att3Pow = message.att3Pow;
     // arena.att3Type = message.att3Type;
-    arena.att4 = message.att4;
     // arena.att4Pow = message.att4Pow;
     // arena.att4Type = message.att4Type;
-    arena.xpBar = message.xpRate;
-    arena.lastAttackAlly = message.lastMoveA;
-    arena.lastAttackOpponent = message.lastMoveB;
-    arena.lastEfficiencyAlly = message.effA;
-    arena.lastEfficiencyOpponent = message.effB;
-    arena.fastestPokemon = message.fastest;
     // arena.arenaType = message.arenaType;
     
     // afficher les actions / attaques

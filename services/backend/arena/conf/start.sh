@@ -15,3 +15,5 @@ python3 /app/setupDataBase.py
 
 sleep 5
 python3 manage.py runserver 0.0.0.0:8080
+
+
