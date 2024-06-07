@@ -62,6 +62,8 @@ up:
 	@ echo -e "\n$(YELLOW)★ Launching Docker ★$(CEND)"
 	@ docker --version
 	@ echo -e "$(WHITE) A self-sufficient runtime for containers$(CEND)"
+	@ docker pull bitnami/node-exporter
+	@ docker pull grafana/grafana
 	@ docker compose -f docker-compose.yml up -d --pull never
 	@ source ./scripts/starting_script.sh && key_remove
 	@ echo -e "$(GREEN)★ Images Ready ★$(CEND)\n"
