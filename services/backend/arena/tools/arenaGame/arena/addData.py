@@ -416,13 +416,13 @@ def	addData():
 		# from .views import generatePokemonZone1
 		import random
 
-		bulbasaurA1 = Individual('Bulbitzarre', random.randint(4,6))
+		bulbasaurA1 = Individual(species=speBulbizarre, lvl=random.randint(4,6))
 		bulbasaurA1.save()
-		bulbasaurA2 = Individual('Bulbizarre', random.randint(4,6))
+		bulbasaurA2 = Individual(species=speBulbizarre, lvl=random.randint(4,6))
 		bulbasaurA2.save()
-		bulbasaurB1 = Individual('Carapuce', random.randint(2,4))
+		bulbasaurB1 = Individual(species=speBulbizarre, lvl=random.randint(4,6))
 		bulbasaurB1.save()
-		bulbasaurB2 = Individual('Carapuce', random.randint(2,4))
+		bulbasaurB2 = Individual(species=speBulbizarre, lvl=random.randint(4,6))
 		bulbasaurB2.save()
 
 #############################################################################################################

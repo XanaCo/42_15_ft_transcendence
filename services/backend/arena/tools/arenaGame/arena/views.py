@@ -80,105 +80,45 @@ class arenaAPI(APIView):
 import random
 
 # V2
-def generatePokemonZone1():
-	try:
-		nbr = random.randint(1, 100)
-		if (nbr > 50):
-		# spawn roucoul
-			newPokemon = Individual("Roucoul", random.randint(2, 4))
-
-		elif (nbr > 5):
-			newPokemon = Individual("Rattata", random.randint(2, 4))
-		
-		elif (nbr > 1):
-			newPokemon = Individual("Nidoran^", random.randint(2, 4))
-		
-		else:
-			newPokemon = Individual("Pikachu", random.randint(2, 4))
-	
-	except Species.DoesNotExist:
-		print("Individual creation failed or species not set")
-	return newPokemon
-
-def generatePokemonZone2():
-	try:
-		nbr = random.randint(1, 100)
-		if (nbr > 50):
-		# spawn roucoul
-			newPokemon = Individual("Roucoul", random.randint(5, 8))
-
-		elif (nbr > 5):
-			newPokemon = Individual("Rattata", random.randint(5, 8))
-		
-		elif (nbr > 1):
-			newPokemon = Individual("Abra", random.randint(5, 8))
-		
-		else:
-			newPokemon = Individual("Fantominus", random.randint(5, 8))
-	
-	except Species.DoesNotExist:
-		print("Individual creation failed or species not set")
-	return newPokemon
-
-
-
-# V1 obsolete
-# def	generateIndividual():
-	
+# def generatePokemonZone1():
 # 	try:
-# 		# 1% de chance de trouver un truc tres style
-# 		# 5% de chance de trouver un truc style
-# 		# 44% de chance de trouver de la merde 1
-# 		# 50% de chance de trouver de la merde 2
-# 		speBulbizarre = Species.objects.get(name="Bulbizarre")
-# 		name = "Individu_" + str(random.randint(1, 1000))
-# 		species_instance = Species.objects.order_by('?').first()  # Sélectionner une espèce au hasard
-# 		lvl = random.randint(2, 3)
-# 		iv_hp = random.randint(0, 6)
-# 		iv_at = random.randint(0, 6)
-# 		iv_sa = random.randint(0, 6)
-# 		iv_de = random.randint(0, 6)
-# 		iv_sd = random.randint(0, 6)
-# 		iv_sp = random.randint(0, 6)
-# 		# wtf hp ?
-# 		hp = random.randint(1, 255)
-# 		hp_max = getHpStat(speBulbizarre.hp)
-# 		at = getStat(speBulbizarre.at, iv_at, lvl)
-# 		sa = getStat(speBulbizarre.sa, iv_sa, lvl)
-# 		de = getStat(speBulbizarre.de, iv_de, lvl)
-# 		sd = getStat(speBulbizarre.sd, iv_sd, lvl)
-# 		sp = getStat(speBulbizarre.sp, iv_sp, lvl)
-# 		attack_instances = Attack.objects.order_by('?')[:4]  # Sélectionner 4 attaques au hasard
-# 	except Species.DoesNotExist:
-# 		# Si l'instance n'existe pas encore, vous pouvez créer une nouvelle instance
-# 		# speBulbizarre = species.objects.create(name="Bulbizarre", elem=elemChaud, hp=45, at=49, sa=65, de=49, sd=65, sp=45)
-# 		# speBulbizarre.save()
-# 		print("Bulbizarre not set")
+# 		nbr = random.randint(1, 100)
+# 		if (nbr > 50):
+# 		# spawn roucoul
+# 			newPokemon = Individual(species=speRoucoul, lvl=random.randint(2, 4))
 
-# 	# Créer l'individu avec les valeurs générées
-# 	new_individual = Individual.objects.create(
-# 		name=name,
-# 		species=species_instance,
-# 		lvl=lvl,
-# 		iv_hp=iv_hp,
-# 		iv_at=iv_at,
-# 		iv_sa=iv_sa,
-# 		iv_de=iv_de,
-# 		iv_sd=iv_sd,
-# 		iv_sp=iv_sp,
-# 		hp=hp,
-# 		hp_max=hp_max,
-# 		at=at,
-# 		sa=sa,
-# 		de=de,
-# 		sd=sd,
-# 		sp=sp,
-# 		id_att_1=attack_instances[0],
-# 		id_att_2=attack_instances[1],
-# 		id_att_3=attack_instances[2],
-# 		id_att_4=attack_instances[3]
-# 	)
-# 	return new_individual
+# 		elif (nbr > 5):
+# 			newPokemon = Individual(species=speRattata, lvl=random.randint(2, 4))
+		
+# 		elif (nbr > 1):
+# 			newPokemon = Individual(species=speNidoranM, lvl=random.randint(2, 4))
+		
+# 		else:
+# 			newPokemon = Individual(species=spePikachu, lvl=random.randint(2, 4))
+	
+# 	except Species.DoesNotExist:
+# 		print("Individual creation failed or species not set")
+# 	return newPokemon
+
+# def generatePokemonZone2():
+# 	try:
+# 		nbr = random.randint(1, 100)
+# 		if (nbr > 50):
+# 		# spawn roucoul
+# 			newPokemon = Individual(species=speRoucoul, lvl=random.randint(5, 8))
+
+# 		elif (nbr > 5):
+# 			newPokemon = Individual(species=speRattata, lvl=random.randint(5, 8))
+		
+# 		elif (nbr > 1):
+# 			newPokemon = Individual(species=speAbra, lvl=random.randint(5, 8))
+		
+# 		else:
+# 			newPokemon = Individual(species=speFantominus, lvl=random.randint(5, 8))
+	
+# 	except Species.DoesNotExist:
+# 		print("Individual creation failed or species not set")
+# 	return newPokemon
 
 
 #############################################################################################################

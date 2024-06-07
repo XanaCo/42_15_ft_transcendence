@@ -14,6 +14,12 @@ django.setup()
 
 # from arena import views
 from arena.addData import addData
+# from django.db.models.signals import post_migrate
+# from django.dispatch import receiver
+
+# @receiver(post_migrate)
+# def run_add_data(sender, **kwargs):
+#     addData()
 
 def main():
 	"""Run administrative tasks."""
@@ -30,7 +36,7 @@ def main():
 	# background_thread.daemon = True
 	# background_thread.start()
 	# views.updateDB()
-	addData()
+	# addData()
 	execute_from_command_line(sys.argv)
 
 if __name__ == '__main__':
