@@ -75,6 +75,8 @@ class   Tournament:
         self.updatePlayerName()
 
 
+
+
 class   paddleC:
 
     def __init__(self, player, *args, **kwargs):
@@ -140,6 +142,7 @@ class   gameStateC:
         self.shouldHandlePowerUp = 0
         self.status = iv.NOT_STARTED
         self._lock = threading.Lock()
+        self.winner = "none"
 
     async def run_game_loop(self):
         self.status = iv.RUNNING
@@ -162,6 +165,10 @@ class   gameStateC:
             #self.logObject()
             await self.broadcastGameState()
         if (self.status == iv.FINISHED):
+            if (self.player1Score > self.player2Score):
+                self.winner = self.player1_user_id
+            else:
+                self.winner = self.player2_user_id
             logger.info("J'arrete la partie")
             await self.stopGame()
 
@@ -362,7 +369,8 @@ class   gameStateC:
                     "powerup.positionX": self.powerUpPositionX,
                     "powerup.positionY": self.powerUpPositionY,
                     "powerup.active": self.activePowerUp,
-                    "status": self.status
+                    "status": self.status,
+                    # "winner": "none"
                 }
             }
         )

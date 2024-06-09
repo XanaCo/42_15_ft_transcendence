@@ -38,18 +38,41 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
         self.group_name = await self.generate_tournament_name()
         logger.info("Group Name consumer : %s", self.group_name)
         await self.channel_layer.group_add(self.group_name, self.channel_name)
-        await self.tournamentLoop()
+        # await self.tournamentLoop()
+        await self.runTournament(players=self.players, group_name=self.group_name, user_id=self.user_id)
 
     async def disconnect(self, close_code):
         tournaments.remove(self.tournament)
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
-    async def tournamentLoop(self):
-        global tournaments
-        self.tournament = Tournament(players = self.players, group_name=self.group_name, user_id=self.user_id)
-        tournaments.append(self.tournament)
-        await self.send(text_data=json.dumps({"party": "active"})) 
-        await self.tournament.tournamentLoop()
+    async def runTournament(self, players, group_name, user_id):
+        # lamcer une game avec les 2 premiers joueurs
+        self.tournament.game1.player1_user_id = self.user1
+        self.tournament.game1.player2_user_id = self.user2
+        # lancer la game
+        if (self.tournament.game1.player1_score > self.tournament.game1.player2_score):
+            self.winner1 = self.user1
+        else:
+            self.winner1 = self.user2
+        # lancer une game avec les 2 derniers joueurs 
+        self.tournament.game2.player1_user_id = self.user1
+        self.tournament.game2.player2_user_id = self.user2
+        # lancer la game
+        if (self.tournament.game2.player1_score > self.tournament.game1.player2_score):
+            self.winner2 = self.user1
+        else:
+            self.winner2 = self.user2
+        # lancer une game avec les 2 gagnants
+        self.tournament.game3.player1_user_id = self.winner1
+        self.tournament.game3.player2_user_id = self.winner2
+
+    # async def tournamentLoop(self):
+    #     global tournaments
+    #     self.tournament = Tournament(players = self.players, group_name=self.group_name, user_id=self.user_id)
+    #     tournaments.append(self.tournament)
+    #     await self.send(text_data=json.dumps({"party": "active"})) 
+    #     await self.tournament.tournamentLoop()
+        
 
     async def generate_tournament_name(self, length=8):
         global group_names
