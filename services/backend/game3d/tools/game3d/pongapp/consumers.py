@@ -26,13 +26,18 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.group_name = 0
+        self.winner1 = ""
+        self.winner2 = ""
+        self.tournament = Tournament()
 
     async def connect(self):
+        # ici 
         self.user_id = self.scope["url_route"]["kwargs"]["user_id"]
         self.user1 = self.scope["url_route"]["kwargs"]["user1"]
         self.user2 = self.scope["url_route"]["kwargs"]["user2"]
         self.user3 = self.scope["url_route"]["kwargs"]["user3"]
         self.user4 = self.scope["url_route"]["kwargs"]["user4"]
+        # ici ^
         self.players = [self.user1, self.user2, self.user3, self.user4]
         await self.accept()
         self.group_name = await self.generate_tournament_name()
@@ -83,6 +88,66 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
         else:
             group_names.append(group_name)
             return group_name
+
+    async def findLocalParty(self):
+        global local_parties
+        self.gameState = gameStateC()
+        local_parties.append(self.gameState)
+        self.gameState.game_mode = "local"
+        self.gameState.group_name = await self.generate_local_name()
+        await self.channel_layer.group_add(self.gameState.group_name, self.channel_name)
+        self.gameState.paddle1 = paddleC(1)
+        self.gameState.paddle2 = paddleC(2)
+        self.gameState.limitScore = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).score)()
+        logger.info("Player1 limitScore %d", self.gameState.limitScore)
+        self.gameState.shouldHandlePowerUp = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).powerups)()
+        logger.info("Player1 powerups %d", self.gameState.shouldHandlePowerUp)
+        self.gameState.players_nb = 2
+        await self.send(text_data=json.dumps({"party": "active"})) 
+        self.gameState.powerUpTimer = time.time()
+        asyncio.create_task(self.gameState.run_game_loop())
+        return self.gameState
+
+# ici
+    async def finTournamentGame(self, gameNbr, player1, player2):
+        self.tournament.games[gameNbr].game_mode = "tournament"
+        self.tournament.games[gameNbr].group_name = await self.generate_tournament_name()
+        await self.channel_layer.group_add(self.tournament.games[gameNbr].group_name, self.channel_name)
+        self.tournament.games[gameNbr].paddle1 = paddleC(1)
+        self.tournament.games[gameNbr].paddle2 = paddleC(2)
+        self.tournament.games[gameNbr].limitScore = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).score)()
+        self.tournament.games[gameNbr].shouldHandlePowerUp = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).powerups)()
+        self.tournament.games[gameNbr].players_nb = 2
+        self.tournament.games[gameNbr].player1_user_id = player1
+        self.tournament.games[gameNbr].player2_user_id = player2
+        await self.send(text_data=json.dumps({"party": "active"}))
+        self.tournament.games[gameNbr].powerUpTimer = time.time()
+        asyncio.create_task(self.tournament.games[gameNbr].run_game_loop())
+        return self.tournament.games[gameNbr]
+
+# ici
+    async def load_game(self,event):
+        # Récupérer les données du jeu
+        game_data = event["load_game"]
+
+        # Récupérer les scores des joueurs
+        player1_score = game_data["player1Score"]
+        player2_score = game_data["player2Score"]
+        gameNbr = game_data["gameNb"]
+        if (gameNbr == 0):
+            if (player1_score > player2_score):
+                self.winner1 = game_data["player1_user_id"]
+            else:
+                self.winner1 = game_data["player2_user_id"]
+            self.finTournamentGame(1, self.user3, self.user4)
+        elif (gameNbr == 1):
+            if (player1_score > player2_score):
+                self.winner2 = game_data["player1_user_id"]
+            else:
+                self.winner2 = game_data["player2_user_id"]
+            self.finTournamentGame(2, self.winner1, self.winner2)
+            
+
 
     async def game_state(self,event):
         logger.info("Depuis le tournoi je vais envoyer au websocket")

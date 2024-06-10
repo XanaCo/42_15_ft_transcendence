@@ -28,18 +28,19 @@ tournaments = []
 
 class   Tournament:
     
+    # ici
     def __init__(self, players, group_name, user_id, *args, **kwargs):
-        self.tournament_matches = []
-        for i in range(3):
-            self.tournament_matches.append(gameStateC())
-        self.user_id = user_id
-        self.group_name = group_name
-        logger.info("user_id : %s" % (self.user_id))
-        self.players = []
-        for i in players:
-            self.players.append(i)
-        # self.players = players.split
-        self.winners = []
+        self.matches = [gameStateC() for i in range(3)]
+        # for i in range(3):
+        #     self.tournament_matches.append(gameStateC())
+        # self.user_id = user_id
+        # self.group_name = group_name
+        # logger.info("user_id : %s" % (self.user_id))
+        # self.players = []
+        # for i in players:
+        #     self.players.append(i)
+        # # self.players = players.split
+        # self.winners = []
 
     
     async def tournamentLoop(self):
@@ -171,6 +172,7 @@ class   gameStateC:
             logger.info("J'arrete la partie")
             await self.stopGame()
 
+# la ?
     async def stopGame(self):
         if (self.game_mode == 'remote'):
             global remote_parties
@@ -341,38 +343,56 @@ class   gameStateC:
         paddle2.scaleZ += (1 - paddle2.scaleZ) * 0.2
         paddle2.positionY += paddle2.dirY
 
-    async def broadcastGameStateForTournament(self):
+# ici
+
+    async def loadAnotherGame(self):
         channel_layer = get_channel_layer()
-        logger.info("Depuis le match j'envoie au groupe %s", self.group_name)
         await channel_layer.group_send(
             self.group_name,
             {
-                "type": "game.state",
-                "game_state": {
+                "type": "load.game",
+                "load_game": {
                     "player1_user_id": self.player1_user_id,
                     "player2_user_id": self.player2_user_id,
                     "player1Score": self.player1Score,
                     "player2Score": self.player2Score,
-                    "limitScore": self.limitScore,
-                    "paddle1.positionX": self.paddle1.positionX,
-                    "paddle1.positionY": self.paddle1.positionY,
-                    "paddle1.width": self.paddle1.width,
-                    "paddle1.powerup": self.paddle1.powerup,
-                    "paddle2.positionX": self.paddle2.positionX,
-                    "paddle2.positionY": self.paddle2.positionY,
-                    "paddle2.width": self.paddle2.width,
-                    "paddle2.powerup": self.paddle2.powerup,
-                    "ball.positionX": self.ball.positionX,
-                    "ball.positionY": self.ball.positionY,
-                    "powerup.state": self.powerUpState,
-                    "powerup.positionX": self.powerUpPositionX,
-                    "powerup.positionY": self.powerUpPositionY,
-                    "powerup.active": self.activePowerUp,
-                    "status": self.status,
-                    "gameNbr": self.gameNbr,
+                    "gameNbr": self.gameNbr
                 }
             }
         )
+
+    # async def broadcastGameStateForTournament(self):
+    #     channel_layer = get_channel_layer()
+    #     logger.info("Depuis le match j'envoie au groupe %s", self.group_name)
+    #     await channel_layer.group_send(
+    #         self.group_name,
+    #         {
+    #             "type": "game.state",
+    #             "game_state": {
+    #                 "player1_user_id": self.player1_user_id,
+    #                 "player2_user_id": self.player2_user_id,
+    #                 "player1Score": self.player1Score,
+    #                 "player2Score": self.player2Score,
+    #                 "limitScore": self.limitScore,
+    #                 "paddle1.positionX": self.paddle1.positionX,
+    #                 "paddle1.positionY": self.paddle1.positionY,
+    #                 "paddle1.width": self.paddle1.width,
+    #                 "paddle1.powerup": self.paddle1.powerup,
+    #                 "paddle2.positionX": self.paddle2.positionX,
+    #                 "paddle2.positionY": self.paddle2.positionY,
+    #                 "paddle2.width": self.paddle2.width,
+    #                 "paddle2.powerup": self.paddle2.powerup,
+    #                 "ball.positionX": self.ball.positionX,
+    #                 "ball.positionY": self.ball.positionY,
+    #                 "powerup.state": self.powerUpState,
+    #                 "powerup.positionX": self.powerUpPositionX,
+    #                 "powerup.positionY": self.powerUpPositionY,
+    #                 "powerup.active": self.activePowerUp,
+    #                 "status": self.status,
+    #                 "gameNbr": self.gameNbr,
+    #             }
+    #         }
+    #     )
 
     async def broadcastGameState(self):
         channel_layer = get_channel_layer()
