@@ -4,12 +4,14 @@ import asyncio
 import random
 import logging
 import time
+import requests
 from channels.layers import get_channel_layer
 from . import initvalues as iv
 from .models import GameSettings, GameMatch, GameUser
 from asgiref.sync import sync_to_async
 from rest_framework import status
 from rest_framework.response import Response
+
 
 logger = logging.getLogger(__name__)
 
@@ -152,7 +154,7 @@ class   gameStateC:
         self._lock = threading.Lock()
 
     async def run_game_loop(self):
-        logger.info("Je rentre dans le game ")
+        user_service_url = 'https://user:4430/api/profiles/change-status/'
         if (self.game_mode == 'remote'):
             try:
                 self.game_user1 = await sync_to_async(GameUser.objects.get, thread_sensitive=True)(userID=int(self.player1_user_id))
@@ -166,9 +168,15 @@ class   gameStateC:
                 player2_score=0,
                 status=0,
             )
-        elif (self.game_mode == 'local' or self.game_mode == 'tournament'):
             try:
-                # logger.info("Je suis dans le local")
+                responsep1 = requests.put(user_service_url, json={'user_id' : int(self.player1_user_id), 'status': 2}, verify=False)
+                responsep2 = requests.put(user_service_url, json={'user_id' : int(self.player2_user_id), 'status': 2}, verify=False)
+                responsep1.raise_for_status()
+                responsep2.raise_for_status()
+            except Exception as e:
+                logger.info(f"Error changing user status in microservices: {e}")
+        elif (self.game_mode == 'local'):
+            try:
                 self.game_user1 = await sync_to_async(GameUser.objects.get, thread_sensitive=True)(userID=int(self.player1_user_id))
                 self.game_user2, created = await sync_to_async(GameUser.objects.get_or_create, thread_sensitive=True)(
                     userID=self.game_user1.userID * 1000,
@@ -181,7 +189,6 @@ class   gameStateC:
                 )
             except GameUser.DoesNotExist:
                 return Response({"error": "User not found"}, status=status.HTTP_400_BAD_REQUEST)
-            logger.info(self.game_user1, self.game_user2)
             self.match_object = await sync_to_async(GameMatch.objects.create, thread_sensitive=True)(
                 player1=self.game_user1,
                 player2=self.game_user2,
@@ -189,8 +196,12 @@ class   gameStateC:
                 player2_score=0,
                 status=0,
             )
+            try:
+                response = requests.put(user_service_url, json={'user_id' : int(self.player1_user_id), 'status': 2}, verify=False)
+                response.raise_for_status()
+            except Exception as e:
+                logger.info(f"Error changing user status in microservices: {e}")
         #elif (self.game_mode == 'tournament'): ####### GameUser TOURNAMENT
-
         # logger.info("Je commence lapartie")
         await self.broadcastGameState()
         self.status = iv.RUNNING
@@ -218,6 +229,7 @@ class   gameStateC:
             await self.stopGame()
 
     async def stopGame(self):
+        user_service_url = 'https://user:4430/api/profiles/change-status/'
         self.match_object.status = 1
         self.game_user1.gamesPlayed += 1
         self.game_user2.gamesPlayed += 1
@@ -227,6 +239,7 @@ class   gameStateC:
         else:
             self.game_user2.gamesWon += 1
             self.game_user1.gamesLost += 1
+        
 
         # logger.info("Match status : %d" % (self.match_object.status))
         # logger.info("player1 : %s" % (self.game_user1.userName))
@@ -245,9 +258,21 @@ class   gameStateC:
         await sync_to_async(self.match_object.save)()
 
         if (self.game_mode == 'remote'):
+            try:
+                responsep1 = requests.put(user_service_url, json={'user_id' : int(self.player1_user_id), 'status': 1}, verify=False)
+                responsep2 = requests.put(user_service_url, json={'user_id' : int(self.player2_user_id), 'status': 1}, verify=False)
+                responsep1.raise_for_status()
+                responsep2.raise_for_status()
+            except Exception as e:
+                logger.info(f"Error changing user status in microservices: {e}")
             global remote_parties
             remote_parties.remove(self)
         elif (self.game_mode == 'local'):
+            try:
+                response = requests.put(user_service_url, json={'user_id' : int(self.player1_user_id), 'status': 1}, verify=False)
+                response.raise_for_status()
+            except Exception as e:
+                logger.info(f"Error changing user status in microservices: {e}")
             global local_parties
             local_parties.remove(self)
         elif (self.game_mode == 'tournament' and self.gameNbr != 2):
@@ -266,6 +291,7 @@ class   gameStateC:
         self.powerUpPositionX = map_locations[powerUpLoc][0]
         self.powerUpPositionY = map_locations[powerUpLoc][1]
         self.activePowerUp = random.randint(0, 3)
+        # self.activePowerUp = 3
         self.powerUpState = iv.PU_ON_FIELD
         self.powerUpTimer = time.time()
 
@@ -430,7 +456,7 @@ class   gameStateC:
         )
 
     async def broadcastGameState(self):
-        logger.info("Depuis le match j'envoie le game state")
+        # logger.info("Depuis le match j'envoie le game state")
         channel_layer = get_channel_layer()
         await channel_layer.group_send(
             self.group_name,

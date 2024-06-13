@@ -11,7 +11,7 @@ from django.db.models import Q
 from channels.generic.websocket import AsyncWebsocketConsumer
 from pongapp.game_classes import paddleC, ballC, gameStateC, remote_parties, local_parties, tournaments, Tournament
 from . import initvalues as iv
-from .models import GameMatch, GameSettings
+from .models import GameMatch, GameSettings, GameUser
 from .serializers import GameMatchSerializer
 from asgiref.sync import async_to_sync, sync_to_async
 
@@ -72,7 +72,7 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
             return group_name
 
     async def game_state(self,event):
-        logger.info("Depuis le tournoi je vais envoyer au websocket")
+        # logger.info("Depuis le tournoi je vais envoyer au websocket")
         await self.send(text_data=json.dumps(event["game_state"]))
 
     # la
@@ -123,6 +123,9 @@ class PongLocalConsumer(AsyncWebsocketConsumer):
         super().__init__(*args, **kwargs)
         self.gameState = 0
         self.user_id = 0
+#################
+        self.gameUser = 0
+#################
 
     async def connect(self):
         self.user_id = self.scope["url_route"]["kwargs"]["user_id"]
@@ -134,6 +137,9 @@ class PongLocalConsumer(AsyncWebsocketConsumer):
 
     async def findLocalParty(self):
         global local_parties
+#################
+        self.gameUser = await sync_to_async(lambda: GameUser.objects.get(userID=self.user_id))()
+#################
         self.gameState = gameStateC()
         local_parties.append(self.gameState)
         self.gameState.game_mode = "local"
@@ -142,10 +148,12 @@ class PongLocalConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_add(self.gameState.group_name, self.channel_name)
         self.gameState.paddle1 = paddleC(1)
         self.gameState.paddle2 = paddleC(2)
-        self.gameState.limitScore = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).score)()
-        logger.info("Player1 limitScore %d", self.gameState.limitScore)
-        self.gameState.shouldHandlePowerUp = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).powerups)()
-        logger.info("Player1 powerups %d", self.gameState.shouldHandlePowerUp)
+#################
+        self.gameState.limitScore = await sync_to_async(lambda: GameSettings.objects.get(user=self.gameUser).score)()
+        #logger.info("Player1 limitScore %d", self.gameState.limitScore)
+        self.gameState.shouldHandlePowerUp = await sync_to_async(lambda: GameSettings.objects.get(user=self.gameUser).powerups)()
+        #logger.info("Player1 powerups %d", self.gameState.shouldHandlePowerUp)
+#################
         self.gameState.players_nb = 2
         await self.send(text_data=json.dumps({"party": "active"})) 
         self.gameState.powerUpTimer = time.time()
@@ -186,6 +194,10 @@ class PongRemoteConsumer(AsyncWebsocketConsumer):
         self.player_id = 0
         self.user_name = 0
         self.gameState = 0
+#################
+        self.gameUser = 0
+        self.user_id = 0
+#################
 
     async def connect(self):
         self.user_id = self.scope["url_route"]["kwargs"]["user_id"]
@@ -235,11 +247,14 @@ class PongRemoteConsumer(AsyncWebsocketConsumer):
             self.gameState.game_mode = "remote"
             self.gameState.group_name = await self.generate_group_name()
             remote_parties[listLen].players_nb = 1
-            self.gameState.limitScore = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).score)()
-            logger.info("Player1 limitScore %d", self.gameState.limitScore)
-            self.gameState.shouldHandlePowerUp = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).powerups)()
-            logger.info("Player1 powerups %d", self.gameState.shouldHandlePowerUp)
-            self.gameState.player1_user_id = self.user_id 
+#################
+            self.gameUser = await sync_to_async(lambda: GameUser.objects.get(userID=self.user_id))()
+            self.gameState.limitScore = await sync_to_async(lambda: GameSettings.objects.get(user=self.gameUser).score)()
+            #logger.info("Player1 limitScore %d", self.gameState.limitScore)
+            self.gameState.shouldHandlePowerUp = await sync_to_async(lambda: GameSettings.objects.get(user=self.gameUser).powerups)()
+#################
+            #logger.info("Player1 powerups %d", self.gameState.shouldHandlePowerUp)
+            self.gameState.player1_user_id = self.user_id
             self.gameState.player1_user_name = self.user_name 
             await self.channel_layer.group_add(self.gameState.group_name, self.channel_name)
             return newPart
