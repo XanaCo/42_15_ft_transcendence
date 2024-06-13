@@ -27,9 +27,11 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
         super().__init__(*args, **kwargs)
         self.group_name = 0
         self.tournament = Tournament()
+        self.tournament_id = 0
         self.actual_match = 0
 
     async def connect(self):
+        global tournaments
         self.user_id = self.scope["url_route"]["kwargs"]["user_id"]
         self.user1 = self.scope["url_route"]["kwargs"]["user1"]
         self.user2 = self.scope["url_route"]["kwargs"]["user2"]
@@ -40,7 +42,10 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
         self.group_name = await self.generate_tournament_name()
         logger.info("Group Name consumer : %s", self.group_name)
         await self.channel_layer.group_add(self.group_name, self.channel_name)
+        tournaments.append(self.tournament)
+        self.tournament_id = tournaments.len() - 1
         # await self.tournamentLoop()
+        #
         await self.findTournamentGame(0, self.user1, self.user2)
 
     async def disconnect(self, close_code):
@@ -51,8 +56,8 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
 
     async def tournamentLoop(self):
         global tournaments
-        self.tournament = Tournament(players = self.players, group_name=self.group_name, user_id=self.user_id)
         tournaments.append(self.tournament)
+        self.tournament_id = tournaments.len() - 1
         await self.send(text_data=json.dumps({"party": "active"})) 
         await self.tournament.tournamentLoop()
 
@@ -72,10 +77,10 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
 
     # la
     async def findTournamentGame(self, gameNbr, player1, player2):
-        slef.actual_match = self.tournament.games[gameNbr]
+        self.actual_match = self.tournament.games[gameNbr]
         self.tournament.games[gameNbr].game_mode = "tournament"
-        self.tournament.games[gameNbr].group_name = await self.generate_tournament_name()
-        await self.channel_layer.group_add(self.tournament.games[gameNbr].group_name, self.channel_name)
+        self.tournament.games[gameNbr].tournament_id = self.tournament_id
+        self.tournament.games[gameNbr].group_name = self.group_name
         self.tournament.games[gameNbr].paddle1 = paddleC(1)
         self.tournament.games[gameNbr].paddle2 = paddleC(2)
         self.tournament.games[gameNbr].limitScore = await sync_to_async(lambda: GameSettings.objects.get(user=self.user_id).score)()

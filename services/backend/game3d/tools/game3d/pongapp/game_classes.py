@@ -123,6 +123,7 @@ class   gameStateC:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.gameNbr = 0
+        self.tournament_id = 0
         self.game_mode = 0
         self.task = 0
         self.match_object = 0
@@ -254,11 +255,6 @@ class   gameStateC:
             await self.loadAnotherGame()
         else:
             global tournaments
-            if self.player1Score > self.player2Score:
-                tournaments[-1].winners.append(self.player1_user_id)
-            else:
-                tournaments[-1].winners.append(self.player2_user_id)
-            tournaments[-1].match_is_running = False
 
     def checkPauseTimer(self):
         if (time.time() - self.pauseTimer > 5):
