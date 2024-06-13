@@ -1,7 +1,7 @@
 import { gameState, gameCustom, core, playMesh } from "./config.js"
 import { createScene } from "./createScene.js"
 import { handlePowerUp } from "./handlePowerUps.js"
-import { displayScore } from './scoreDisplay.js'
+import { displayScore, deleteForm } from './scoreDisplay.js'
 import { cameraPlayer1, cameraPlayer2 } from './cameraLogic.js'
 import Iuser from "../user/userInfo.js";
 
@@ -66,7 +66,7 @@ async function setup(gameMode, players) {
 }
 
 const actions = new Map([
-  ["party", async (value) => { if (value === 'active') { core.party = true; await createScene(); await draw() } }],
+  ["party", async (value) => { if (value === 'active') { core.party = true; if (gameState.game_mode == "tournament") { deleteForm() } await createScene(); await draw() } }],
   ["player", (value) => { core.player_id = value; console.log("Player_id :", core.player_id) }],
   ["player1_user_id", (value) => { core.player1_userid = value }],
   ["player2_user_id", (value) => { core.player2_userid = value }],
@@ -104,8 +104,6 @@ async function handleServerMessage(message) {
   }
   if (gameCustom.powerup)
     handlePowerUp();
-  if (gameState.game_mode == tournament)
-    deleteForm();
   await displayScore();
   draw();
 }

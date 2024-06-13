@@ -27,6 +27,7 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
         super().__init__(*args, **kwargs)
         self.group_name = 0
         self.tournament = Tournament()
+        self.actual_match = 0
 
     async def connect(self):
         self.user_id = self.scope["url_route"]["kwargs"]["user_id"]
@@ -44,8 +45,8 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         # tournaments.remove(self.tournament)
-        if (self.gameState != 0):
-            self.gameState.status = iv.PAUSED
+        if (self.actual_match != 0):
+            self.actual_match.status = iv.PAUSED
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
     async def tournamentLoop(self):
@@ -71,6 +72,7 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
 
     # la
     async def findTournamentGame(self, gameNbr, player1, player2):
+        slef.actual_match = self.tournament.games[gameNbr]
         self.tournament.games[gameNbr].game_mode = "tournament"
         self.tournament.games[gameNbr].group_name = await self.generate_tournament_name()
         await self.channel_layer.group_add(self.tournament.games[gameNbr].group_name, self.channel_name)
