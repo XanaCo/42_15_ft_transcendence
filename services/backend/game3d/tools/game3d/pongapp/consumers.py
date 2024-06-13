@@ -44,6 +44,8 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         # tournaments.remove(self.tournament)
+        if (self.gameState != 0):
+            self.gameState.status = iv.PAUSED
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
     async def tournamentLoop(self):

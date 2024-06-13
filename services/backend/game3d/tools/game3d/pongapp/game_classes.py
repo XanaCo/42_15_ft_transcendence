@@ -250,6 +250,7 @@ class   gameStateC:
             global local_parties
             local_parties.remove(self)
         elif (self.game_mode == 'tournament' and self.gameNbr != 2):
+            self.status = iv.FINISHED
             await self.loadAnotherGame()
         else:
             global tournaments
@@ -499,3 +500,8 @@ class   gameStateC:
         logger.info("ball.speed : %d" % (logbuff.ball.speed))
         logger.info("active : %d" % (logbuff.active))
 
+# disconect if ("tournament") -> "pause"
+
+# changer le status de la game au debut de la partie
+
+# 
