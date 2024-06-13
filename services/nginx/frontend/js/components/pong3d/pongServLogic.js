@@ -112,8 +112,6 @@ function handleServerMessage(message) {
       action(value);
     }
   }
-  if (gameState.game_mode == "tournament")
-    deleteForm();
 
   console.log(gameState.status);
 

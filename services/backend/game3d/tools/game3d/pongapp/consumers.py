@@ -43,23 +43,15 @@ class PongTournamentConsumer(AsyncWebsocketConsumer):
         logger.info("Group Name consumer : %s", self.group_name)
         await self.channel_layer.group_add(self.group_name, self.channel_name)
         tournaments.append(self.tournament)
-        self.tournament_id = tournaments.len() - 1
-        # await self.tournamentLoop()
-        #
         await self.findTournamentGame(0, self.user1, self.user2)
 
     async def disconnect(self, close_code):
-        # tournaments.remove(self.tournament)
+        global tournaments
         if (self.actual_match != 0):
             self.actual_match.status = iv.PAUSED
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
+        tournaments.remove(self.tournament)
 
-    async def tournamentLoop(self):
-        global tournaments
-        tournaments.append(self.tournament)
-        self.tournament_id = tournaments.len() - 1
-        await self.send(text_data=json.dumps({"party": "active"})) 
-        await self.tournament.tournamentLoop()
 
     async def generate_tournament_name(self, length=8):
         global group_names
