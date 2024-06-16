@@ -18,15 +18,6 @@ export class pokechat {
         const titleAndButtonDiv = document.createElement('div');
         // titleAndButtonDiv.classList.add('d-flex', 'justify-content-between', 'align-items-center');
 		
-        // Création du bouton pour ouvrir le modal
-        const modalButton = document.createElement('button');
-        modalButton.classList.add('btn', 'btn-dark');
-        modalButton.setAttribute('data-bs-toggle', 'modal');
-        modalButton.setAttribute('data-bs-target', '#participantsModal');
-        modalButton.setAttribute('type', 'button'); // Ajoutez cette ligne
-        modalButton.innerText = 'Who\'s there ?';
-        titleAndButtonDiv.appendChild(modalButton);
-		
 		// Création du titre
 		const title = document.createElement('h5');
 		title.classList.add('p-2');
@@ -35,29 +26,6 @@ export class pokechat {
 
 		return titleAndButtonDiv;
 	}
-
-    createModal(){
-        // Création du modal pour la liste des participants
-        const participantsModal = document.createElement('div');
-        participantsModal.classList.add('modal', 'fade');
-        participantsModal.id = 'participantsModal';
-
-        const modalDialog = document.createElement('div');
-        modalDialog.classList.add('modal-dialog');
-
-        const modalContent = document.createElement('div');
-        modalContent.classList.add('modal-content', 'bg-dark', 'text-white');
-
-        const modalBody = document.createElement('div');
-        modalBody.classList.add('modal-body');
-        modalBody.innerText = 'Participants: ';
-
-        modalContent.appendChild(modalBody);
-        modalDialog.appendChild(modalContent);
-        participantsModal.appendChild(modalDialog);
-
-        return participantsModal;
-    }
 
     createChatbox(){
         const chatbox = document.createElement('div');
@@ -100,8 +68,8 @@ export class pokechat {
         const chatdiv = document.createElement('div');
         chatdiv.classList.add('d-flex', 'flex-column', 'text-black', 'justify-content-center');
 		chatdiv.style.height = '50vw';
+        chatdiv.id = 'chatdiv';
         chatdiv.appendChild(this.createTitleAndModal());
-        chatdiv.appendChild(this.createModal());
         chatdiv.appendChild(this.createChatbox());
         chatdiv.appendChild(this.createInputAndButtonArea());
 
@@ -122,12 +90,10 @@ export class pokechat {
         const users = await Iuser.getAllUsers();
         let username = users.users.find(user => user.user_id === parseInt(id)).username;
         return username;
-
     }
 
     timerCalculation(date) {
         try {
-          console.log(date);
           let time = new Date(date);
           if (isNaN(time.getTime())) {
             return 0;
@@ -147,11 +113,9 @@ export class pokechat {
         const messageDiv2 = document.createElement('div'); // Create a new div for each message
         messageDiv2.classList.add('d-flex', 'mb-2');
         if (id == await Iuser.getID()){  
-            console.log('end user_id', id);
             messageDiv2.classList.add('align-self-end');
         }
         else{
-            console.log('start user_id', id);
             messageDiv2.classList.add('align-self-start');
         }
 
@@ -187,18 +151,13 @@ export class pokechat {
         const chatInput = chatdiv.querySelector('textarea');
         const chatMessageSubmit = chatdiv.querySelector('.send-button');
 
-        this.chatSocket.onclose =  (e) => {
-            console.error('Chat socket closed unexpectedly');
-        };
+        this.chatSocket.onclose =  (e) => {};
 
-        this.chatSocket.onopen =  (e) => {
-            console.log('Chat socket opened');
-        };
+        this.chatSocket.onopen =  (e) => {};
 
 
         this.chatSocket.onmessage = async (e) => {
             const data = JSON.parse(e.data);
-            console.log(data);
             const message = data.message;
             const id = data.user_id;
             const time = data.time;

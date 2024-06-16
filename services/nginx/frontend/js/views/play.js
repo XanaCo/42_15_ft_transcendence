@@ -146,7 +146,7 @@ export async function pokemap_interactive() {
     toolsdiv.classList.add('col-4');
     toolsdiv.style.display = 'flex';
     toolsdiv.style.flexDirection = 'column';
-    const chatdiv = new pokechat().pokechatinit();
+    const chatdiv = await new pokechat().pokechatinit();
     chatdiv.style.display = 'flex';
     chatdiv.style.flexDirection = 'column';
     toolsdiv.appendChild(chatdiv);
