@@ -6,7 +6,7 @@
 <h4>Completed + Bonus</h4>
 </div>
 
-This is a [group project](https://github.com/pcheron-root/42_webserv), made with <3 with [@albibou](https://github.com/albibou), [@pcheron](https://github.com/pcheron-root), [@ML](https://github.com/ML3009) and [@purple](https://github.com/medPurple)
+This is a group project, made with <3 with [@albibou](https://github.com/albibou), [@pcheron](https://github.com/pcheron-root), [@ML](https://github.com/ML3009) and [@purple](https://github.com/medPurple)
 
 ## Overview
 
